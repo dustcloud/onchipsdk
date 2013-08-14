@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+   
+   <project>
+      <path>$WS_DIR$\00-hello\00-hello.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\00-hello_common\00-hello_common.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\00-uc_resources\00-uc_resources.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\00-uc_stack\00-uc_stack.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\00-uc_timers\00-uc_timers.ewp</path>
+   </project>
+   
+   <project>
+      <path>$WS_DIR$\01-join\01-join.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\01-service\01-service.ewp</path>
+   </project>
+   
+   <project>
+      <path>$WS_DIR$\02-gpio\02-gpio.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-gpio_net\02-gpio_net.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-adc\02-adc.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-temperature\02-temperature.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-battery\02-battery.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-spi\02-spi.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-spi_net\02-spi_net.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-i2c\02-i2c.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-onewire\02-onewire.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-uart\02-uart.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\02-random\02-random.ewp</path>
+   </project>
+   
+   <project>
+      <path>$WS_DIR$\03-time\03-time.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\03-security\03-security.ewp</path>
+   </project>
+   <project>
+      <path>$WS_DIR$\03-cli_module\03-cli_module.ewp</path>
+   </project>
+   <batchBuild/>
+</workspace>
+
+

@@ -1,0 +1,65 @@
+var group__device__flashinfo =
+[
+    [ "read_input_t", "structread__input__t.html", [
+      [ "tag", "structread__input__t.html#ab693f85e87653626552b892144812c6b", null ]
+    ] ],
+    [ "read_output_t", "unionread__output__t.html", [
+      [ "manufId", "unionread__output__t.html#a433d0e9e4a8d7607dd540ea07bedbbb6", null ],
+      [ "boardId", "unionread__output__t.html#aeb08f6fbed34354d369e28c2a9cacfa8", null ],
+      [ "boardRev", "unionread__output__t.html#a53e02c97a09f2ade041c6f4720f292b1", null ],
+      [ "portOpt", "unionread__output__t.html#ac9140a49fad87ebc856d58a2fc21e75e", null ],
+      [ "apiPortMode", "unionread__output__t.html#af6379b0b472ac4e548f9ae934150b48c", null ],
+      [ "apiPortRate", "unionread__output__t.html#aead8c84cb455034c026bb6497cc5f092", null ],
+      [ "enablePins", "unionread__output__t.html#aa6135c138ca36e61939bbf0fa449a79a", null ],
+      [ "cliPortRate", "unionread__output__t.html#ae3500ee6309056360e257577880b97f5", null ],
+      [ "extPaLnaMode", "unionread__output__t.html#a86edb50f3bd0570d635f748d2beb11a2", null ],
+      [ "clk32src", "unionread__output__t.html#abf76968f105cf62bb59a63b576f0d86f", null ],
+      [ "xtalCrv0", "unionread__output__t.html#ad220d74c50893b370493f1bb47ec0665", null ],
+      [ "xtalCrv1", "unionread__output__t.html#a3dece66891b2e3fa1357c3d8972c4efb", null ],
+      [ "xtalCrv2", "unionread__output__t.html#a896f93a2f1f45e38dc4deb6e3fc2e45d", null ],
+      [ "xtalCrv3", "unionread__output__t.html#acda47e82e969c9612e1277594500c4e4", null ],
+      [ "txCtsTimeout", "unionread__output__t.html#ac2c2c50ad714b35147a19f025abb4689", null ],
+      [ "rxCtsTimeout", "unionread__output__t.html#af6a096dc7775e8f7fe8cfcd9d385db8d", null ],
+      [ "eopRtsTimeout", "unionread__output__t.html#a8033d68088a22c912b912d9716a45be2", null ],
+      [ "ibTimeout", "unionread__output__t.html#a5a87efed1cb80c82b1b8196407406602", null ],
+      [ "ctsRtsTimeout", "unionread__output__t.html#ac02f51a419329edd84846db672bbd80f", null ],
+      [ "loLeakageOn", "unionread__output__t.html#a6c2ac9722132a820368942872b6a4f49", null ],
+      [ "extMemSize", "unionread__output__t.html#a1738c33c8eff42f26e12a321fbe4e157", null ],
+      [ "baseFreq", "unionread__output__t.html#aa0053975f31a77f2d940a23c794a5e79", null ],
+      [ "speedupFreq", "unionread__output__t.html#aa1db24e8415bf59497b0408d13354346", null ]
+    ] ],
+    [ "dn_bsp_param_read_t", "uniondn__bsp__param__read__t.html", [
+      [ "input", "uniondn__bsp__param__read__t.html#a8e2e2fde94f00b4d733c98db4e0801d8", null ],
+      [ "output", "uniondn__bsp__param__read__t.html#a6e5ee4fe808c99ee4a65d99207bd73a1", null ]
+    ] ],
+    [ "dn_bsp_param_tag_id", "group__device__flashinfo.html#ga77fd46484f5ecb334f1edbd09e20eb05", [
+      [ "DN_BSP_PARAM_MANUF_ID", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a0f3c474a5dc6efb34340815a13778589", null ],
+      [ "DN_BSP_PARAM_BOARD_ID", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05ac5f6f325d975b486f956c8899d909b0c", null ],
+      [ "DN_BSP_PARAM_BOARD_REV", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a8981063097227acb0d8296f597c7d725", null ],
+      [ "DN_BSP_PARAM_PORT_OPTIONS", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a338a39a09d7453602dd279d83fc090bb", null ],
+      [ "DN_BSP_PARAM_API_PORT_MODE", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a5b408cff0dd50a80895bd79dec217a5b", null ],
+      [ "DN_BSP_PARAM_API_PORT_TX_CTS_TOUT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05ac6d584ab3ad632e2901a4c8399c4259b", null ],
+      [ "DN_BSP_PARAM_API_PORT_CTS_RX_TOUT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05aeb5d44fc133c59aa57af070f73243a1e", null ],
+      [ "DN_BSP_PARAM_API_PORT_EOP_RTS_TOUT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a49de3a0b9e238c73e80d7e06a01ab1f7", null ],
+      [ "DN_BSP_PARAM_API_PORT_IB_TOUT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a513416117a8dc8aad91634adaeccaf4e", null ],
+      [ "DN_BSP_PARAM_API_PORT_RTS_CTS_TOUT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a36f70da1f88437f864c48fab9f0a2294", null ],
+      [ "DN_BSP_PARAM_API_PORT_RATE", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a5bb472253a512b0c8465100ad01018f9", null ],
+      [ "DN_BSP_PARAM_ENABLE_PINS", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05af4cfbc33e355a2e3f29c65a3615b1d33", null ],
+      [ "DN_BSP_PARAM_CLI_PORT_RATE", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a9afb3e99305c5a2434e0eeb7ac39f029", null ],
+      [ "DN_BSP_PARAM_EXT_PA_LNA_MODE", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a19dcb69adf45bd95b9aad997cee27eb5", null ],
+      [ "DN_BSP_PARAM_32KHZ_SOURCE", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05acab7fa8099bd0af72b1478835f5ab528", null ],
+      [ "DN_BSP_PARAM_XTAL_CURVE0", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a17931d882a2fccbd4022ee3a3ea52c82", null ],
+      [ "DN_BSP_PARAM_XTAL_CURVE1", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05ae6765936cc3681929a7926d06662fc7e", null ],
+      [ "DN_BSP_PARAM_XTAL_CURVE2", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05aa29d91ef14a3664a048d32f6203221a7", null ],
+      [ "DN_BSP_PARAM_XTAL_CURVE3", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a75b92fecb649d1f7e30cb289a49c9e69", null ],
+      [ "DN_BSP_PARAM_XTAL_TRIM25C", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a06c84929c3ab409af25f9c7a186e308c", null ],
+      [ "DN_BSP_PARAM_LOW_LO_LEAKAGE_ON", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05aa2802d3e83dcbded212a1c8d0b4e235a", null ],
+      [ "DN_BSP_PARAM_TOF_OFFSET", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05aca833704a48ff1fbbdbbb148ef2b5967", null ],
+      [ "DN_BSP_PARAM_CURR_LIMIT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a09a2984c9c124981270d2712e2eddf39", null ],
+      [ "DN_BSP_PARAM_EXT_MEM_SIZE", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a90b0b83a5d05ef6776339065f4dd0bcc", null ],
+      [ "DN_BSP_PARAM_API_PORT_INTERPK_DLY", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05abda8f99107ef7905da026381c0ebfbf6", null ],
+      [ "DN_BSP_PARAM_NOMINAL_FREQ", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05af0c93a7f138faa846c2a8d56b790aeae", null ],
+      [ "DN_BSP_PARAM_SPEEDUP_FREQ", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a37f1a8cb85bdbae42a0604ed82c131f0", null ],
+      [ "DN_BSP_PARAM_LAST", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a2d22d92f5d0a6ccb857675e4f510a475", null ]
+    ] ]
+];

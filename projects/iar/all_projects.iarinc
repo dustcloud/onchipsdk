@@ -1,0 +1,10 @@
+#define PLATFORM_OSKI
+#define USE_DUST_OS_TMR
+#define OS_TASK_STAT_TIME
+#define DN_ENABLE_MPU
+#define NO_VECTOR_TABLE
+#define DN_CLI_PORT 0
+#define L_ENDIAN
+#define CODE_RAM _Pragma("location=\".code_ram\"")
+#define CODE_FLASH_M1 _Pragma("location=\".code_flash_m1\"")
+#define USE_INFLASH_PAR_TBL 1

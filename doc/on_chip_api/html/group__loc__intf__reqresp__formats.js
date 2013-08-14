@@ -1,0 +1,88 @@
+var group__loc__intf__reqresp__formats =
+[
+    [ "dn_api_loc_setparam_t", "structdn__api__loc__setparam__t.html", [
+      [ "paramId", "structdn__api__loc__setparam__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "payload", "structdn__api__loc__setparam__t.html#ad5215ed66763dfdd9a6ef010aa2def37", null ]
+    ] ],
+    [ "dn_api_loc_rsp_setparam_t", "structdn__api__loc__rsp__setparam__t.html", [
+      [ "rc", "structdn__api__loc__rsp__setparam__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__loc__rsp__setparam__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "payload", "structdn__api__loc__rsp__setparam__t.html#ad5215ed66763dfdd9a6ef010aa2def37", null ]
+    ] ],
+    [ "dn_api_loc_getparam_t", "structdn__api__loc__getparam__t.html", [
+      [ "paramId", "structdn__api__loc__getparam__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "payload", "structdn__api__loc__getparam__t.html#ad5215ed66763dfdd9a6ef010aa2def37", null ]
+    ] ],
+    [ "dn_api_loc_rsp_getparam_t", "structdn__api__loc__rsp__getparam__t.html", [
+      [ "rc", "structdn__api__loc__rsp__getparam__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__loc__rsp__getparam__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "payload", "structdn__api__loc__rsp__getparam__t.html#ad5215ed66763dfdd9a6ef010aa2def37", null ]
+    ] ],
+    [ "PACKED_ATTR", "struct_p_a_c_k_e_d___a_t_t_r.html", [
+      [ "pkLen", "struct_p_a_c_k_e_d___a_t_t_r.html#a771f6e43dde48b10df72ebb5af61b13a", null ],
+      [ "gap", "struct_p_a_c_k_e_d___a_t_t_r.html#a62aa2a6dc595c83eb703042f0a0a107b", null ],
+      [ "type", "struct_p_a_c_k_e_d___a_t_t_r.html#a5c1b4d24e71c8d590dcb79ddac45b81a", null ],
+      [ "mask", "struct_p_a_c_k_e_d___a_t_t_r.html#aa9bc93d0984bcb4d0562871ba7bbba78", null ],
+      [ "numRepeats", "struct_p_a_c_k_e_d___a_t_t_r.html#a2cc69b994a7789a74fcd2c9b401e2b0d", null ],
+      [ "txPower", "struct_p_a_c_k_e_d___a_t_t_r.html#aac2fc4dd586f4a870efce2ff1ad56364", null ],
+      [ "numSubtests", "struct_p_a_c_k_e_d___a_t_t_r.html#a6cb88d07c312d1d2af6a2e68e5387b71", null ],
+      [ "subtestParam", "struct_p_a_c_k_e_d___a_t_t_r.html#a4793e46c0bd7d23cb52479a98d2e8c0f", null ]
+    ] ],
+    [ "dn_api_loc_testrfrx_t", "structdn__api__loc__testrfrx__t.html", [
+      [ "mask", "structdn__api__loc__testrfrx__t.html#aa9bc93d0984bcb4d0562871ba7bbba78", null ],
+      [ "timeSeconds", "structdn__api__loc__testrfrx__t.html#a7aab0ac3851f26e5783de6a5961267ac", null ]
+    ] ],
+    [ "dn_api_loc_svcrequest_t", "structdn__api__loc__svcrequest__t.html", [
+      [ "dest", "structdn__api__loc__svcrequest__t.html#ad7bc1692a674870b4f4004996459d6bb", null ],
+      [ "type", "structdn__api__loc__svcrequest__t.html#a7aead736a07eaf25623ad7bfa1f0ee2d", null ],
+      [ "value", "structdn__api__loc__svcrequest__t.html#a84b41d9d81f3abeb38118988f6211f0f", null ]
+    ] ],
+    [ "dn_api_loc_get_service_t", "structdn__api__loc__get__service__t.html", [
+      [ "dest", "structdn__api__loc__get__service__t.html#ad7bc1692a674870b4f4004996459d6bb", null ],
+      [ "type", "structdn__api__loc__get__service__t.html#a7aead736a07eaf25623ad7bfa1f0ee2d", null ]
+    ] ],
+    [ "dn_api_loc_rsp_get_service_t", "structdn__api__loc__rsp__get__service__t.html", [
+      [ "rc", "structdn__api__loc__rsp__get__service__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "dest", "structdn__api__loc__rsp__get__service__t.html#ad7bc1692a674870b4f4004996459d6bb", null ],
+      [ "type", "structdn__api__loc__rsp__get__service__t.html#a7aead736a07eaf25623ad7bfa1f0ee2d", null ],
+      [ "status", "structdn__api__loc__rsp__get__service__t.html#a015eb90e0de9f16e87bd149d4b9ce959", null ],
+      [ "value", "structdn__api__loc__rsp__get__service__t.html#a84b41d9d81f3abeb38118988f6211f0f", null ]
+    ] ],
+    [ "dn_api_loc_open_socket_t", "structdn__api__loc__open__socket__t.html", [
+      [ "protocol", "structdn__api__loc__open__socket__t.html#add2ec924c0f221790d7235ffb2e615cd", null ]
+    ] ],
+    [ "dn_api_loc_rsp_open_socket_t", "structdn__api__loc__rsp__open__socket__t.html", [
+      [ "rc", "structdn__api__loc__rsp__open__socket__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "socketId", "structdn__api__loc__rsp__open__socket__t.html#a13a24911b35c9f0cf779764a55faabc9", null ]
+    ] ],
+    [ "dn_api_loc_close_socket_t", "structdn__api__loc__close__socket__t.html", [
+      [ "socketId", "structdn__api__loc__close__socket__t.html#a13a24911b35c9f0cf779764a55faabc9", null ]
+    ] ],
+    [ "dn_api_loc_bind_socket_t", "structdn__api__loc__bind__socket__t.html", [
+      [ "socketId", "structdn__api__loc__bind__socket__t.html#a13a24911b35c9f0cf779764a55faabc9", null ],
+      [ "port", "structdn__api__loc__bind__socket__t.html#afbb6b3545f891423a28757d914e53aad", null ]
+    ] ],
+    [ "dn_api_loc_sendto_t", "structdn__api__loc__sendto__t.html", [
+      [ "socketId", "structdn__api__loc__sendto__t.html#a13a24911b35c9f0cf779764a55faabc9", null ],
+      [ "destAddr", "structdn__api__loc__sendto__t.html#a96cf88feddf7d85534cb24e4b9e99d82", null ],
+      [ "destPort", "structdn__api__loc__sendto__t.html#a27c9d08b5d90a05dfe52f829ee738089", null ],
+      [ "serviceType", "structdn__api__loc__sendto__t.html#a66e71f84b7bf4d9c14fb941830517c99", null ],
+      [ "priority", "structdn__api__loc__sendto__t.html#a6a5183df4c54c3e28dc8dc704f2487d5", null ],
+      [ "packetId", "structdn__api__loc__sendto__t.html#a3609b8fabc95f20578b60c3205d4e215", null ],
+      [ "payload", "structdn__api__loc__sendto__t.html#ad5215ed66763dfdd9a6ef010aa2def37", null ]
+    ] ],
+    [ "DN_API_RTEST_MAX_SUBTESTS", "group__loc__intf__reqresp__formats.html#ga16a7a6188978d5ac7e601e73197813db", null ],
+    [ "dn_api_loc_rsp_join_t", "group__loc__intf__reqresp__formats.html#ga6775a6ac2fc189d91a30801868b2d7ab", null ],
+    [ "dn_api_loc_rsp_discon_t", "group__loc__intf__reqresp__formats.html#ga393ad7b77fe78f4e5bace8988e7f59e2", null ],
+    [ "dn_api_loc_rsp_reset_t", "group__loc__intf__reqresp__formats.html#ga4fc77e611e07d8355785bbf6d9437b75", null ],
+    [ "dn_api_loc_rsp_lpsleep_t", "group__loc__intf__reqresp__formats.html#ga4cddbfea4646ba6e71740d326ebe3ab6", null ],
+    [ "dn_api_loc_rsp_testrftx_t", "group__loc__intf__reqresp__formats.html#gaccc7ac9dcf8035124a628357da338d6d", null ],
+    [ "dn_api_loc_rsp_zeroize_t", "group__loc__intf__reqresp__formats.html#ga958e33c1f14011a9e5067d53a0c8588d", null ],
+    [ "dn_api_loc_rsp_testrfrx_t", "group__loc__intf__reqresp__formats.html#ga67578d3bd436475e1c06c869ae7ec239", null ],
+    [ "dn_api_loc_rsp_clearnv_t", "group__loc__intf__reqresp__formats.html#gac7eb034de17d7a8fc554a9ee861c07bc", null ],
+    [ "dn_api_loc_rsp_svcrequest_t", "group__loc__intf__reqresp__formats.html#gaa734064044351420f3d1dc6800b71686", null ],
+    [ "dn_api_loc_rsp_close_socket_t", "group__loc__intf__reqresp__formats.html#ga9491c17c2d56aaad1af787e8c6ae4bb2", null ],
+    [ "dn_api_loc_rsp_bind_socket_t", "group__loc__intf__reqresp__formats.html#ga931d7ea97442e37933f6abc934b52b2b", null ],
+    [ "dn_api_loc_rsp_sendto_t", "group__loc__intf__reqresp__formats.html#gaac169a871c6f7cb83800f1ce2fded6de", null ],
+    [ "dn_api_loc_rsp_search_t", "group__loc__intf__reqresp__formats.html#ga0206c927b710b13ddd23c6ed7d591a60", null ]
+];

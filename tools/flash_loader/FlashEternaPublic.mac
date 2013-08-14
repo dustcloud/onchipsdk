@@ -1,0 +1,117 @@
+
+setCreg()
+{
+   __var regVal;
+
+   regVal = __readMemory32(0x40000000, "Memory32");
+   regVal |= 0x00003000;
+   __writeMemory32(regVal, 0x40000000, "Memory32");
+}
+
+execUserFlashExit()
+{
+  __writeMemory32(0x00000000, 0x20007000, "Memory32");
+}
+
+
+get_result()
+{
+   __var rslt;
+
+   __writeMemory32((__readMemory32(0x40000004, "Memory32") | 0x10000), 0x40000004, "Memory32");
+   while((__readMemory32(0x40000004, "Memory32") & 0x20000) != 0x20000);
+   rslt = __readMemory32(0x40000038, "Memory32");
+   __writeMemory32((__readMemory32(0x40000004, "Memory32") & ~0x10000), 0x40000004, "Memory32");
+   return (rslt);
+}
+
+
+search(goal)
+{
+   __var exp_val;
+   __var meas_val;
+   __var mask;
+   __var control_val;
+   __var warp;
+   __var break;
+   __var reference;
+
+   __writeMemory32(0x2f0, 0x40000020, "Memory32");
+   __delay(200);
+   reference = 4;
+
+   if (goal < 7094000)
+      warp = 0;
+   else if (goal < 12380000)
+      warp = 1;
+   else if (goal < 21250000)
+      warp = 2;
+   else if (goal < 28140000)
+      warp = 3;
+   else
+      warp = 4;
+
+   __writeMemory32(0x80, 0x40000008, "Memory32");
+   control_val = 250;
+
+   exp_val = 2*(goal >> 15);
+   break = 0;
+   while (break == 0) {
+     if (((warp == 2)) && (__readMemory32(0x40000034, "Memory32") & 0xf) == 0)
+        __writeMemory32(((__readMemory32(0x40000034, "Memory32") & (~0xf)) | 0x1), 0x40000034, "Memory32");
+     if ((warp == 3) && (__readMemory32(0x40000034, "Memory32") & 0xf) < 2)
+        __writeMemory32(((__readMemory32(0x40000034, "Memory32") & (~0xf)) | 0x2), 0x40000034, "Memory32");
+     if ((warp > 4) && (warp < 7) && (__readMemory32(0x40000034, "Memory32") & 0xf) < 3)
+        __writeMemory32(((__readMemory32(0x40000034, "Memory32") & (~0xf)) | 0x3), 0x40000034, "Memory32");
+     else if ((warp == 7) && (__readMemory32(0x40000034, "Memory32") & 0xf) < 4)
+        __writeMemory32(((__readMemory32(0x40000034, "Memory32") & (~0xf)) | 0x4), 0x40000034, "Memory32");
+
+      __writeMemory32(control_val | warp << 8 | (2) << 11, 0x40000004, "Memory32");
+      if (get_result() < exp_val)
+         warp++;
+      else
+         break = 1;
+
+      if (warp == 8) {
+         __message "Eterna: could not reach the goal: ", goal;
+         return 0;
+      }
+   }
+
+   exp_val = (reference*goal) >> 15;
+
+   mask = (1 << (8 - 1));
+   control_val = 0;
+
+   do {
+      control_val |= mask;
+      __writeMemory32(control_val | warp << 8 | (reference) << 11, 0x40000004, "Memory32");
+      
+      meas_val = get_result();
+      if (meas_val > exp_val)
+         control_val &= ~mask;
+      
+      mask >>= 1;
+   } while(mask);
+
+   return 1;
+}
+
+setup()
+{
+  __writeMemory32(0x5a000004, 0x400008d4, "Memory32");
+  setCreg();
+  search(16588800);
+  __writeMemory32(0x0f0f7770, 0x40000034, "Memory32");
+
+  __emulatorSpeed(12000000);
+}
+
+execUserFlashInit()
+{
+  setup();
+}
+
+
+
+

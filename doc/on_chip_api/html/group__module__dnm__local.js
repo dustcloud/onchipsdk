@@ -1,0 +1,36 @@
+var group__module__dnm__local =
+[
+    [ "eventNotifCb_t", "group__module__dnm__local.html#gaba678f97a867489cdb439b7b875473e4", null ],
+    [ "passThroughEventNotifCb_t", "group__module__dnm__local.html#gad25660b77c902961a5998948bf23412d", null ],
+    [ "locNotifCb_t", "group__module__dnm__local.html#ga49037545e95c60c6ceeb7d87ee8d9e50", null ],
+    [ "passThroughNotifCb_t", "group__module__dnm__local.html#gaa85a07c2ab98e2ec52b415100a698825", null ],
+    [ "isOkToProcessNotifsCb_t", "group__module__dnm__local.html#gad6b0cfb7e56f1e9ae52ae95dea1baa2c", null ],
+    [ "timeNotifCb_t", "group__module__dnm__local.html#gaa252b66ffd1c32af5b77015e6ab66402", null ],
+    [ "passThrough_mode_t", "group__module__dnm__local.html#gad1f5f7a7a35816607939f6930e0429c8", [
+      [ "PASSTHROUGH_OFF", "group__module__dnm__local.html#ggad1f5f7a7a35816607939f6930e0429c8a0f62d2423fb33cc4e7c7b8a971ea3767", null ],
+      [ "PASSTHROUGH_ON", "group__module__dnm__local.html#ggad1f5f7a7a35816607939f6930e0429c8ad618c91b8261f1bbd9c248a38fe17555", null ]
+    ] ],
+    [ "dnm_loc_processNotifications", "group__module__dnm__local.html#gaa2313c27d38ae7084975575b0bb1ff0a", null ],
+    [ "dnm_loc_init", "group__module__dnm__local.html#gae8f35934346e0c44911f1fc8a2088452", null ],
+    [ "dnm_loc_setParameterCmd", "group__module__dnm__local.html#ga7ab60c0fa31d046287d27ccc7a5ca444", null ],
+    [ "dnm_loc_getParameterCmd", "group__module__dnm__local.html#gafaede593c2ec9f9617d7f6f92e35e61d", null ],
+    [ "dnm_loc_joinCmd", "group__module__dnm__local.html#ga899b67ec374310a2943d00a1496d4481", null ],
+    [ "dnm_loc_disconnectCmd", "group__module__dnm__local.html#gab57c7c36a52be8857974ae27bad4e01c", null ],
+    [ "dnm_loc_resetCmd", "group__module__dnm__local.html#ga91bbc50f46827f6520915131233cf1e5", null ],
+    [ "dnm_loc_lowPowerSleepCmd", "group__module__dnm__local.html#gaf1f25c1deea14df1ebe70e8401d4ed97", null ],
+    [ "dnm_loc_testRadioTxCmd", "group__module__dnm__local.html#ga76e3e1ddda5fba2529581224d4c49161", null ],
+    [ "dnm_loc_testRadioRxCmd", "group__module__dnm__local.html#gaa4ae729ca9ee61a667a77b0804e2e8df", null ],
+    [ "dnm_loc_requestServiceCmd", "group__module__dnm__local.html#gaabc0cd527fd86b4cb72ac83948d68929", null ],
+    [ "dnm_loc_getAssignedServiceCmd", "group__module__dnm__local.html#ga2a1c430eac9f0ff63a22d6ecbafe1060", null ],
+    [ "dnm_loc_openSocketCmd", "group__module__dnm__local.html#gaed1e1690dd07261c07ada25e5bda4739", null ],
+    [ "dnm_loc_closeSocketCmd", "group__module__dnm__local.html#gac05798d7d92dc46b78338a8c23bc7a61", null ],
+    [ "dnm_loc_bindSocketCmd", "group__module__dnm__local.html#gaab8ec5ba1f483c8622292249c5f78976", null ],
+    [ "dnm_loc_sendtoCmd", "group__module__dnm__local.html#gad78d3d1e0717b719376ec7295aa418d2", null ],
+    [ "dnm_loc_clearNVCmd", "group__module__dnm__local.html#ga6d7e05c38833622e573183ee508a00ba", null ],
+    [ "dnm_loc_registerEventNotifCallback", "group__module__dnm__local.html#gafa47b809e14b505092bc91534fa2caf7", null ],
+    [ "dnm_loc_registerRxNotifCallback", "group__module__dnm__local.html#gad10e74ce03156d67d317fe030a0c9e3a", null ],
+    [ "dnm_loc_registerTimeNotifCallback", "group__module__dnm__local.html#ga2a4b73479c1f83fee343085fa771559e", null ],
+    [ "dnm_loc_registerPassthroughEvNotifCallback", "group__module__dnm__local.html#ga69140038d2a4f9df5120bb75d35283d3", null ],
+    [ "dnm_loc_registerPassThroughNotifCallback", "group__module__dnm__local.html#ga8f1cc7b8aed7d3c9a1bca62be675bd72", null ],
+    [ "rxNotifCb_t", "group__module__dnm__local.html#ga2a44c961fb12a0328280ed25cbc53b54", null ]
+];
