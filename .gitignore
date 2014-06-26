@@ -1,2 +1,8 @@
 /src/lib
 /src/inc
+**/Debug/Exe
+**/Debug/List
+**/Debug/Obj
+**/Release/Exe
+**/Release/List
+**/Release/Obj
