@@ -7,13 +7,13 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "loc_task.h"
 #include "dn_system.h"
 #include "dn_adc.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t       cliContext;
    OS_STK               batteryTaskStack[TASK_APP_BATTERY_STK_SIZE];
 } battery_app_vars_t;
 
@@ -34,12 +34,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &battery_app_v.cliContext,            // cliContext
       "battery",                            // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &battery_app_v.cliContext,            // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -73,16 +71,12 @@ static void batteryTask(void* unused) {
    dn_error_t                dnErr;
    int                       numBytesRead;
    INT16U                    voltage;
-   dn_adc_drv_open_args_t    openArgs;
    
    // open battery sensor
-   openArgs.rdacOffset       = 0;
-   openArgs.vgaGain          = 0;
-   openArgs.fBypassVga       = 1;
    dnErr = dn_open(
-      DN_BATT_DEV_ID,             // device
-      &openArgs,                  // args
-      sizeof(openArgs)            // argLen 
+      DN_BATT_DEV_ID,        // device
+      NULL,                  // args
+      0                      // argLen 
    );
    ASSERT(dnErr==DN_ERR_NONE);
    
@@ -101,7 +95,7 @@ static void batteryTask(void* unused) {
       ASSERT(numBytesRead== sizeof(INT16U));
       
       // print
-      dnm_cli_printf("voltage=%d\r\n",voltage);
+      dnm_ucli_printf("voltage=%d\r\n",voltage);
    }
 }
 
@@ -114,16 +108,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. Thus header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

@@ -3,6 +3,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 */
 
 #include "dn_common.h"
+#include "dn_exe_hdr.h"
 #include "cli_task.h"
 #include "loc_task.h"
 #include "dnm_local.h"
@@ -16,7 +17,6 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t  cliContext;
    OS_EVENT*       joinedSem;
    OS_STK          sendTaskStack[TASK_APP_SEND_STK_SIZE];
 } join_app_vars_t;
@@ -43,12 +43,10 @@ int p2_init(void) {
    //===== initialize helper tasks
    
    cli_task_init(
-      &join_app_vars.cliContext,            // cliContext
       "join",                               // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &join_app_vars.cliContext,            // cliContext
       JOIN_YES,                             // fJoin
       NULL,                                 // netId
       60000,                                // udpPort
@@ -94,7 +92,7 @@ static void sendTask(void* unused) {
    ASSERT(osErr==OS_ERR_NONE);
    
    // print
-   dnm_cli_printf("Done joining!\r\n");
+   dnm_ucli_printf("Done joining!\r\n");
    
    while (1) { // this is a task, it executes forever
       
@@ -123,9 +121,9 @@ static void sendTask(void* unused) {
       
       // print
       if (rc==DN_API_RC_OK) {
-          dnm_cli_printf("packet sent\r\n");
+          dnm_ucli_printf("packet sent\r\n");
       } else {
-          dnm_cli_printf("rc = 0x%02x\r\n",rc);
+          dnm_ucli_printf("rc = 0x%02x\r\n",rc);
       }
    }
 }
@@ -133,18 +131,18 @@ static void sendTask(void* unused) {
 dn_error_t rxNotifCb(dn_api_loc_notif_received_t* rxFrame, INT8U length) {
    INT8U i;
    
-   dnm_cli_printf("packet received:\r\n");
-   dnm_cli_printf(" - sourceAddr: ");
+   dnm_ucli_printf("packet received:\r\n");
+   dnm_ucli_printf(" - sourceAddr: ");
    for (i=0;i<sizeof(dn_ipv6_addr_t);i++) {
-      dnm_cli_printf("%02x",((INT8U*)&(rxFrame->sourceAddr))[i]);
+      dnm_ucli_printf("%02x",((INT8U*)&(rxFrame->sourceAddr))[i]);
    }
-   dnm_cli_printf("\r\n");
-   dnm_cli_printf(" - sourcePort: %d\r\n",rxFrame->sourcePort);
-   dnm_cli_printf(" - data:       (%d bytes) ",length-sizeof(dn_api_loc_notif_received_t));
+   dnm_ucli_printf("\r\n");
+   dnm_ucli_printf(" - sourcePort: %d\r\n",rxFrame->sourcePort);
+   dnm_ucli_printf(" - data:       (%d bytes) ",length-sizeof(dn_api_loc_notif_received_t));
    for (i=0;i<length-sizeof(dn_api_loc_notif_received_t);i++) {
-      dnm_cli_printf("%02x",rxFrame->data[i]);
+      dnm_ucli_printf("%02x",rxFrame->data[i]);
    }
-   dnm_cli_printf("\r\n");
+   dnm_ucli_printf("\r\n");
    
    return DN_ERR_NONE;
 }
@@ -158,16 +156,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

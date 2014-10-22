@@ -8,6 +8,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
 #include "dnm_service.h"
 #include "dnm_local.h"
 #include "dn_api_common.h"
+#include "dnm_ucli.h"
 
 /********************************************************************
    Constants and Enumerations
@@ -38,9 +39,8 @@ typedef struct {
    INT32U reqBandwidth;                     /**< Holds the requesting bandwidth */
    INT32U  allocSvcParam;                   /**< Holds the allocated bandwidth */
    INT8U timerStateFlag;                 /**< TBD - work around used instead of OSTmrStateGet() */
-   dnm_cli_cont_t *cliCont;              /**< pointer to store the CLI context */
-   INT32S cliTraceFlag;                  /**< CLI trace flag */
    INT8U svcRequestCounter;              /**< Service Request Counter */
+   INT8U traceEnabled;
 } sm_var_t;
 /** @}end sm_var_t */
 
@@ -64,15 +64,11 @@ static sm_var_t  sm_v;
 /**
  * Initilizes the service module.
  *
- * @param cliContext - pointer to the application cli context
- * @param TraceFlag - trace flag allocated to the module
  * @return - none
  */
-void dnm_sm_init(dnm_cli_cont_t *cliContext, INT32S TraceFlag)
+void dnm_sm_init(void)
 {
    INT8U i;
-   sm_v.cliCont = cliContext;
-   sm_v.cliTraceFlag = TraceFlag;
    for(i=0; i < MAX_SVC_REQ_BUF; i++) {
       sm_v.svcRequest[i].fUsed = BUF_UNUSED;
       sm_v.svcRequest[i].reqValue = 0;
@@ -110,7 +106,7 @@ static sm_error_t call_dnm_loc_requestServiceCmd() {
    dn_error_t  dn_error = DN_ERR_NONE;
    sm_error_t  ret      = SM_ERR_OK;
 
-   dnm_cli_trace(sm_v.cliCont, sm_v.cliTraceFlag, "sm Tx srv req type=%d, bw = %d\n\r",
+   dnm_ucli_trace(sm_v.traceEnabled, "sm Tx srv req type=%d, bw = %d\r\n",
                  DN_API_SERVICE_TYPE_BW, sm_v.reqBandwidth);
 
    dn_error = dnm_loc_requestServiceCmd(NW_CONTROLLER_ID, DN_API_SERVICE_TYPE_BW,sm_v.reqBandwidth, &status);
@@ -162,7 +158,7 @@ sm_error_t dnm_sm_updateSvcParam(INT8U regId, INT32U bandwidth)
 {
    sm_error_t  ret               = SM_SVC_PARAM_NOT_UPDATED;
    // packets per multiplier sec to avoid using floats !
-   INT32U   multiplier        = 10000000;
+   INT32U   multiplier        = 1000000000;
    INT32U   bandwith_pps      = 0;
    INT32U   reg_id_pps        = 0;
    INT32U   total_pps         = 0;
@@ -183,11 +179,11 @@ sm_error_t dnm_sm_updateSvcParam(INT8U regId, INT32U bandwidth)
    if(sm_v.reqBandwidth) {
       total_pps   = multiplier/sm_v.reqBandwidth;
    }   
-   //dnm_cli_printf("dnm_sm_updateSvcParam] bandwith_pps<%d> reg_id_pps<%d> total_pps<%d>\r\n",bandwith_pps,reg_id_pps,total_pps);
+   //dnm_ucli_printf("dnm_sm_updateSvcParam] bandwith_pps<%d> reg_id_pps<%d> total_pps<%d>\r\n",bandwith_pps,reg_id_pps,total_pps);
 
    if(sm_v.svcRequest[regId].reqValue != bandwidth){
       tmp_pps = total_pps+bandwith_pps-reg_id_pps;
-      //dnm_cli_printf("dnm_sm_updateSvcParam] tmp_pps<%d>\r\n",tmp_pps);
+      //dnm_ucli_printf("dnm_sm_updateSvcParam] tmp_pps<%d>\r\n",tmp_pps);
       if(tmp_pps == 0) {
          sm_v.reqBandwidth = 0;
       }
@@ -213,13 +209,13 @@ void dnm_sm_svcChanged(void)
    dn_api_loc_rsp_get_service_t  svcResp;
    dn_moteid_t                   destAddr = NW_CONTROLLER_ID;
    
-   dnm_cli_trace(sm_v.cliCont, sm_v.cliTraceFlag, "sm rx srv change\n\r");
+   dnm_ucli_trace(sm_v.traceEnabled, "sm rx srv change\r\n");
    dn_error = dnm_loc_getAssignedServiceCmd(destAddr, DN_API_SERVICE_TYPE_BW, &svcResp);
    if (dn_error == DN_ERR_NONE) {
       /* allocated bw is adequate - Please note : the allocated bw is adequate 
          only if it is less than or equal to the requested value */
       sm_v.allocSvcParam = svcResp.value;
-      dnm_cli_trace(sm_v.cliCont, sm_v.cliTraceFlag, "sm read srv type=%d, bw=%u\n\r",
+      dnm_ucli_trace(sm_v.traceEnabled, "sm read srv type=%d, bw=%u\r\n",
                     svcResp.type, svcResp.value);
       if(svcResp.type == DN_API_SERVICE_TYPE_BW){
          if(sm_v.reqBandwidth != 0) {
@@ -250,3 +246,24 @@ INT32U dnm_sm_getAggrBandWidth(void)
 {
    return sm_v.reqBandwidth;
 }
+
+/**
+\brief Enable/disable trace.
+ 
+\param[in] traceFlag  Trace flag.
+*/
+void dnm_sm_traceControl (INT8U traceFlag)
+{
+   sm_v.traceEnabled = traceFlag;
+}
+
+/**
+\brief Check if trace is enabled.
+ 
+\return TRUE if trace is enabled, FALSE otherwise.
+*/
+BOOLEAN dnm_sm_isTraceEnabled (void)
+{
+   return (sm_v.traceEnabled != 0);
+}
+

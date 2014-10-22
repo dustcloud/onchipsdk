@@ -8,6 +8,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "cli_task.h"
 #include "loc_task.h"
 #include "dn_security.h"
+#include "dn_exe_hdr.h"
 #include "Ver.h"
 
 //=========================== defines =========================================
@@ -15,11 +16,11 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len, INT8U offset);
+dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len);
 //===== helpers
 void printBuf(INT8U* buf, INT8U len);
 
@@ -95,12 +96,12 @@ const INT8U ccm3_nonce[] = {
 
 //===== CLI
 
-const dnm_cli_cmdDef_t cliCmdDefs[] = {
-   {&cli_ctrCmdHandler,      "ctr",    "",       DN_CLI_ACCESS_USER},
-   {&cli_cbcCmdHandler,      "cbc",    "",       DN_CLI_ACCESS_USER},
-   {&cli_ccm1CmdHandler,     "ccm1",   "",       DN_CLI_ACCESS_USER},
-   {&cli_ccm2CmdHandler,     "ccm2",   "",       DN_CLI_ACCESS_USER},
-   {&cli_ccm3CmdHandler,     "ccm3",   "",       DN_CLI_ACCESS_USER},
+const dnm_ucli_cmdDef_t cliCmdDefs[] = {
+   {&cli_ctrCmdHandler,      "ctr",    "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_cbcCmdHandler,      "cbc",    "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_ccm1CmdHandler,     "ccm1",   "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_ccm2CmdHandler,     "ccm2",   "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_ccm3CmdHandler,     "ccm3",   "",       DN_CLI_ACCESS_LOGIN},
    {NULL,                    NULL,     NULL,     0},
 };
 
@@ -108,7 +109,6 @@ const dnm_cli_cmdDef_t cliCmdDefs[] = {
 
 // Variables local to this application.
 typedef struct {
-   dnm_cli_cont_t  cliContext;
    INT8U           inBuf[16];
    INT8U           outBuf[16];
    INT8U           key[16];
@@ -131,14 +131,12 @@ int p2_init(void) {
    
    // CLI task
    cli_task_init(
-      &security_app_vars.cliContext,        // cliContext
       "security",                           // appName
       &cliCmdDefs                           // cliCmds
    );
    
    // local interface task
    loc_task_init(
-      &security_app_vars.cliContext,        // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -154,7 +152,7 @@ int p2_init(void) {
 
 //===== 'ctr': CTR AES mode
 
-dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len) {
    dn_error_t      dnErr;
    
    // prepare paramaters
@@ -163,15 +161,15 @@ dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    memset(security_app_vars.iv,        0,                  16);
    
    // print
-   dnm_cli_printf("params:\r\n");
-   dnm_cli_printf(" - key:        ");
+   dnm_ucli_printf("params:\r\n");
+   dnm_ucli_printf(" - key:        ");
    printBuf(security_app_vars.key,     sizeof(security_app_vars.key));
-   dnm_cli_printf(" - iv:         ");
+   dnm_ucli_printf(" - iv:         ");
    printBuf(security_app_vars.iv,      sizeof(security_app_vars.iv));
    
    // print
-   dnm_cli_printf("input:\r\n");
-   dnm_cli_printf(" - plaintext:  ");
+   dnm_ucli_printf("input:\r\n");
+   dnm_ucli_printf(" - plaintext:  ");
    printBuf(security_app_vars.inBuf,   sizeof(security_app_vars.inBuf));
    
    // encrypt
@@ -185,8 +183,8 @@ dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // print
-   dnm_cli_printf("output:\r\n");
-   dnm_cli_printf(" - ciphertext: ");
+   dnm_ucli_printf("output:\r\n");
+   dnm_ucli_printf(" - ciphertext: ");
    printBuf(security_app_vars.outBuf,  sizeof(security_app_vars.outBuf));
    
    security_app_vars.outBuf[5] ^= 0x01;
@@ -202,8 +200,8 @@ dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // print
-   dnm_cli_printf("output:\r\n");
-   dnm_cli_printf(" - decrypted:  ");
+   dnm_ucli_printf("output:\r\n");
+   dnm_ucli_printf(" - decrypted:  ");
    printBuf(security_app_vars.inBuf,  sizeof(security_app_vars.inBuf));
    
    return DN_ERR_NONE;
@@ -211,7 +209,7 @@ dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
 
 //===== 'cbc': CBC-MAC AES mode
 
-dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len) {
    dn_error_t      dnErr;
    
    // prepare paramaters
@@ -220,15 +218,15 @@ dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    memset(security_app_vars.iv,        0,                  16);
    
    // print
-   dnm_cli_printf("params:\r\n");
-   dnm_cli_printf(" - key:        ");
+   dnm_ucli_printf("params:\r\n");
+   dnm_ucli_printf(" - key:        ");
    printBuf(security_app_vars.key,     sizeof(security_app_vars.key));
-   dnm_cli_printf(" - iv:         ");
+   dnm_ucli_printf(" - iv:         ");
    printBuf(security_app_vars.iv,      sizeof(security_app_vars.iv));
    
    // print
-   dnm_cli_printf("input:\r\n");
-   dnm_cli_printf(" - inBuf:      ");
+   dnm_ucli_printf("input:\r\n");
+   dnm_ucli_printf(" - inBuf:      ");
    printBuf(security_app_vars.inBuf,   sizeof(security_app_vars.inBuf));
    
    // create MIC
@@ -242,8 +240,8 @@ dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // print
-   dnm_cli_printf("output:\r\n");
-   dnm_cli_printf(" - mic:        ");
+   dnm_ucli_printf("output:\r\n");
+   dnm_ucli_printf(" - mic:        ");
    printBuf(security_app_vars.mic,     sizeof(security_app_vars.mic));
    
    return DN_ERR_NONE;
@@ -251,12 +249,12 @@ dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
 
 //===== 'ccm': CCM* AES mode
 
-dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len) {
    dn_error_t      dnErr;
    dn_sec_ccmopt_t dn_sec_ccmopt;
    INT8U           aBuf[sizeof(ccm1_a)];
    
-   dnm_cli_printf("Test vector from \"C.2.1 MAC beacon frame\"\r\n");
+   dnm_ucli_printf("Test vector from \"C.2.1 MAC beacon frame\"\r\n");
    
    // Size of CCM authentication field (MIC); range: 4-16.
    dn_sec_ccmopt.M = 8;
@@ -270,17 +268,17 @@ dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    memcpy(security_app_vars.iv,        &ccm1_nonce,        sizeof(ccm1_nonce));
    
    // print
-   dnm_cli_printf("params:\r\n");
-   dnm_cli_printf(" - M:          %d\r\n",dn_sec_ccmopt.M);
-   dnm_cli_printf(" - L:          %d\r\n",dn_sec_ccmopt.L);
-   dnm_cli_printf(" - key:       ");
+   dnm_ucli_printf("params:\r\n");
+   dnm_ucli_printf(" - M:          %d\r\n",dn_sec_ccmopt.M);
+   dnm_ucli_printf(" - L:          %d\r\n",dn_sec_ccmopt.L);
+   dnm_ucli_printf(" - key:       ");
    printBuf(security_app_vars.key,     sizeof(security_app_vars.key));
-   dnm_cli_printf(" - nonce:     ");
+   dnm_ucli_printf(" - nonce:     ");
    printBuf(security_app_vars.iv,      sizeof(security_app_vars.iv));
    
    // print
-   dnm_cli_printf("input:\r\n");
-   dnm_cli_printf(" - aBuf:      ");
+   dnm_ucli_printf("input:\r\n");
+   dnm_ucli_printf(" - aBuf:      ");
    printBuf(aBuf,                      sizeof(aBuf));
    
    // encrypt and authenticate
@@ -297,22 +295,22 @@ dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // print
-   dnm_cli_printf("output:\r\n");
-   dnm_cli_printf(" - aBuf:      ");
+   dnm_ucli_printf("output:\r\n");
+   dnm_ucli_printf(" - aBuf:      ");
    printBuf(aBuf,                      sizeof(aBuf));
-   dnm_cli_printf(" - mic:       ");
+   dnm_ucli_printf(" - mic:       ");
    printBuf(security_app_vars.mic,     8);
    
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len) {
    dn_error_t      dnErr;
    dn_sec_ccmopt_t dn_sec_ccmopt;
    INT8U           aBuf[sizeof(ccm2_a)];
    INT8U           mBuf[sizeof(ccm2_m)];
    
-   dnm_cli_printf("Test vector from \"C.2.2 MAC data frame\"\r\n");
+   dnm_ucli_printf("Test vector from \"C.2.2 MAC data frame\"\r\n");
    
    // Size of CCM authentication field (MIC); range: 4-16.
    dn_sec_ccmopt.M = 4;
@@ -328,19 +326,19 @@ dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    memcpy(security_app_vars.iv,        &ccm2_nonce,        sizeof(ccm1_nonce));
    
    // print
-   dnm_cli_printf("params:\r\n");
-   dnm_cli_printf(" - M:          %d\r\n",dn_sec_ccmopt.M);
-   dnm_cli_printf(" - L:          %d\r\n",dn_sec_ccmopt.L);
-   dnm_cli_printf(" - key:       ");
+   dnm_ucli_printf("params:\r\n");
+   dnm_ucli_printf(" - M:          %d\r\n",dn_sec_ccmopt.M);
+   dnm_ucli_printf(" - L:          %d\r\n",dn_sec_ccmopt.L);
+   dnm_ucli_printf(" - key:       ");
    printBuf(security_app_vars.key,     sizeof(security_app_vars.key));
-   dnm_cli_printf(" - nonce:     ");
+   dnm_ucli_printf(" - nonce:     ");
    printBuf(security_app_vars.iv,      sizeof(security_app_vars.iv));
    
    // print
-   dnm_cli_printf("input:\r\n");
-   dnm_cli_printf(" - aBuf:      ");
+   dnm_ucli_printf("input:\r\n");
+   dnm_ucli_printf(" - aBuf:      ");
    printBuf(aBuf,                      sizeof(aBuf));
-   dnm_cli_printf(" - mBuf:      ");
+   dnm_ucli_printf(" - mBuf:      ");
    printBuf(mBuf,                      sizeof(mBuf));
    
    // encrypt and authenticate
@@ -357,23 +355,23 @@ dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // print
-   dnm_cli_printf("output:\r\n");
-   dnm_cli_printf(" - aBuf:      ");
+   dnm_ucli_printf("output:\r\n");
+   dnm_ucli_printf(" - aBuf:      ");
    printBuf(aBuf,                      sizeof(aBuf));
-   dnm_cli_printf(" - mBuf:      ");
+   dnm_ucli_printf(" - mBuf:      ");
    printBuf(mBuf,                      sizeof(mBuf));
    
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len) {
    
    dn_error_t      dnErr;
    dn_sec_ccmopt_t dn_sec_ccmopt;
    INT8U           aBuf[sizeof(ccm3_a)];
    INT8U           mBuf[sizeof(ccm3_m)];
    
-   dnm_cli_printf("Test vector from \"C.2.3 MAC command frame\"\r\n");
+   dnm_ucli_printf("Test vector from \"C.2.3 MAC command frame\"\r\n");
    
    // Size of CCM authentication field (MIC); range: 4-16.
    dn_sec_ccmopt.M = 8;
@@ -389,19 +387,19 @@ dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    memcpy(security_app_vars.iv,        &ccm3_nonce,        sizeof(ccm3_nonce));
    
    // print
-   dnm_cli_printf("params:\r\n");
-   dnm_cli_printf(" - M:          %d\r\n",dn_sec_ccmopt.M);
-   dnm_cli_printf(" - L:          %d\r\n",dn_sec_ccmopt.L);
-   dnm_cli_printf(" - key:       ");
+   dnm_ucli_printf("params:\r\n");
+   dnm_ucli_printf(" - M:          %d\r\n",dn_sec_ccmopt.M);
+   dnm_ucli_printf(" - L:          %d\r\n",dn_sec_ccmopt.L);
+   dnm_ucli_printf(" - key:       ");
    printBuf(security_app_vars.key,     sizeof(security_app_vars.key));
-   dnm_cli_printf(" - nonce:     ");
+   dnm_ucli_printf(" - nonce:     ");
    printBuf(security_app_vars.iv,      sizeof(security_app_vars.iv));
    
    // print
-   dnm_cli_printf("input:\r\n");
-   dnm_cli_printf(" - aBuf:      ");
+   dnm_ucli_printf("input:\r\n");
+   dnm_ucli_printf(" - aBuf:      ");
    printBuf(aBuf,                      sizeof(aBuf));
-   dnm_cli_printf(" - mBuf:      ");
+   dnm_ucli_printf(" - mBuf:      ");
    printBuf(mBuf,                      sizeof(mBuf));
    
    // encrypt and authenticate
@@ -418,12 +416,12 @@ dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // print
-   dnm_cli_printf("output:\r\n");
-   dnm_cli_printf(" - aBuf:      ");
+   dnm_ucli_printf("output:\r\n");
+   dnm_ucli_printf(" - aBuf:      ");
    printBuf(aBuf,                      sizeof(aBuf));
-   dnm_cli_printf(" - mBuf:      ");
+   dnm_ucli_printf(" - mBuf:      ");
    printBuf(mBuf,                      sizeof(mBuf));
-   dnm_cli_printf(" - mic:       ");
+   dnm_ucli_printf(" - mic:       ");
    printBuf(security_app_vars.mic,     8);
    
    return DN_ERR_NONE;
@@ -435,9 +433,9 @@ void printBuf(INT8U* buf, INT8U len) {
    INT8U i;
    
    for (i=0;i<len;i++) {
-      dnm_cli_printf(" %02x",buf[i]);
+      dnm_ucli_printf(" %02x",buf[i]);
    }
-   dnm_cli_printf("\r\n");
+   dnm_ucli_printf("\r\n");
 }
 
 //=============================================================================
@@ -449,16 +447,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

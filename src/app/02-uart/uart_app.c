@@ -9,6 +9,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "loc_task.h"
 #include "dn_system.h"
 #include "dn_uart.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -23,26 +24,25 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t cli_txCmdHandler(INT8U* arg, INT32U len, INT8U offset);
+dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_txCmdHandler(INT8U* arg, INT32U len);
 //===== tasks
 static void  uartTxTask(void* unused);
 static void  uartRxTask(void* unused);
 
 //=========================== const ===========================================
 
-const dnm_cli_cmdDef_t cliCmdDefs[] = {
-   {&cli_lenCmdHandler,      "len",         "length",      DN_CLI_ACCESS_USER},
-   {&cli_delayCmdHandler,    "delay",       "num ms",      DN_CLI_ACCESS_USER},
-   {&cli_txCmdHandler,       "tx",          "num packets", DN_CLI_ACCESS_USER},
+const dnm_ucli_cmdDef_t cliCmdDefs[] = {
+   {&cli_lenCmdHandler,      "len",         "length",      DN_CLI_ACCESS_LOGIN},
+   {&cli_delayCmdHandler,    "delay",       "num ms",      DN_CLI_ACCESS_LOGIN},
+   {&cli_txCmdHandler,       "tx",          "num packets", DN_CLI_ACCESS_LOGIN},
    {NULL,                    NULL,          NULL,          0},
 };
 
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t  cliContext;
    // uartTxTask
    OS_STK          uartTxTaskStack[TASK_APP_UART_TX_STK_SIZE];
    INT8U           uartTxBuffer[MAX_UART_PACKET_SIZE];
@@ -52,7 +52,7 @@ typedef struct {
    INT16U          uartTxNumLeft;
    // uartRxTask
    OS_STK          uartRxTaskStack[TASK_APP_UART_RX_STK_SIZE];
-   INT8U           uartRxChannelMemBuf[MAX_UART_TRX_CHNL_SIZE];
+   INT32U          uartRxChannelMemBuf[1+MAX_UART_TRX_CHNL_SIZE/sizeof(INT32U)];
    OS_MEM*         uartRxChannelMem;
    CH_DESC         uartRxChannel;
    INT8U           uartRxBuffer[MAX_UART_PACKET_SIZE];
@@ -76,12 +76,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &uart_app_v.cliContext,               // cliContext
       "uart",                               // appName
       &cliCmdDefs                           // cliCmds
    );
    loc_task_init(
-      &uart_app_v.cliContext,               // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -129,16 +127,13 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char* token; 
-   int   uartTxLen;
+dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len) {
+   int   uartTxLen, l;
    
    //--- param 0: len
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
+   l = sscanf(arg, "%d", &uartTxLen);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {  
-      sscanf(token, "%d", &uartTxLen);
    }
    
    //---- store
@@ -147,16 +142,13 @@ dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char* token; 
-   int   delay;
+dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len) {
+   int   delay, l;
    
    //--- param 0: len
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
+   l = sscanf(arg, "%d", &delay);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {  
-      sscanf(token, "%d", &delay);
    }
    
    //---- store
@@ -165,17 +157,14 @@ dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_txCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char* token; 
-   int   numLeft;
+dn_error_t cli_txCmdHandler(INT8U* arg, INT32U len) {
+   int   numLeft, l;
    INT8U osErr;
    
    //--- param 0: len
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
+   l = sscanf(arg, "%d", &numLeft);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {  
-      sscanf(token, "%d", &numLeft);
    }
    
    //---- store
@@ -214,7 +203,7 @@ static void uartTxTask(void* unused) {
       ASSERT (osErr == OS_ERR_NONE);
       
       // print
-      dnm_cli_printf("Sending %d UART packets, %d bytes, delay %d ms\r\n",
+      dnm_ucli_printf("Sending %d UART packets, %d bytes, delay %d ms\r\n",
          uart_app_v.uartTxNumLeft,
          uart_app_v.uartTxLen,
          uart_app_v.uartTxDelay
@@ -244,7 +233,7 @@ static void uartTxTask(void* unused) {
       }
       
       // print
-      dnm_cli_printf("done.\r\n");
+      dnm_ucli_printf("done.\r\n");
    }
 }
 
@@ -275,10 +264,12 @@ static void uartRxTask(void* unused) {
    ASSERT(dnErr==DN_ERR_NONE);
    
    // open the UART device
-   uartOpenArgs.peerChId    = uart_app_v.uartRxChannel;
+   uartOpenArgs.rxChId    = uart_app_v.uartRxChannel;
+   uartOpenArgs.eventChId   = 0;
    uartOpenArgs.rate        = 115200u;
    uartOpenArgs.mode        = DN_UART_MODE_M4;
    uartOpenArgs.ctsOutVal   = 0;
+   uartOpenArgs.fNoSleep    = 0;
    err = dn_open(
       DN_UART_DEV_ID,
       &uartOpenArgs,
@@ -290,22 +281,22 @@ static void uartRxTask(void* unused) {
       
       // wait for UART messages
       dnErr = dn_readAsyncMsg(
-         uart_app_v.uartRxChannel,       // chDesc
-         uart_app_v.uartRxBuffer,          // msg
-         &rxLen,                       // rxLen
-         &msgType,                     // msgType
-         MAX_UART_PACKET_SIZE,         // maxLen
-         0                             // timeout (0==never)
+         uart_app_v.uartRxChannel,          // chDesc
+         uart_app_v.uartRxBuffer,           // msg
+         &rxLen,                            // rxLen
+         &msgType,                          // msgType
+         MAX_UART_PACKET_SIZE,              // maxLen
+         0                                  // timeout (0==never)
       );
       ASSERT(dnErr==DN_ERR_NONE);
       ASSERT(msgType==DN_MSG_TYPE_UART_NOTIF);
       
       // print message received
-      dnm_cli_printf("uart RX (%d bytes)",rxLen);
+      dnm_ucli_printf("uart RX (%d bytes)",rxLen);
       for (i=0;i<rxLen;i++) {
-         dnm_cli_printf(" %02x",uart_app_v.uartRxBuffer[i]);
+         dnm_ucli_printf(" %02x",uart_app_v.uartRxBuffer[i]);
       }
-      dnm_cli_printf("\r\n");
+      dnm_ucli_printf("\r\n");
    }
 }
 
@@ -318,16 +309,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. Thus header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

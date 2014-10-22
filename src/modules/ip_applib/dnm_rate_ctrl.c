@@ -7,6 +7,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
  ********************************************************************/
 #include "dnm_rate_ctrl.h"
 #include "dnm_local.h"
+#include "dnm_ucli.h"
 
 /********************************************************************
    Constants and Enumerations
@@ -29,10 +30,7 @@ typedef struct {
         Variable Definitions
 *********************************************************************/
 static rcm_var_t  rcm_v[MAX_PENALTY_COUNT_BUF];
-/* pointer to store the CLI context */
-dnm_cli_cont_t *rcmCliCont;
-/* CLI trace flag */
-INT32S rcmCliTraceFlag;
+INT8U traceEnabled;
 
 /********************************************************************
    Function Prototypes
@@ -44,15 +42,11 @@ INT32S rcmCliTraceFlag;
 /**
  * Initilizes penalty count buffers as unused.
  * 
- * @param cliContext - pointer to the application cli context
- * @param TraceFlag - trace flag allocated to the module
  * @return - none
  */
-void dnm_rcm_init(dnm_cli_cont_t *cliContext, INT32S TraceFlag)
+void dnm_rcm_init(void)
 {
    INT8U i;
-   rcmCliCont = cliContext;
-   rcmCliTraceFlag = TraceFlag;
    for(i=0; i < MAX_PENALTY_COUNT_BUF; i++){
       rcm_v[i].fUsed = BUF_UNUSED;
    }
@@ -128,19 +122,19 @@ rcm_error_t dnm_rcm_transmitFrame(INT8U regId, INT8U* payload, INT8U payloadSize
          rcm_v[regId].skipCount = rcm_v[regId].penaltyCount;
          /* Did transmission fail due to negative ack ? */
          if(status != DN_API_RC_OK) {
-            dnm_cli_trace(rcmCliCont, rcmCliTraceFlag,
-                          "rc Tx req eng = %d, rejected, nack, pen = %d\n\r", regId,
+            dnm_ucli_trace(traceEnabled,
+                          "rc Tx req eng = %d, rejected, nack, pen = %d\r\n", regId,
                           rcm_v[regId].penaltyCount);
          }
          else {
-            dnm_cli_trace(rcmCliCont, rcmCliTraceFlag,
-                          "rc Tx req eng = %d, rejected, ack, pen = %d\n\r", regId,
+            dnm_ucli_trace(traceEnabled,
+                          "rc Tx req eng = %d, rejected, ack, pen = %d\r\n", regId,
                           rcm_v[regId].penaltyCount);
          }
       }
       else {
-         dnm_cli_trace(rcmCliCont, rcmCliTraceFlag,
-                       "rc=OFF, eng = %d, tx=failed\n\r", regId);
+         dnm_ucli_trace(traceEnabled,
+                       "rc=OFF, eng = %d, tx=failed\r\n", regId);
       }
       /* return errors;*/
       return RCM_RC_TX_FAILED;
@@ -153,15 +147,34 @@ rcm_error_t dnm_rcm_transmitFrame(INT8U regId, INT8U* payload, INT8U payloadSize
             rcm_v[regId].penaltyCount--;
             rcm_v[regId].skipCount = rcm_v[regId].penaltyCount;
          }
-         dnm_cli_trace(rcmCliCont, rcmCliTraceFlag,
-                       "rc Tx req eng = %d, accepted, ack, pen = %d\n\r", regId,
+         dnm_ucli_trace(traceEnabled,
+                       "rc Tx req eng = %d, accepted, ack, pen = %d\r\n", regId,
                        rcm_v[regId].penaltyCount);
       }
       else {
-         dnm_cli_trace(rcmCliCont, rcmCliTraceFlag,
-                       "rc=OFF, eng = %d, tx=success\n\r", regId);
+         dnm_ucli_trace(traceEnabled,
+                       "rc=OFF, eng = %d, tx=success\r\n", regId);
       }
       return RCM_ERR_OK;
    }
 }
 
+/**
+\brief Enable/disable trace.
+ 
+\param[in] traceFlag  Trace flag.
+*/
+void dnm_rcm_traceControl (INT8U traceFlag)
+{
+   traceEnabled = traceFlag;
+}
+
+/**
+\brief Check if trace is enabled.
+ 
+\return TRUE if trace is enabled, FALSE otherwise.
+*/
+BOOLEAN dnm_rcm_isTraceEnabled (void)
+{
+   return (traceEnabled != 0);
+}

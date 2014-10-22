@@ -11,6 +11,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dn_i2c.h"
 #include "dn_onewire.h"
 #include "dn_gpio.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -22,9 +23,8 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== variables =======================================
 
 typedef struct {
-   INT32U          gpioNotifChannelBuf[DN_CH_ASYNC_RXBUF_SIZE(sizeof(dn_gpio_notif_t))/sizeof(INT32U)];
-   INT32U          uartNotifChannelBuf[DN_CH_ASYNC_RXBUF_SIZE(MAX_UART_PACKET_SIZE)/sizeof(INT32U)];
-   dnm_cli_cont_t cliContext;
+   INT32U         gpioNotifChannelBuf[1+DN_CH_ASYNC_RXBUF_SIZE(sizeof(dn_gpio_notif_t))/sizeof(INT32U)];
+   INT32U         uartNotifChannelBuf[1+DN_CH_ASYNC_RXBUF_SIZE(MAX_UART_PACKET_SIZE)/sizeof(INT32U)];
    INT8U          numFreeSems;
    // resourceTask
    OS_STK         resourceTaskStack[TASK_APP_RESOURCE_STK_SIZE];
@@ -58,12 +58,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &uc_resources_app_vars.cliContext,    // cliContext
       "uc_resources",                       // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &uc_resources_app_vars.cliContext,    // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -108,7 +106,7 @@ static void resourceTask(void* unused) {
    CH_DESC                   uartNotifChannel;
    
    //=== wait for all delays related to booting to expire
-   dnm_cli_printf("waiting for part of boot...\r\n");
+   dnm_ucli_printf("waiting for part of boot...\r\n");
    OSTimeDly(2000);
    
    //=== create initial 
@@ -230,11 +228,11 @@ void print_available_ECBs(char* msgString) {
     
     newNumSems = getNumFreeEcb();
     
-    dnm_cli_printf("%s %d ECBs available",msgString,newNumSems);
+    dnm_ucli_printf("%s %d ECBs available",msgString,newNumSems);
     if (uc_resources_app_vars.numFreeSems>0) {
-       dnm_cli_printf(" (%d)",newNumSems-uc_resources_app_vars.numFreeSems);
+       dnm_ucli_printf(" (%d)",newNumSems-uc_resources_app_vars.numFreeSems);
     }
-    dnm_cli_printf("\r\n");
+    dnm_ucli_printf("\r\n");
     
     uc_resources_app_vars.numFreeSems = newNumSems;
 }
@@ -274,7 +272,7 @@ void print_available_timers(char* msgString) {
     
     numTimers = getNumFreeTimers();
     
-    dnm_cli_printf("                    %d timers available\r\n",numTimers);
+    dnm_ucli_printf("                    %d timers available\r\n",numTimers);
 }
 
 INT8U getNumFreeTimers() {
@@ -331,16 +329,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

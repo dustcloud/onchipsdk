@@ -19,12 +19,16 @@ var group__loc__intf__notif__formats =
       [ "upTime", "structdn__api__loc__notif__time__t.html#acc0995851723a415a458a645ce8f8cd6", null ],
       [ "utcTime", "structdn__api__loc__notif__time__t.html#acd254388f0d24657fe9923631c3e1910", null ],
       [ "asn", "structdn__api__loc__notif__time__t.html#ae70ca2c09de421fceb9e482aa2fe5c50", null ],
-      [ "offset", "structdn__api__loc__notif__time__t.html#a9851db06897094b16c2046f53139fda5", null ]
+      [ "offset", "structdn__api__loc__notif__time__t.html#a9851db06897094b16c2046f53139fda5", null ],
+      [ "asnSubOffset", "structdn__api__loc__notif__time__t.html#a77d55e5d17be1279ecf5686db34afcc8", null ]
     ] ],
     [ "dn_api_loc_notif_adv_t", "structdn__api__loc__notif__adv__t.html", [
       [ "netId", "structdn__api__loc__notif__adv__t.html#a7859e131bbd006f6dc6c0d9e6e90a7b9", null ],
       [ "moteId", "structdn__api__loc__notif__adv__t.html#ae715676c67943e87ae9b7b13bf5d556e", null ],
       [ "rssi", "structdn__api__loc__notif__adv__t.html#aa6bf3d63b3a7e6972770f4a7674ee72b", null ],
       [ "joinPri", "structdn__api__loc__notif__adv__t.html#ac03034b9315729f22ca254e8ae66a9f3", null ]
+    ] ],
+    [ "dn_api_loc_notif_ready_for_time_t", "structdn__api__loc__notif__ready__for__time__t.html", [
+      [ "seqNum", "structdn__api__loc__notif__ready__for__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2", null ]
     ] ]
 ];

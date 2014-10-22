@@ -1,0 +1,79 @@
+//**************************************************
+// Eterna.icf - Public external linker configuration file for Eterna.  
+//**************************************************
+
+//Use_loader=1 means that app will be started by loader, 0=by bootloader
+//this parameter is specified at build time
+
+   if (!isdefinedsymbol(use_loader)) {
+      define symbol use_loader = 0;
+   }
+
+   define symbol vec_tbl = 0;
+
+//Define a memory region that covers the entire 4 GB addressible space
+
+   define memory mem with size = 4G;
+
+//Define regions for the on-chip flash.
+
+//bank 0, start after fuse table
+   define region FLASH_M0 =         mem:[from 0x00040800 to 0x0007ffff];
+//bank 1
+   define region FLASH_M1 =         mem:[from 0x00080000 to 0x000bffff];
+//fuse table
+   define region FUSE_TABLE =       mem:[from 0x00040000 to 0x000400ff];
+//partition table
+   define region KERNEL_PAR_HDR =   mem:[from 0x00041000 to 0x0004101f];
+//main (kernel) executable
+   define region KERNEL_PARTITION = mem:[from 0x00041020 to 0x0007ffff];
+
+// Define a region for the on-chip SRAM.
+// data ram
+   define region SRAM_D =           mem:[from 0x20000000 to 0x2000ffff];
+// code ram
+   define region SRAM_CODE =        mem:[from 0xc8000 to 0xc9fff];
+
+// Main stack 
+   define block CSTACK with size = 0x800, alignment = 4{ };
+
+//Read/write values should be initialized by copying from flash.
+   initialize by copy with packing = none { readwrite };
+
+//.noinit values should be left alone.  
+   do not initialize { section .noinit };
+   do not initialize { section .ram_vectors };
+
+// Place the interrupt vectors
+   place in KERNEL_PARTITION { readonly section .intvec };
+
+//Fuse table
+   place in FUSE_TABLE { section .fuse };
+
+//If this app is being started by loader, prepare exe partition with header
+   if (use_loader) {   
+      place at start of KERNEL_PARTITION { section .reset_start};
+      place in KERNEL_PARTITION { readonly };
+      place at start of KERNEL_PAR_HDR { section .kernel_exe_hdr };    
+   }
+//Without loader, executable starts after fuse table   
+   else {   
+      place at address mem:0x40800 { section .reset_start};
+      place in FLASH_M0{ readonly };
+   }
+
+//copy code that executes in ram from flash to ram
+   initialize by copy with packing = none { section .code_ram };
+   place in SRAM_CODE   { section .code_ram };
+
+//Place all read/write items into SRAM.
+//   place at start of SRAM_D { section .ram_vectors, block CSTACK};
+//   place in SRAM_D {readwrite};
+   place at end of SRAM_D { section .heap_end };
+   place in SRAM_D { block SRAM_D with fixed order {
+    section .ram_vectors, 
+    block CSTACK,
+    readwrite, 
+    section .heap_start
+   }};
+

@@ -68,6 +68,11 @@ var group__loc__intf__setgetparam__formats =
       [ "alarms", "structdn__api__rsp__get__motestatus__t.html#a1aed2f2af8155d5e04ddeef8be70c7ea", null ],
       [ "reserved_2", "structdn__api__rsp__get__motestatus__t.html#aa87a016bdf61ef2118347523cc086c80", null ]
     ] ],
+    [ "dn_api_set_time_t", "structdn__api__set__time__t.html", [
+      [ "paramId", "structdn__api__set__time__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "seqNum", "structdn__api__set__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2", null ],
+      [ "utcTime", "structdn__api__set__time__t.html#acd254388f0d24657fe9923631c3e1910", null ]
+    ] ],
     [ "dn_api_rsp_get_time_t", "structdn__api__rsp__get__time__t.html", [
       [ "rc", "structdn__api__rsp__get__time__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
       [ "paramId", "structdn__api__rsp__get__time__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
@@ -99,6 +104,26 @@ var group__loc__intf__setgetparam__formats =
       [ "rc", "structdn__api__rsp__get__ip6addr__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
       [ "paramId", "structdn__api__rsp__get__ip6addr__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
       [ "ipAddr", "structdn__api__rsp__get__ip6addr__t.html#a8454396129471058db4293c3475b1601", null ]
+    ] ],
+    [ "dn_api_rsp_get_ccamode_t", "structdn__api__rsp__get__ccamode__t.html", [
+      [ "rc", "structdn__api__rsp__get__ccamode__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__ccamode__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "ccaMode", "structdn__api__rsp__get__ccamode__t.html#a128ece6a437c781db87aeb37e645096a", null ]
+    ] ],
+    [ "dn_api_rsp_get_pathalarmgen_t", "structdn__api__rsp__get__pathalarmgen__t.html", [
+      [ "rc", "structdn__api__rsp__get__pathalarmgen__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__pathalarmgen__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "isGenerate", "structdn__api__rsp__get__pathalarmgen__t.html#a9fd8a1d4537b53ad49fd196da6a745c8", null ]
+    ] ],
+    [ "dn_api_rsp_get_channels_t", "structdn__api__rsp__get__channels__t.html", [
+      [ "rc", "structdn__api__rsp__get__channels__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__channels__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "bitmap", "structdn__api__rsp__get__channels__t.html#acb3b9d6ebebe757f5a4846a481d2d4a0", null ]
+    ] ],
+    [ "dn_api_rsp_get_advgraph_t", "structdn__api__rsp__get__advgraph__t.html", [
+      [ "rc", "structdn__api__rsp__get__advgraph__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__advgraph__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "advGraph", "structdn__api__rsp__get__advgraph__t.html#abfc75386112ee6c2836d1b33b1273f7e", null ]
     ] ],
     [ "dn_api_set_appinfo_t", "structdn__api__set__appinfo__t.html", [
       [ "paramId", "structdn__api__set__appinfo__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
@@ -167,6 +192,15 @@ var group__loc__intf__setgetparam__formats =
       [ "paramId", "structdn__api__rsp__get__autojoin__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
       [ "mode", "structdn__api__rsp__get__autojoin__t.html#a6f850a24512f7d3dbabb1345cf61cc6f", null ]
     ] ],
+    [ "dn_api_set_ap_clksrc_t", "structdn__api__set__ap__clksrc__t.html", [
+      [ "paramId", "structdn__api__set__ap__clksrc__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "apClkSrc", "structdn__api__set__ap__clksrc__t.html#ab62ce09c44329afe38d10d28a7a2c39c", null ]
+    ] ],
+    [ "dn_api_rsp_get_ap_clksrc_t", "structdn__api__rsp__get__ap__clksrc__t.html", [
+      [ "rc", "structdn__api__rsp__get__ap__clksrc__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__ap__clksrc__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "apClkSrc", "structdn__api__rsp__get__ap__clksrc__t.html#ab62ce09c44329afe38d10d28a7a2c39c", null ]
+    ] ],
     [ "dn_api_rsp_set_macaddr_t", "group__loc__intf__setgetparam__formats.html#gad1e6e97c635b799c8e4b4a35746c77f3", null ],
     [ "dn_api_get_macaddr_t", "group__loc__intf__setgetparam__formats.html#gad66c58c9cda66a1af9ffd4f8ca0adf70", null ],
     [ "dn_api_rsp_set_joinkey_t", "group__loc__intf__setgetparam__formats.html#ga2fb68f3cab1a06413a3692ba59045894", null ],
@@ -179,6 +213,7 @@ var group__loc__intf__setgetparam__formats =
     [ "dn_api_get_moteinfo_t", "group__loc__intf__setgetparam__formats.html#ga95554aa4b9c85260ee5f54f4421b841b", null ],
     [ "dn_api_get_netinfo_t", "group__loc__intf__setgetparam__formats.html#ga64d91633e0c58013560b2b7c8a3805b9", null ],
     [ "dn_api_get_motestatus_t", "group__loc__intf__setgetparam__formats.html#ga32b5d66b2ee7c3f4dfaf856f5a175890", null ],
+    [ "dn_api_rsp_set_time_t", "group__loc__intf__setgetparam__formats.html#ga8c54e126f482f1875f5d249e29380a21", null ],
     [ "dn_api_get_time_t", "group__loc__intf__setgetparam__formats.html#gae8703bcb179b9903468f9151869218f3", null ],
     [ "dn_api_get_charge_t", "group__loc__intf__setgetparam__formats.html#gaced796cff3c8ecf38979efd04535960b", null ],
     [ "dn_api_get_rfrxstats_t", "group__loc__intf__setgetparam__formats.html#gafdb0af37c2832959e67853da9a146a23", null ],
@@ -186,6 +221,10 @@ var group__loc__intf__setgetparam__formats =
     [ "dn_api_get_shortaddr_t", "group__loc__intf__setgetparam__formats.html#ga112bf9fc6ba66d79677dc19480d1ee38", null ],
     [ "dn_api_rsp_set_ip6addr_t", "group__loc__intf__setgetparam__formats.html#gabea93d4e37e7aa049122e18e1edd656f", null ],
     [ "dn_api_get_ip6addr_t", "group__loc__intf__setgetparam__formats.html#ga8dc69ea7bb512fa80967a51b6f2463fe", null ],
+    [ "dn_api_get_ccamode_t", "group__loc__intf__setgetparam__formats.html#gaf207f88905ce6bf9cfd301e7b7bfee83", null ],
+    [ "dn_api_get_pathalarmgen_t", "group__loc__intf__setgetparam__formats.html#gacc47549f6ba641292b06e61ca75815ab", null ],
+    [ "dn_api_get_channels_t", "group__loc__intf__setgetparam__formats.html#gaf3225efe65f7c9c850bb6aa705004c4a", null ],
+    [ "dn_api_get_advgraph_t", "group__loc__intf__setgetparam__formats.html#ga999204bcd6bc382c971f689198838a25", null ],
     [ "dn_api_rsp_set_appinfo_t", "group__loc__intf__setgetparam__formats.html#ga53b96f18b4cb99668be384d52007f4bf", null ],
     [ "dn_api_get_appinfo_t", "group__loc__intf__setgetparam__formats.html#ga19125e705e1d6e98c28f5247547cc7ab", null ],
     [ "dn_api_rsp_set_dutycycle_t", "group__loc__intf__setgetparam__formats.html#gae073556bb825bc6a1e09caaecc2dedb2", null ],
@@ -199,5 +238,7 @@ var group__loc__intf__setgetparam__formats =
     [ "dn_api_rsp_set_advkey_t", "group__loc__intf__setgetparam__formats.html#ga3a5c62877f3c88d8c4536b436e1e7ef3", null ],
     [ "dn_api_get_advkey_t", "group__loc__intf__setgetparam__formats.html#ga38e8d8a3774cc8425345bd828292b076", null ],
     [ "dn_api_rsp_set_autojoin_t", "group__loc__intf__setgetparam__formats.html#ga5a13031fe33ab9829a80afda3a7ead48", null ],
-    [ "dn_api_get_autojoin_t", "group__loc__intf__setgetparam__formats.html#ga714f234c4a40c4b7c79eef29f27763aa", null ]
+    [ "dn_api_get_autojoin_t", "group__loc__intf__setgetparam__formats.html#ga714f234c4a40c4b7c79eef29f27763aa", null ],
+    [ "dn_api_rsp_set_ap_clksrc_t", "group__loc__intf__setgetparam__formats.html#ga80ea44061ee69eecf15895d6171ba8a6", null ],
+    [ "dn_api_get_ap_clksrc_t", "group__loc__intf__setgetparam__formats.html#gaf63c10829b79a136c309ef99929e29bb", null ]
 ];

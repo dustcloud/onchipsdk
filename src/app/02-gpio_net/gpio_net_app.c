@@ -11,14 +11,19 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dn_gpio.h"
 #include "dnm_local.h"
 #include "dn_fs.h"
+#include "dn_exe_hdr.h"
 #include "well_known_ports.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
 //=========================== definitions =====================================
 
-// DP2 on DC9003A
-#define SAMPLE_PIN                DN_GPIO_PIN_21_DEV_ID
+// LEDs on DC9003A
+#define LED_GREEN1                DN_GPIO_PIN_20_DEV_ID
+#define LED_GREEN2                DN_GPIO_PIN_23_DEV_ID
+
+// DP0 on DC9003A
+#define SAMPLE_PIN                DN_GPIO_PIN_0_DEV_ID
 
 #define LOWVAL_DEFAULT            0
 #define HIGHVAL_DEFAULT           1
@@ -36,7 +41,6 @@ typedef struct{
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t  cliContext;
    OS_STK          gpioSampleTaskStack[TASK_APP_GPIOSAMPLE_STK_SIZE];
    OS_EVENT*       joinedSem;
    INT8U           lowval;        ///< value transmitted when pin is low
@@ -49,10 +53,10 @@ gpio_net_app_vars_t gpio_net_app_v;
 //=========================== prototypes ======================================
 
 //===== CLI
-dn_error_t  gpioNet_cli_config(INT8U* buf, INT32U len, INT8U offset);
-dn_error_t  gpioNet_cli_lowval(INT8U* buf, INT32U len, INT8U offset);
-dn_error_t  gpioNet_cli_highval(INT8U* buf, INT32U len, INT8U offset);
-dn_error_t  gpioNet_cli_period(INT8U* buf, INT32U len, INT8U offset);
+dn_error_t  gpioNet_cli_config(INT8U* buf, INT32U len);
+dn_error_t  gpioNet_cli_lowval(INT8U* buf, INT32U len);
+dn_error_t  gpioNet_cli_highval(INT8U* buf, INT32U len);
+dn_error_t  gpioNet_cli_period(INT8U* buf, INT32U len);
 //===== configFile
        void initConfigFile(void);
        void syncToConfigFile(void);
@@ -62,11 +66,11 @@ static void gpioSampleTask(void* arg);
 
 //=========================== const ===========================================
 
-const dnm_cli_cmdDef_t cliCmdDefs[] = {
-   {&gpioNet_cli_config,     "config", "config",                     DN_CLI_ACCESS_USER},
-   {&gpioNet_cli_lowval,     "lowval", "lowval [newVal]",            DN_CLI_ACCESS_USER},
-   {&gpioNet_cli_highval,    "highval","highval [newVal]",           DN_CLI_ACCESS_USER},
-   {&gpioNet_cli_period,     "period", "period [newPeriod in ms]",   DN_CLI_ACCESS_USER},
+const dnm_ucli_cmdDef_t cliCmdDefs[] = {
+   {&gpioNet_cli_config,     "config", "config",                     DN_CLI_ACCESS_LOGIN},
+   {&gpioNet_cli_lowval,     "lowval", "lowval [newVal]",            DN_CLI_ACCESS_LOGIN},
+   {&gpioNet_cli_highval,    "highval","highval [newVal]",           DN_CLI_ACCESS_LOGIN},
+   {&gpioNet_cli_period,     "period", "period [newPeriod in ms]",   DN_CLI_ACCESS_LOGIN},
    {NULL,                    NULL,     NULL,                         0},
 };
 
@@ -92,14 +96,12 @@ int p2_init(void) {
    
    // CLI task
    cli_task_init(
-      &gpio_net_app_v.cliContext,           // cliContext
       "gpio_net",                           // appName
       &cliCmdDefs                           // cliCmds
    );
    
    // local interface task
    loc_task_init(
-      &gpio_net_app_v.cliContext,           // cliContext
       JOIN_YES,                             // fJoin
       NULL,                                 // netId
       WKP_GPIO_NET,                         // udpPort
@@ -130,24 +132,22 @@ int p2_init(void) {
 //=========================== CLI =============================================
 
 // "config" command
-dn_error_t gpioNet_cli_config(INT8U* buf, INT32U len, INT8U offset) {
+dn_error_t gpioNet_cli_config(INT8U* buf, INT32U len) {
    printConfig();
    return DN_ERR_NONE;
 }
 
 // "lowval" command
-dn_error_t gpioNet_cli_lowval(INT8U* buf, INT32U len, INT8U offset) {
+dn_error_t gpioNet_cli_lowval(INT8U* buf, INT32U len) {
    char*      token;
-   int        sarg;
-   
-   buf += offset;
+   int        sarg, l;
    
    //--- param 0: lowval
-   token = dnm_cli_getNextToken(&buf, ' ');
-   if (token == NULL) {
+   l = sscanf (buf, "%d", &sarg);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {
-      sscanf (token, "%d", &sarg);
+   }
+   else {
       gpio_net_app_v.lowval = (INT8U)sarg;
    }
    
@@ -158,18 +158,16 @@ dn_error_t gpioNet_cli_lowval(INT8U* buf, INT32U len, INT8U offset) {
 }
 
 // "highval" command
-dn_error_t gpioNet_cli_highval(INT8U* buf, INT32U len, INT8U offset) {
+dn_error_t gpioNet_cli_highval(INT8U* buf, INT32U len) {
    char*      token;
-   int        sarg;
+   int        sarg, l;
    
-   buf += offset;
-   
-   //--- param 0: lowval
-   token = dnm_cli_getNextToken(&buf, ' ');
-   if (token == NULL) {
+   //--- param 0: highval
+   l = sscanf (buf, "%d", &sarg);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {
-      sscanf (token, "%d", &sarg);
+   }
+   else {
       gpio_net_app_v.highval = (INT8U)sarg;
    }
    
@@ -180,18 +178,15 @@ dn_error_t gpioNet_cli_highval(INT8U* buf, INT32U len, INT8U offset) {
 }
 
 // "period" command
-dn_error_t gpioNet_cli_period(INT8U* buf, INT32U len, INT8U offset) {
-   char*      token;
-   int        sarg;
-   
-   buf += offset;
+dn_error_t gpioNet_cli_period(INT8U* buf, INT32U len) {
+   int        sarg, l;
    
    //--- param 0: period
-   token = dnm_cli_getNextToken(&buf, ' ');
-   if (token == NULL) {
+   l = sscanf (buf, "%d", &sarg);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {
-      sscanf (token, "%d", &sarg);
+   }
+   else {
       gpio_net_app_v.period = (INT16U)sarg;
    }
    
@@ -313,10 +308,10 @@ void syncToConfigFile(void) {
 }
 
 void printConfig(void) {
-   dnm_cli_printf("Current config:\r\n");
-   dnm_cli_printf(" - lowval:  %d\r\n",gpio_net_app_v.lowval);
-   dnm_cli_printf(" - highval: %d\r\n",gpio_net_app_v.highval);
-   dnm_cli_printf(" - period:  %d\r\n",gpio_net_app_v.period);
+   dnm_ucli_printf("Current config:\r\n");
+   dnm_ucli_printf(" - lowval:  %d\r\n",gpio_net_app_v.lowval);
+   dnm_ucli_printf(" - highval: %d\r\n",gpio_net_app_v.highval);
+   dnm_ucli_printf(" - period:  %d\r\n",gpio_net_app_v.period);
 }
 
 //=========================== GPIO notif task =================================
@@ -325,13 +320,49 @@ static void gpioSampleTask(void* arg) {
    dn_error_t                     dnErr;
    INT8U                          osErr;
    dn_gpio_ioctl_cfg_in_t         gpioInCfg;
+   dn_gpio_ioctl_cfg_out_t        gpioOutCfg;
    INT8U                          samplePinLevel;
    INT8U                          pkBuf[sizeof(loc_sendtoNW_t) + 1];
    loc_sendtoNW_t*                pkToSend;
    INT8U                          rc;
+   INT8U                          ledState;
    
    //===== initialize the configuration file
    initConfigFile();
+   
+   //===== open and configure the LED pins
+   
+   dnErr = dn_open(
+      LED_GREEN1,                 // device
+      NULL,                       // args
+      0                           // argLen 
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
+   
+   gpioOutCfg.initialLevel = 0x00;
+   dnErr = dn_ioctl(
+      LED_GREEN1,                 // device
+      DN_IOCTL_GPIO_CFG_OUTPUT,   // request
+      &gpioOutCfg,                // args
+      sizeof(gpioOutCfg)          // argLen
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
+   
+   dnErr = dn_open(
+      LED_GREEN2,                 // device
+      NULL,                       // args
+      0                           // argLen 
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
+   
+   gpioOutCfg.initialLevel = 0x00;
+   dnErr = dn_ioctl(
+      LED_GREEN2,                 // device
+      DN_IOCTL_GPIO_CFG_OUTPUT,   // request
+      &gpioOutCfg,                // args
+      sizeof(gpioOutCfg)          // argLen
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
    
    //===== open and configure the SAMPLE_PIN
    dn_open(
@@ -350,9 +381,45 @@ static void gpioSampleTask(void* arg) {
    //===== initialize packet variables
    pkToSend = (loc_sendtoNW_t*)pkBuf;
    
+   //===== switch LEDs on
+   
+   ledState = 0x01;
+   dnErr = dn_write(
+      LED_GREEN1,                 // device
+      &ledState,                  // buf
+      sizeof(ledState)            // len
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
+   
+   ledState = 0x01;
+   dnErr = dn_write(
+      LED_GREEN2,                 // device
+      &ledState,                  // buf
+      sizeof(ledState)            // len
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
+   
    //===== wait for the mote to have joined
    OSSemPend(gpio_net_app_v.joinedSem,0,&osErr);
    ASSERT(osErr == OS_ERR_NONE);
+   
+   //===== switch LEDs off
+   
+   ledState = 0x00;
+   dnErr = dn_write(
+      LED_GREEN1,                 // device
+      &ledState,                  // buf
+      sizeof(ledState)            // len
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
+   
+   ledState = 0x00;
+   dnErr = dn_write(
+      LED_GREEN2,                 // device
+      &ledState,                  // buf
+      sizeof(ledState)            // len
+   );
+   ASSERT(dnErr==DN_ERR_NONE);
    
    while (1) { // this is a task, it executes forever
       
@@ -386,7 +453,7 @@ static void gpioSampleTask(void* arg) {
       ASSERT (dnErr == DN_ERR_NONE);
       
       // print level
-      dnm_cli_printf("samplePinLevel=%d, sent 0x%02x\n\r",
+      dnm_ucli_printf("samplePinLevel=%d, sent 0x%02x\r\n",
          samplePinLevel,
          pkToSend->locSendTo.payload[0]
       );
@@ -407,16 +474,9 @@ static void gpioSampleTask(void* arg) {
  application. Thus header is needed for your application to start running.
  */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

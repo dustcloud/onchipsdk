@@ -7,6 +7,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "loc_task.h"
 #include "dn_system.h"
 #include "dn_adc.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -14,7 +15,6 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 
 /// variables local to this application
 typedef struct {
-   dnm_cli_cont_t       cliContext;
    OS_STK               tempTaskStack[TASK_APP_TEMP_STK_SIZE];
 } temp_app_vars_t;
 
@@ -35,12 +35,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &temp_app_v.cliContext,               // cliContext
       "temperature",                        // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &temp_app_v.cliContext,               // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -98,7 +96,7 @@ static void tempTask(void* unused) {
       ASSERT(numBytesRead== sizeof(temperature));
       
       // print
-      dnm_cli_printf("temperature=%d\r\n",temperature);
+      dnm_ucli_printf("temperature=%d\r\n",temperature);
    }
 }
 
@@ -111,16 +109,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. Thus header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

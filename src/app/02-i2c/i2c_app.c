@@ -9,6 +9,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "loc_task.h"
 #include "dn_system.h"
 #include "dn_i2c.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -20,7 +21,6 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t            cliContext;
    INT8U                     ledToggleFlag;
    dn_ioctl_i2c_transfer_t   i2cTransfer;
    OS_STK                    i2cTaskStack[TASK_APP_I2C_STK_SIZE];
@@ -44,12 +44,10 @@ int p2_init(void) {
    INT8U                   osErr;
 
    cli_task_init(
-      &i2c_app_v.cliContext,                // cliContext
       "i2c",                                // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &i2c_app_v.cliContext,                // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -133,13 +131,13 @@ static void i2cTask(void* unused) {
       
       // print
       if (dnErr==DN_ERR_NONE) {
-         dnm_cli_printf("Sent to I2C slave %02x: 0x",I2C_SLAVE_ADDR);
+         dnm_ucli_printf("Sent to I2C slave %02x: 0x",I2C_SLAVE_ADDR);
          for (i=0;i<I2C_PAYLOAD_LENGTH;i++) {
-            dnm_cli_printf("%02x",i2c_app_v.i2cBuffer[i]);
+            dnm_ucli_printf("%02x",i2c_app_v.i2cBuffer[i]);
          }
-         dnm_cli_printf("\r\n");         
+         dnm_ucli_printf("\r\n");         
       } else {
-         dnm_cli_printf("Unable to write over I2C, err=%d\r\n",dnErr);
+         dnm_ucli_printf("Unable to write over I2C, err=%d\r\n",dnErr);
       }
       
       //===== step 2. read from I2C slave
@@ -168,13 +166,13 @@ static void i2cTask(void* unused) {
       
       // print
       if (dnErr==DN_ERR_NONE) {
-         dnm_cli_printf("Received from I2C slave %02x: 0x",I2C_SLAVE_ADDR);
+         dnm_ucli_printf("Received from I2C slave %02x: 0x",I2C_SLAVE_ADDR);
          for (i=0;i<I2C_PAYLOAD_LENGTH;i++) {
-            dnm_cli_printf("%02x",i2c_app_v.i2cBuffer[i]);
+            dnm_ucli_printf("%02x",i2c_app_v.i2cBuffer[i]);
          }
-         dnm_cli_printf("\r\n");
+         dnm_ucli_printf("\r\n");
       } else {
-         dnm_cli_printf("Unable to read over I2C, err=%d\r\n",dnErr);
+         dnm_ucli_printf("Unable to read over I2C, err=%d\r\n",dnErr);
       }
    }
 }
@@ -188,16 +186,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. Thus header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

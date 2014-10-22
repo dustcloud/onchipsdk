@@ -9,6 +9,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "loc_task.h"
 #include "dn_system.h"
 #include "dn_onewire.h"
+#include "dn_exe_hdr.h"
 #include "Ver.h"
 
 #include <string.h>
@@ -46,12 +47,12 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t    cli_detectCmdHandler(  INT8U* arg, INT32U len, INT8U offset);
-dn_error_t    cli_writeCmdHandler(   INT8U* arg, INT32U len, INT8U offset);
-dn_error_t    cli_writeBitCmdHandler(INT8U* arg, INT32U len, INT8U offset);
-dn_error_t    cli_readCmdHandler(    INT8U* arg, INT32U len, INT8U offset);
-dn_error_t    cli_readBitCmdHandler( INT8U* arg, INT32U len, INT8U offset);
-dn_error_t    cli_searchCmdHandler(  INT8U* arg, INT32U len, INT8U offset);
+dn_error_t    cli_detectCmdHandler(  INT8U* arg, INT32U len);
+dn_error_t    cli_writeCmdHandler(   INT8U* arg, INT32U len);
+dn_error_t    cli_writeBitCmdHandler(INT8U* arg, INT32U len);
+dn_error_t    cli_readCmdHandler(    INT8U* arg, INT32U len);
+dn_error_t    cli_readBitCmdHandler( INT8U* arg, INT32U len);
+dn_error_t    cli_searchCmdHandler(  INT8U* arg, INT32U len);
 //===== helpers
 INT8U         owi_searchDev(
                  INT8U*  romNums,
@@ -90,13 +91,13 @@ static const INT8U crc8_table[] = {
 
 //===== CLI
 
-const dnm_cli_cmdDef_t cliCmdDefs[] = {
-   {&cli_detectCmdHandler,   "d",      "",       DN_CLI_ACCESS_USER},
-   {&cli_writeCmdHandler,    "w",      "",       DN_CLI_ACCESS_USER},
-   {&cli_writeBitCmdHandler, "wb",     "",       DN_CLI_ACCESS_USER},
-   {&cli_readCmdHandler,     "r",      "",       DN_CLI_ACCESS_USER},
-   {&cli_readBitCmdHandler,  "rb",     "",       DN_CLI_ACCESS_USER},
-   {&cli_searchCmdHandler,   "s",      "",       DN_CLI_ACCESS_USER},
+const dnm_ucli_cmdDef_t cliCmdDefs[] = {
+   {&cli_detectCmdHandler,   "d",      "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_writeCmdHandler,    "w",      "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_writeBitCmdHandler, "wb",     "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_readCmdHandler,     "r",      "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_readBitCmdHandler,  "rb",     "",       DN_CLI_ACCESS_LOGIN},
+   {&cli_searchCmdHandler,   "s",      "",       DN_CLI_ACCESS_LOGIN},
    {NULL,                    NULL,     NULL,     0},
 };
 
@@ -104,8 +105,6 @@ const dnm_cli_cmdDef_t cliCmdDefs[] = {
 
 // Variables local to this application.
 typedef struct {
-   /// CLI context.
-   dnm_cli_cont_t  cliContext;
    /// The number of devides found during an 1-Wire search operation.
    INT8U           numDetectedDevices;
    /// The buffer used for communicating over the 1-Wire interface.
@@ -130,14 +129,12 @@ int p2_init(void) {
    
    // CLI task
    cli_task_init(
-      &onewire_app_vars.cliContext,         // cliContext
       "onewire",                            // appName
       &cliCmdDefs                           // cliCmds
    );
    
    // local interface task
    loc_task_init(
-      &onewire_app_vars.cliContext,         // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -163,38 +160,35 @@ int p2_init(void) {
 
 //===== 'd' (detect) CLI command
 
-dn_error_t cli_detectCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_detectCmdHandler(INT8U* arg, INT32U len) {
+   dn_error_t           dnErr;
+   dn_ow_ioctl_detect_t dn_ow_ioctl_detect;
    
-   dn_ow_ioctl_detect_t  dn_ow_ioctl_detect;
-   
-   dn_ioctl(
+   dnErr = dn_ioctl(
       OWI_DEVICE,
       DN_IOCTL_1WIRE_DETECT,
       &dn_ow_ioctl_detect,
       sizeof(dn_ow_ioctl_detect_t)
    );
-   
-   dnm_cli_printf("slavePresent=%d\r\n",dn_ow_ioctl_detect.slavePresent);
+   if (dnErr==DN_ERR_NONE) {
+      dnm_ucli_printf("slavePresent=%d\r\n",dn_ow_ioctl_detect.slavePresent);
+   } else {
+      dnm_ucli_printf("WARNING dn_ioctl() returns %d\r\n",dnErr);
+   }
    
    return DN_ERR_NONE;
 }
 
 //===== 'w' (write) CLI command
 
-dn_error_t cli_writeCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char*      token;
+dn_error_t cli_writeCmdHandler(INT8U* arg, INT32U len) {
    dn_error_t dnErr;
    int        numBytes;
    int        err;
    
    //--- param 0: writeBuf
    
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
-      return DN_ERR_INVALID;
-   }
-   
-   numBytes = hex2array(token, onewire_app_vars.owi_buff, sizeof(onewire_app_vars.owi_buff));
+   numBytes = hex2array(arg, onewire_app_vars.owi_buff, sizeof(onewire_app_vars.owi_buff));
    if (numBytes<=0) {
       return DN_ERR_INVALID;
    }
@@ -213,20 +207,19 @@ dn_error_t cli_writeCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
 
 //===== 'wb' (write bit) CLI command
 
-dn_error_t cli_writeBitCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char*                     token;
+dn_error_t cli_writeBitCmdHandler(INT8U* arg, INT32U len) {
    dn_error_t                dnErr;
    int                       bitToWrite;
    dn_ow_ioctl_writebit_t    dn_ow_ioctl_writebit;
    int                       err;
+   int                       l;
    
    //--- param 0: bitToWrite
    
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
+   l = sscanf (arg, "%d", &bitToWrite);
+   if (l < 1) {
       return DN_ERR_INVALID;
    }
-   sscanf (token, "%d", &bitToWrite);
    if (bitToWrite!=0 && bitToWrite!=1) {
       return DN_ERR_INVALID;
    }
@@ -247,18 +240,17 @@ dn_error_t cli_writeBitCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
 
 //===== 'r' (read) CLI command
 
-dn_error_t cli_readCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char*      token;
+dn_error_t cli_readCmdHandler(INT8U* arg, INT32U len) {
    int        numBytes;
    int        numRead;
+   int        l;
    
    //--- param 0: numBytes
    
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
+   l = sscanf (arg, "%d", &numBytes);
+   if (l < 1) {
       return DN_ERR_INVALID;
    }
-   sscanf (token, "%d", &numBytes);
    if (numBytes>sizeof(onewire_app_vars.owi_buff)) {
       return DN_ERR_INVALID;
    }
@@ -281,7 +273,7 @@ dn_error_t cli_readCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
 
 //===== 'rb' (read bit) CLI command
 
-dn_error_t cli_readBitCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_readBitCmdHandler(INT8U* arg, INT32U len) {
    dn_error_t dnErr;
    dn_ow_ioctl_readbit_t  dn_ow_ioctl_readbit;
    
@@ -294,14 +286,14 @@ dn_error_t cli_readBitCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
       sizeof(dn_ow_ioctl_readbit_t)
    );
    
-   dnm_cli_printf("%d\r\n",dn_ow_ioctl_readbit.readData);
+   dnm_ucli_printf("%d\r\n",dn_ow_ioctl_readbit.readData);
    
    return DN_ERR_NONE;
 }
 
 //===== 's' (search) CLI command
 
-dn_error_t cli_searchCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
+dn_error_t cli_searchCmdHandler(INT8U* arg, INT32U len) {
    INT32S foundDevice;
    INT32S lastDiscrepancy;
    INT32S lastFamilyDiscr;
@@ -348,9 +340,9 @@ dn_error_t cli_searchCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
    
    //--- print
    
-   dnm_cli_printf("found %d device(s)\r\n",onewire_app_vars.numDetectedDevices);
+   dnm_ucli_printf("found %d device(s)\r\n",onewire_app_vars.numDetectedDevices);
    for (i=0;i<onewire_app_vars.numDetectedDevices;i++) {
-      dnm_cli_printf(" - ");
+      dnm_ucli_printf(" - ");
       printBuf(&onewire_app_vars.detectedDevices[i][0],OWI_ADDR_SIZE);
    }
    
@@ -479,7 +471,7 @@ INT8U owi_searchDev (INT8U *romNums, INT32S *lastDiscrepancy,
             /* serial number search direction write bit */
             dnErr = owi_writeBit(search_direction);
             if (dnErr!=DN_ERR_NONE) {
-               dnm_cli_printf("ow write (0), err=%d\n\r", dnErr);
+               dnm_ucli_printf("ow write (0), err=%d\r\n", dnErr);
             }
             
             /* increment the byte counter id_bit_number
@@ -561,11 +553,11 @@ void owi_iterate_crc(INT8U value, INT8U* crc8) {
 void printBuf(INT8U* buf, INT8U len) {
    INT8U i;
    
-   dnm_cli_printf("(%d bytes)",len);
+   dnm_ucli_printf("(%d bytes)",len);
    for (i=0;i<len;i++) {
-      dnm_cli_printf(" %02x",buf[i]);
+      dnm_ucli_printf(" %02x",buf[i]);
    }
-   dnm_cli_printf("\r\n");
+   dnm_ucli_printf("\r\n");
 }
 
 int hex2array(const char * str, INT8U * buf, int bufSize) {
@@ -604,16 +596,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

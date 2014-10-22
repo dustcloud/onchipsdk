@@ -21,6 +21,9 @@ var unionread__output__t =
     [ "ctsRtsTimeout", "unionread__output__t.html#ac02f51a419329edd84846db672bbd80f", null ],
     [ "loLeakageOn", "unionread__output__t.html#a6c2ac9722132a820368942872b6a4f49", null ],
     [ "extMemSize", "unionread__output__t.html#a1738c33c8eff42f26e12a321fbe4e157", null ],
+    [ "apiPortInterPkDelay", "unionread__output__t.html#aca341df0ff63ce5ec798678f5cc8e1d0", null ],
     [ "baseFreq", "unionread__output__t.html#aa0053975f31a77f2d940a23c794a5e79", null ],
-    [ "speedupFreq", "unionread__output__t.html#aa1db24e8415bf59497b0408d13354346", null ]
+    [ "speedupFreq", "unionread__output__t.html#aa1db24e8415bf59497b0408d13354346", null ],
+    [ "poutLimit", "unionread__output__t.html#ab6bbc343e3870f50633de7e221249155", null ],
+    [ "apiPortSleep", "unionread__output__t.html#a45b51c7605e9bf082c42dab1d3f90345", null ]
 ];
