@@ -6,7 +6,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #define __OCFDK_CLI_TASK_H
 
 #include "dn_common.h"
-#include "dnm_cli.h"
+#include "dnm_ucli.h"
 
 //============================ defines ========================================
 
@@ -18,10 +18,32 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 
 //=========================== prototypes ======================================
 
+/**
+\brief User-defined CLI command handler.
+
+Typically, this function parses parameters and handles the 
+command accordingly. 
+*/
+typedef dn_error_t (*dnm_ucli_cmdHandler_t)(INT8U * cmd, INT32U len);
+
+/**
+\brief CLI command descriptor
+
+This structure describes a single command terminated by your application.
+*/
+typedef struct {
+   const dnm_ucli_cmdHandler_t    handler;       ///< Function to handle the command.
+   const char*                    command;       ///< Command string.
+   const char*                    usage;         ///< Brief usage string.
+   const dn_cli_access_t          accessLevel;   ///< Minimum access level required to run command.
+} dnm_ucli_cmdDef_t;
+
+
 void cli_task_init(
-   dnm_cli_cont_t*      cliContext,
    char*                appName,
-   dnm_cli_cmdDef_t*    cliCommandDefinitions
+   dnm_ucli_cmdDef_t*   cliCommandDefinitions
 );
+
+void cli_procNotif (INT8U type, INT8U cmdId, INT8U *pCmdParams, INT8U paramsLen);
 
 #endif  

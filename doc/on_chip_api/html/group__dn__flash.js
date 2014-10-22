@@ -9,6 +9,7 @@ var group__dn__flash =
       [ "flags", "structdn__flash__par__info__t.html#ab6b306ef981f5e21bb41ea2c2dbe8cd9", null ]
     ] ],
     [ "DN_FLASH_PAR_NAME_TEMPLATE", "group__dn__flash.html#gab235f59204443b831acf37fc00ce157d", null ],
+    [ "DN_FLASH_ZEROIZE_PASSWORD", "group__dn__flash.html#ga3dd5f61696d2105a17b91fa34002b39b", null ],
     [ "DN_FLASH_PAR_FLG_RO", "group__dn__flash.html#ga582c41f9ed80ac8038baa408a94bcc03", null ],
     [ "DN_FLASH_PAR_EXEC", "group__dn__flash.html#gafdee8f603e913f5eb590c66f353bd880", null ],
     [ "dn_flash_par_t", "group__dn__flash.html#ga88f58fe053286c9f35aaf963e12b95af", null ],
@@ -27,5 +28,6 @@ var group__dn__flash =
     [ "dn_flash_getInfo", "group__dn__flash.html#ga39c78e22e53a233111a385a89194842f", null ],
     [ "dn_flash_write", "group__dn__flash.html#ga09f2cd505525cc54da5210ba94320412", null ],
     [ "dn_flash_read", "group__dn__flash.html#ga95e5e43334f7982cebd12d8c9e1e4a75", null ],
-    [ "dn_flash_pageErase", "group__dn__flash.html#ga33984f7406eda03e60c797396d843059", null ]
+    [ "dn_flash_pageErase", "group__dn__flash.html#ga33984f7406eda03e60c797396d843059", null ],
+    [ "dn_flash_zeroize", "group__dn__flash.html#ga3797edccbfa21ec1879f6b128622311a", null ]
 ];

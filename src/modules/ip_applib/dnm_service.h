@@ -14,8 +14,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
  * - Keeps track of currently required and assigned bandwidth.
  *
  * To use service module, application must follow the following steps:<br>
- * - Initialize service module with \ref dnm_sm_init by providing a pointer to \ref dnm_cli_cont_t and trace flag associated
- *   with the service module.
+ * - Initialize service module with \ref dnm_sm_init.
  * - Invoke \ref dnm_sm_registerChannel inorder to register each channel of the data engine with service module.
  * - Invoke \ref dnm_sm_updateSvcParam inorder to update the network controller for the bandwidth.
  * - Invoke \ref dnm_sm_svcChanged whenever a service changed event is received. Internally it updates itself with the 
@@ -34,8 +33,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
 #include "dn_typedef.h"
 #include "dn_errno.h"
 #include "dn_channel.h"
-#include "dnm_cli.h"
-#include "dnm_cli_util.h"
+#include "dnm_ucli.h"
 
 /********************************************************************
                           Constants and Enumerations
@@ -75,7 +73,7 @@ typedef enum{
 @{ */
 
 // Initilizes the service module.
-void dnm_sm_init(dnm_cli_cont_t *cliContext, INT32S TraceFlag);
+void dnm_sm_init(void);
 
 // Registers a channel for an entry in SM module.
 sm_error_t dnm_sm_registerChannel(INT8U *RegId);
@@ -97,6 +95,11 @@ INT32U dnm_sm_getAllocBandWidth(void);
 
 // Gets the aggregated bandwidth.
 INT32U dnm_sm_getAggrBandWidth(void);
+
+// Enable/disable trace
+void dnm_sm_traceControl (INT8U traceFlag);
+// Check if trace is enabled
+BOOLEAN dnm_sm_isTraceEnabled (void);
 
 /** @} Service Module API */
 

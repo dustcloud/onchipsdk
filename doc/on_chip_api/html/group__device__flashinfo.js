@@ -25,13 +25,22 @@ var group__device__flashinfo =
       [ "ctsRtsTimeout", "unionread__output__t.html#ac02f51a419329edd84846db672bbd80f", null ],
       [ "loLeakageOn", "unionread__output__t.html#a6c2ac9722132a820368942872b6a4f49", null ],
       [ "extMemSize", "unionread__output__t.html#a1738c33c8eff42f26e12a321fbe4e157", null ],
+      [ "apiPortInterPkDelay", "unionread__output__t.html#aca341df0ff63ce5ec798678f5cc8e1d0", null ],
       [ "baseFreq", "unionread__output__t.html#aa0053975f31a77f2d940a23c794a5e79", null ],
-      [ "speedupFreq", "unionread__output__t.html#aa1db24e8415bf59497b0408d13354346", null ]
+      [ "speedupFreq", "unionread__output__t.html#aa1db24e8415bf59497b0408d13354346", null ],
+      [ "poutLimit", "unionread__output__t.html#ab6bbc343e3870f50633de7e221249155", null ],
+      [ "apiPortSleep", "unionread__output__t.html#a45b51c7605e9bf082c42dab1d3f90345", null ]
     ] ],
     [ "dn_bsp_param_read_t", "uniondn__bsp__param__read__t.html", [
       [ "input", "uniondn__bsp__param__read__t.html#a8e2e2fde94f00b4d733c98db4e0801d8", null ],
       [ "output", "uniondn__bsp__param__read__t.html#a6e5ee4fe808c99ee4a65d99207bd73a1", null ]
     ] ],
+    [ "DN_32KHZ_SRC_DISABLED", "group__device__flashinfo.html#ga278f8e2e88011e41961ea14fd931e077", null ],
+    [ "DN_32KHZ_SRC_PWM", "group__device__flashinfo.html#ga41ba743d3a69b1d0e8663b50f6434fcd", null ],
+    [ "DN_32KHZ_SRC_NTP", "group__device__flashinfo.html#ga12f6c466abaf216b4b08c2b547ed2f1c", null ],
+    [ "DN_32KHZ_SRC_OSC", "group__device__flashinfo.html#gafbb677ed0335bfd1757ba0336568f308", null ],
+    [ "DN_API_PORT_SLEEP_OFF", "group__device__flashinfo.html#ga2d2750b8a3e15ee4b2fdaec481939f45", null ],
+    [ "DN_API_PORT_SLEEP_ON", "group__device__flashinfo.html#ga00c97fdcac807b5ed7099c6e0c48c927", null ],
     [ "dn_bsp_param_tag_id", "group__device__flashinfo.html#ga77fd46484f5ecb334f1edbd09e20eb05", [
       [ "DN_BSP_PARAM_MANUF_ID", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a0f3c474a5dc6efb34340815a13778589", null ],
       [ "DN_BSP_PARAM_BOARD_ID", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05ac5f6f325d975b486f956c8899d909b0c", null ],
@@ -60,6 +69,8 @@ var group__device__flashinfo =
       [ "DN_BSP_PARAM_API_PORT_INTERPK_DLY", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05abda8f99107ef7905da026381c0ebfbf6", null ],
       [ "DN_BSP_PARAM_NOMINAL_FREQ", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05af0c93a7f138faa846c2a8d56b790aeae", null ],
       [ "DN_BSP_PARAM_SPEEDUP_FREQ", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a37f1a8cb85bdbae42a0604ed82c131f0", null ],
+      [ "DN_BSP_PARAM_LTM5850_MAX_POUT", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05aba412b14f5668e63d724d119fc3eee85", null ],
+      [ "DN_BSP_PARAM_API_PORT_SLEEP", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a9ad061f565ef31d3e989f8e76bf8fae0", null ],
       [ "DN_BSP_PARAM_LAST", "group__device__flashinfo.html#gga77fd46484f5ecb334f1edbd09e20eb05a2d22d92f5d0a6ccb857675e4f510a475", null ]
     ] ]
 ];

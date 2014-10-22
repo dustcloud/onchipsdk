@@ -53,6 +53,7 @@ var group__device__api =
       [ "DN_CHARGE_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a20e720b401da44ad0be565e34967a9be", null ],
       [ "DN_FLASHINFO_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a143a48c634e18466be5a4a9bb3d69afb", null ],
       [ "DN_GPIO_OUT_PINS_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a5b43c3b3d01213323034d227fddbca1d", null ],
+      [ "DN_BATT_NO_LOAD_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a6d7cd9f159e31852ff4384a176600441", null ],
       [ "DN_MAX_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a30f268cb3a08f001c8103ba9d7d9ce6d", null ]
     ] ],
     [ "dn_open", "group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e", null ],

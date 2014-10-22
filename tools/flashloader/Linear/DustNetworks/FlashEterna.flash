@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<flash_device>
+  <exe>$TOOLKIT_DIR$\config\flashloader\Linear\DustNetworks\FlashEterna.out</exe>
+  <page>2048</page>
+  <gap>0x40000</gap>
+  <block>128 0x800</block>
+  <block>128 0x800</block>
+  <flash_base>0x0</flash_base>
+  <macro>$TOOLKIT_DIR$\config\flashloader\Linear\DustNetworks\FlashEterna.mac</macro>
+</flash_device>

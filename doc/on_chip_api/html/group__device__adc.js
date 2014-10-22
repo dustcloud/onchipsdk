@@ -1,12 +1,17 @@
 var group__device__adc =
 [
     [ "dn_adc_drv_open_args_t", "structdn__adc__drv__open__args__t.html", [
+      [ "loadBattery", "structdn__adc__drv__open__args__t.html#abc252fef0aa7e74440b414139997e9c2", null ],
       [ "rdacOffset", "structdn__adc__drv__open__args__t.html#a77b9f4375f50c3a119cad260ea0e43fe", null ],
       [ "vgaGain", "structdn__adc__drv__open__args__t.html#a7c3a35611c921762630949021589276f", null ],
       [ "fBypassVga", "structdn__adc__drv__open__args__t.html#a4c126e5cc058790d3e001840a62159e0", null ]
     ] ],
-    [ "dn_adc_drv_ioctl_load_t", "structdn__adc__drv__ioctl__load__t.html", [
-      [ "loadBattery", "structdn__adc__drv__ioctl__load__t.html#abc252fef0aa7e74440b414139997e9c2", null ]
+    [ "dn_adc_drv_ioctl_rdac_t", "structdn__adc__drv__ioctl__rdac__t.html", [
+      [ "rdacOffset", "structdn__adc__drv__ioctl__rdac__t.html#a77b9f4375f50c3a119cad260ea0e43fe", null ]
+    ] ],
+    [ "dn_adc_drv_ioctl_vga_t", "structdn__adc__drv__ioctl__vga__t.html", [
+      [ "vgaGain", "structdn__adc__drv__ioctl__vga__t.html#a2f5a00196e43bb13ce2bfdfade28e781", null ],
+      [ "fBypassVga", "structdn__adc__drv__ioctl__vga__t.html#a92808f572ea7044d7ed4d33769880ddc", null ]
     ] ],
     [ "DN_ADC_RDAC_113mV", "group__device__adc.html#ga88566a0dd3dd828de64e6b51d50ea8b7", null ],
     [ "DN_ADC_RDAC_225mV", "group__device__adc.html#ga9dedc772b5fa3a4a79fb943e0fd003e3", null ],
@@ -32,5 +37,7 @@ var group__device__adc =
     [ "DN_ADC_VGA_300mVpp", "group__device__adc.html#gabafbd5c86bd2dd7010c4d53d12f21bb2", null ],
     [ "DN_ADC_VGA_257mVpp", "group__device__adc.html#ga7299ee63724103c9fd25a13d595755c9", null ],
     [ "DN_ADC_VGA_225mVpp", "group__device__adc.html#ga6ee824bce99d8942029cbe1fb21a4878", null ],
-    [ "DN_IOCTL_ADC_LOAD_CFG", "group__device__adc.html#ga19788ebb23a4cf2ca220995313732ff4", null ]
+    [ "DN_IOCTL_RESERVED", "group__device__adc.html#gae1c61ac79b3d6ab0a7e5e6e0381e8ca8", null ],
+    [ "DN_IOCTL_RDAC_OFFSET_CFG", "group__device__adc.html#ga300fe1ff7702bd343480fce5271d1a34", null ],
+    [ "DN_IOCTL_VGA_GAIN_CFG", "group__device__adc.html#ga87bba95bdf0ec3019108b860c60f6f7d", null ]
 ];

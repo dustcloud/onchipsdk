@@ -8,6 +8,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dn_system.h"
 #include "dn_gpio.h"
 #include "dn_spi.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -18,7 +19,6 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t            cliContext;
    INT8U                     ledToggleFlag;
    OS_STK                    spiTaskStack[TASK_APP_SPI_STK_SIZE];
    INT8U                     spiTxBuffer[SPI_BUFFER_LENGTH];
@@ -42,12 +42,10 @@ int p2_init(void) {
    INT8U                   osErr;
 
    cli_task_init(
-      &spi_app_v.cliContext,                // cliContext
       "spi",                                // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &spi_app_v.cliContext,                // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -124,9 +122,7 @@ static void spiTask(void* unused) {
       &spiOpenArgs,
       sizeof(spiOpenArgs)
    );
-   if ((err < DN_ERR_NONE) && (err != DN_ERR_STATE)) {
-      dnm_cli_printf("unable to open SPI device, error %d\n\r",err);
-   }
+   ASSERT((err == DN_ERR_NONE) || (err == DN_ERR_STATE));
    
    // initialize spi communication parameters
    spiTransfer.txData             = spi_app_v.spiTxBuffer;
@@ -137,7 +133,7 @@ static void spiTask(void* unused) {
    spiTransfer.clockPolarity      = DN_SPI_CPOL_0;
    spiTransfer.clockPhase         = DN_SPI_CPHA_0;
    spiTransfer.bitOrder           = DN_SPI_MSB_FIRST;
-   spiTransfer.slaveSelect        = DN_SPI_SSn0;
+   spiTransfer.slaveSelect        = DN_SPIM_SS_0n;
    spiTransfer.clockDivider       = DN_SPI_CLKDIV_16;
    
    while(1) {
@@ -169,9 +165,7 @@ static void spiTask(void* unused) {
          &spiTransfer,
          sizeof(spiTransfer)
       );
-      if (err < DN_ERR_NONE) {
-         dnm_cli_printf("Unable to communicate over SPI, err=%d\r\n",err);
-      }
+      ASSERT(err >= DN_ERR_NONE);
       
       // toggle green LED
       dn_write(
@@ -181,11 +175,11 @@ static void spiTask(void* unused) {
       );
       
       // print on CLI
-      dnm_cli_printf("SPI sent:    ",err);
+      dnm_ucli_printf("SPI sent:    ",err);
       for (i=0;i<sizeof(spi_app_v.spiTxBuffer);i++) {
-         dnm_cli_printf(" %02x",spi_app_v.spiTxBuffer[i]);
+         dnm_ucli_printf(" %02x",spi_app_v.spiTxBuffer[i]);
       }
-      dnm_cli_printf("\r\n");
+      dnm_ucli_printf("\r\n");
       
       //===== step 2. verify we received something over SPI
       
@@ -206,11 +200,11 @@ static void spiTask(void* unused) {
       }
       
       // print on CLI
-      dnm_cli_printf("SPI received:",err);
+      dnm_ucli_printf("SPI received:",err);
       for (i=0;i<sizeof(spi_app_v.spiTxBuffer);i++) {
-         dnm_cli_printf(" %02x",spi_app_v.spiRxBuffer[i]);
+         dnm_ucli_printf(" %02x",spi_app_v.spiRxBuffer[i]);
       }
-      dnm_cli_printf("\r\n");
+      dnm_ucli_printf("\r\n");
    }
 }
 
@@ -223,16 +217,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. Thus header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

@@ -3,6 +3,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 */
 
 #include "dn_common.h"
+#include "dn_exe_hdr.h"
 #include <string.h>
 #include "stdio.h"
 #include "cli_task.h"
@@ -28,7 +29,6 @@ void timerB_cb(void* pTimer, void *pArgs);
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t cliContext;
    INT8U          iter;
    OS_EVENT*      timerBsem;
    // timerATask
@@ -55,12 +55,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &uc_timers_app_vars.cliContext,       // cliContext
       "uc_timers",                          // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &uc_timers_app_vars.cliContext,       // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -116,7 +114,7 @@ static void timerATask(void* unused) {
       OSTimeDly(DELAY_TIMER_A_TASK);
       
       // print
-      dnm_cli_printf("A");
+      dnm_ucli_printf("A");
    }
 }
 
@@ -155,7 +153,7 @@ static void timerBTask(void* unused) {
       ASSERT (osErr == OS_ERR_NONE);
       
       // print
-      dnm_cli_printf("B");
+      dnm_ucli_printf("B");
    }
 }
 
@@ -178,16 +176,10 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);
 
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};

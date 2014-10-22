@@ -5,5 +5,5 @@ var group___services =
     [ "Security", "group__dn__security.html", "group__dn__security" ],
     [ "File System", "group__dn__fs.html", "group__dn__fs" ],
     [ "Flash", "group__dn__flash.html", "group__dn__flash" ],
-    [ "CLI module", "group__module__dnm__cli.html", "group__module__dnm__cli" ]
+    [ "CLI module", "group__module__dnm__ucli.html", "group__module__dnm__ucli" ]
 ];

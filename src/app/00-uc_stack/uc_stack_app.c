@@ -3,6 +3,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 */
 
 #include "dn_common.h"
+#include "dn_exe_hdr.h"
 #include <string.h>
 #include "stdio.h"
 #include "cli_task.h"
@@ -15,7 +16,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_iterCmdHandler(INT8U* arg, INT32U len, INT8U offset);
+dn_error_t cli_iterCmdHandler(INT8U* arg, INT32U len);
 //===== tasks
 static void stackTask(void* unused);
 //===== helpers
@@ -23,15 +24,14 @@ INT32U recursiveSum(INT32U val);
 
 //=========================== const ===========================================
 
-const dnm_cli_cmdDef_t cliCmdDefs[] = {
-   {&cli_iterCmdHandler,     "iter",   "[a]",         DN_CLI_ACCESS_USER},
+const dnm_ucli_cmdDef_t cliCmdDefs[] = {
+   {&cli_iterCmdHandler,     "iter",   "[a]",         DN_CLI_ACCESS_LOGIN},
    {NULL,                    NULL,     NULL,          0},
 };
 
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t cliContext;
    INT8U          iter;
    // stackTask
    OS_STK         stackTaskStack[TASK_APP_UC_STACK_STK_SIZE];
@@ -55,12 +55,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &uc_stack_app_vars.cliContext,        // cliContext
       "uc_stack",                           // appName
       &cliCmdDefs                           // cliCmds
    );
    loc_task_init(
-      &uc_stack_app_vars.cliContext,        // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -91,16 +89,13 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_iterCmdHandler(INT8U* arg, INT32U len, INT8U offset) {
-   char* token; 
-   int   a;
+dn_error_t cli_iterCmdHandler(INT8U* arg, INT32U len) {
+   int   a, l;
    
    //--- param 0: iter
-   token = dnm_cli_getNextToken(&arg, ' ');
-   if (token == NULL) {
+   l = sscanf(arg, "%d", &a);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {  
-      sscanf(token, "%d", &a);
    }
    
    //---- store
@@ -123,12 +118,12 @@ static void stackTask(void* unused) {
       
       // fill stack
       val = recursiveSum(uc_stack_app_vars.iter);
-      dnm_cli_printf("sum       %d\r\n",val);
+      dnm_ucli_printf("sum       %d\r\n",val);
       
       // print stack usage
       osErr = OSTaskStkChk(OS_PRIO_SELF, &stackSize);
       ASSERT(osErr==OS_ERR_NONE);
-      dnm_cli_printf(
+      dnm_ucli_printf(
          "stack usage: %d bytes / %d bytes\r\n",
          4*stackSize.OSUsed,
          4*(stackSize.OSUsed + stackSize.OSFree)
@@ -139,7 +134,7 @@ static void stackTask(void* unused) {
 //=========================== helpers =========================================
 
 INT32U recursiveSum(INT32U val) {
-    dnm_cli_printf("iteration %d\r\n",val);
+    dnm_ucli_printf("iteration %d\r\n",val);
     if (val==0) {
         return 0;
     } else {
@@ -156,16 +151,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

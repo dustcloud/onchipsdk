@@ -13,8 +13,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
  * - Maintains packet failure rate of each data engine, which it uses inorder to back-off packets.
  * 
  * To use rate control module, application must follow the following steps:<br>
- * - Initialize rate control module with \ref dnm_rcm_init by providing a pointer to \ref dnm_cli_cont_t and trace flag associated
- *   with the rate control module.
+ * - Initialize rate control module with \ref dnm_rcm_init.
  * - Invoke \ref dnm_rcm_registerChannel inorder to register each channel of the data engine with rate control module.
  * - Invoke \ref dnm_rcm_transmitFrame inorder to transmit the packet.
  */
@@ -29,8 +28,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
 #include "dn_typedef.h"
 #include "dn_errno.h"
 #include "dn_channel.h"
-#include "dnm_cli.h"
-#include "dnm_cli_util.h"
+#include "dnm_ucli.h"
 
 /********************************************************************
                           Constants and Enumerations
@@ -74,7 +72,7 @@ typedef enum{
 @{ */
 
 //Initilizes penalty count buffers as unused.
-void dnm_rcm_init(dnm_cli_cont_t *cliContext, INT32S TraceFlag);
+void dnm_rcm_init(void);
 
 // Request to transmit a frame.
 rcm_error_t dnm_rcm_transmitFrame(INT8U regId, INT8U* payload, INT8U payloadSize,
@@ -82,6 +80,11 @@ rcm_error_t dnm_rcm_transmitFrame(INT8U regId, INT8U* payload, INT8U payloadSize
 
 // Registers channel for an entry in RCM module.
 rcm_error_t dnm_rcm_registerChannel(INT8U *regId);
+
+// Enable/disable trace
+void dnm_rcm_traceControl (INT8U traceFlag);
+// Check if trace is enabled
+BOOLEAN dnm_rcm_isTraceEnabled (void);
 
 /** @} Rate Control Module API */
 

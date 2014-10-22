@@ -7,6 +7,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "loc_task.h"
 #include "dn_gpio.h"
 #include "dn_system.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -21,11 +22,10 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t cliContext;
    // gpioToggle
    OS_STK         gpioToggleTaskStack[TASK_APP_GPIOTOGGLE_STK_SIZE];
    // gpioNotif
-   INT8U          gpioNotifChannelBuf[DN_CH_ASYNC_RXBUF_SIZE(sizeof(dn_gpio_notif_t))];
+   INT32U         gpioNotifChannelBuf[1+DN_CH_ASYNC_RXBUF_SIZE(sizeof(dn_gpio_notif_t))/sizeof(INT32U)];
    OS_STK         gpioNotifTaskStack[TASK_APP_GPIONOTIF_STK_SIZE];
 } gpio_app_vars_t;
 
@@ -48,12 +48,10 @@ int p2_init(void) {
    //==== initialize helper tasks
    
    cli_task_init(
-      &gpio_app_v.cliContext,               // cliContext
       "gpio",                               // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &gpio_app_v.cliContext,               // cliContext
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
       UDPPORT_NONE,                         // udpPort
@@ -220,7 +218,7 @@ static void gpioNotifTask(void* unused) {
       ASSERT(dnErr==DN_ERR_NONE);
       
       // print
-      dnm_cli_printf("gpioNotifTask: level=%d.\n\r",gpioNotif.level);
+      dnm_ucli_printf("gpioNotifTask: level=%d.\r\n",gpioNotif.level);
 
       // re-arm notification on opposite level
       if (gpioNotifEnable.activeLevel==0x01) {
@@ -247,16 +245,9 @@ static void gpioNotifTask(void* unused) {
  application. Thus header is needed for your application to start running.
  */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

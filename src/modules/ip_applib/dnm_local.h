@@ -11,8 +11,7 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
 #include "dn_typedef.h"
 #include "dn_errno.h"
 #include "dn_channel.h"
-#include "dnm_cli.h"
-#include "dnm_cli_util.h"
+#include "dnm_ucli.h"
 
 
 /**
@@ -54,7 +53,7 @@ typedef dn_error_t (*rxNotifCb_t)(dn_api_loc_notif_received_t *rxFrame,
 \param[in]  events Pointer to the received events.
 \param[out] rsp    Pointer to hold the response.
 
-\return DN_ERR_NONE on success, DN_ERR_ERROR on failure.
+\return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*eventNotifCb_t)(dn_api_loc_notif_events_t *events, 
                                      INT8U *rsp);
@@ -65,7 +64,7 @@ typedef dn_error_t (*eventNotifCb_t)(dn_api_loc_notif_events_t *events,
 \param[in] alarms Alarms bit field.
 \param[in] events Event bit field.
 
-\return DN_ERR_NONE on success, DN_ERR_ERROR on failure.
+\return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*passThroughEventNotifCb_t)(INT32U events, INT32U alarms);
  
@@ -77,7 +76,7 @@ typedef dn_error_t (*passThroughEventNotifCb_t)(INT32U events, INT32U alarms);
 \param[in]  buffLen     Length of the notification data.
 \param[out] rsp         Pointer to hold the response.
 
-\return DN_ERR_NONE on success, DN_ERR_ERROR on failure.
+\return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*locNotifCb_t)(INT8U notfId, INT8U *notifBuffer, 
                                    INT8U buffLen, INT8U *rsp);
@@ -91,7 +90,7 @@ typedef dn_error_t (*locNotifCb_t)(INT8U notfId, INT8U *notifBuffer,
 \param[in]  buffLen     Length notification frame.
 \param[out] rsp         Pointer to hold the response.
 
-\return DN_ERR_NONE on success, DN_ERR_ERROR on failure.
+\return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*passThroughNotifCb_t)(INT8U **pBuf, INT8U bufLen, INT8U *rsp);
 
@@ -101,7 +100,7 @@ typedef dn_error_t (*passThroughNotifCb_t)(INT8U **pBuf, INT8U bufLen, INT8U *rs
 
 \param[out] rsp Pointer to hold the response.
 
-\return DN_ERR_NONE on success, DN_ERR_ERROR on failure.
+\return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*isOkToProcessNotifsCb_t)(void);
 
@@ -110,6 +109,8 @@ typedef dn_error_t (*isOkToProcessNotifsCb_t)(void);
 
 \param[in] rxFrame Pointer the time notification frame.
 \param[in] length  Length of time notification frame.
+
+\return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*timeNotifCb_t)(dn_api_loc_notif_time_t *rxFrame, 
                             INT8U length) ;
@@ -122,8 +123,7 @@ typedef dn_error_t (*timeNotifCb_t)(dn_api_loc_notif_time_t *rxFrame,
 */
 
 void dnm_loc_processNotifications(void);
-dn_error_t dnm_loc_init(passThrough_mode_t mode, dnm_cli_cont_t *cliContext, INT32S TraceFlag,
-                        INT8U *pBuffer, INT8U buffLen);
+dn_error_t dnm_loc_init(passThrough_mode_t mode, INT8U *pBuffer, INT8U buffLen);
 dn_error_t dnm_loc_setParameterCmd(INT8U paramId, INT8U *payload, 
                                    INT8U length, INT8U *rc);
 dn_error_t dnm_loc_getParameterCmd(INT8U paramId, INT8U *payload, 
@@ -133,11 +133,11 @@ dn_error_t dnm_loc_joinCmd(INT8U *rc);
 dn_error_t dnm_loc_disconnectCmd(INT8U *rc);
 dn_error_t dnm_loc_resetCmd(INT8U *rc);
 dn_error_t dnm_loc_lowPowerSleepCmd(INT8U *rc);
-dn_error_t dnm_loc_testRadioTxCmd(INT8U typeParam, INT16U mask, INT8S power, 
+dn_error_t dnm_loc_testRadioTxCmd(INT8U typeParam, INT16U mask, INT8S power, INT8U stationId,
                                   INT16U numRepeats, INT8U numSubtests, 
                                   dn_api_loc_testrftx_subtestparam_t * subTests,
                                   INT8U *rc);
-dn_error_t dnm_loc_testRadioRxCmd(INT16U mask, INT16U durationRxTest, INT8U *rc);
+dn_error_t dnm_loc_testRadioRxCmd(INT16U mask, INT16U durationRxTest, INT8U stationId, INT8U *rc);
 dn_error_t dnm_loc_requestServiceCmd(dn_moteid_t destAddr,
                                      INT8U svcType, INT32U svcInfo,
                                      INT8U *rc);
@@ -155,6 +155,8 @@ dn_error_t dnm_loc_sendRaw(INT8U* payload, INT8U length, INT8U* rsp, INT8U *rspL
 void dnm_loc_prepareNotifResponse(INT8U notifId, INT8U response);
 dn_error_t dnm_loc_registerPassthroughEvNotifCallback(passThroughEventNotifCb_t cb);
 dn_error_t dnm_loc_registerPassThroughNotifCallback(passThroughNotifCb_t cb);
+void dnm_loc_traceControl (INT8U traceFlag);
+BOOLEAN dnm_loc_isTraceEnabled (void);
 
 /**
 // end of Local Interface API

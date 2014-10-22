@@ -19,10 +19,12 @@ var group__dn__channel =
       [ "DN_MSG_TYPE_NET_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a0891fcc77d14ac297a1a4edde08a6800", null ],
       [ "DN_MSG_TYPE_NET_CTRL", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a1b48b1680c7d22da8d0d7286d95aae0d", null ],
       [ "DN_MSG_TYPE_UART_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a7882c0103a8b2a6dc23374126d5ffda1", null ],
+      [ "DN_MSG_TYPE_UART_EVENTS", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362ab49c188af81cff22d96f372008640310", null ],
       [ "DN_MSG_TYPE_UART_TX_CTRL", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a8974c4d1a6e3d4eeae4991a3f2624efb", null ],
       [ "DN_MSG_TYPE_TIMEPIN_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362aefe8b4e9d9755fc338cbfab787591953", null ],
       [ "DN_MSG_TYPE_GPIO_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a32b78c24818d7e8cb6994209b64677b9", null ],
       [ "DN_MSG_TYPE_RADIOTEST", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362ad0ba9a311e392a1723c140100af408b6", null ],
+      [ "DN_MSG_TYPE_REQTIME_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a0b15f011433c52e401e17b6e9dcd1cb5", null ],
       [ "DN_MSG_TYPE_LAST", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362aa68cbc744ec928fd9e88437acf3adc94", null ]
     ] ],
     [ "dn_registerChannel", "group__dn__channel.html#gae42baab8889803dd65dead999d3e842f", null ],

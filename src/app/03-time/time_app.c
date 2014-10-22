@@ -7,6 +7,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "cli_task.h"
 #include "loc_task.h"
 #include "dn_time.h"
+#include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
 
@@ -15,7 +16,6 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== variables =======================================
 
 typedef struct {
-   dnm_cli_cont_t            cliContext;
    OS_STK                    timeTaskStack[TASK_APP_TIME_STK_SIZE];
    dn_time_asn_t             currentASN;
    dn_time_utc_t             currentUTC;
@@ -42,12 +42,10 @@ int p2_init(void) {
    //===== initialize helper tasks
    
    cli_task_init(
-      &time_app_vars.cliContext,            // cliContext
       "time",                               // appName
       NULL                                  // cliCmds
    );
    loc_task_init(
-      &time_app_vars.cliContext,            // cliContext
       JOIN_YES,                             // fJoin
       NULL,                                 // netId
       60000,                                // udpPort
@@ -91,15 +89,15 @@ static void timeTask(void* unused) {
          &time_app_vars.currentASN,
          &time_app_vars.currentUTC
       );
-      dnm_cli_printf("current time:\r\n");
-      dnm_cli_printf(" - ASN:     0x%010x\r\n",(INT32U)(time_app_vars.currentASN.asn));
-      dnm_cli_printf(" - offset:  %d us\r\n",   time_app_vars.currentASN.offset);
+      dnm_ucli_printf("current time:\r\n");
+      dnm_ucli_printf(" - ASN:     0x%010x\r\n",(INT32U)(time_app_vars.currentASN.asn));
+      dnm_ucli_printf(" - offset:  %d us\r\n",   time_app_vars.currentASN.offset);
       
       // system time
       dn_getSystemTime(
          &time_app_vars.sysTime
       );
-      dnm_cli_printf(" - sysTime: %d ticks\r\n",(INT32U)(time_app_vars.sysTime));
+      dnm_ucli_printf(" - sysTime: %d ticks\r\n",(INT32U)(time_app_vars.sysTime));
       
       // wait a bit
       OSTimeDly(5000);
@@ -114,14 +112,14 @@ dn_error_t timeNotifCb(dn_api_loc_notif_time_t* timeNotif, INT8U length) {
    // copy notification to local variables for simpler debugging
    memcpy(&time_app_vars.timeNotif,timeNotif,length);
    
-   dnm_cli_printf("time notification:\r\n");
-   dnm_cli_printf(" - upTime:  %d s\r\n",htonl(time_app_vars.timeNotif.upTime));
-   dnm_cli_printf(" - ASN:     0x");
+   dnm_ucli_printf("time notification:\r\n");
+   dnm_ucli_printf(" - upTime:  %d s\r\n",htonl(time_app_vars.timeNotif.upTime));
+   dnm_ucli_printf(" - ASN:     0x");
    for (i=0;i<sizeof(time_app_vars.timeNotif.asn);i++) {
-      dnm_cli_printf("%02x",time_app_vars.timeNotif.asn.byte[i]);
+      dnm_ucli_printf("%02x",time_app_vars.timeNotif.asn.byte[i]);
    }
-   dnm_cli_printf("\r\n");
-   dnm_cli_printf(" - offset:  %d us\r\n",time_app_vars.timeNotif.offset);
+   dnm_ucli_printf("\r\n");
+   dnm_ucli_printf(" - offset:  %d us\r\n",time_app_vars.timeNotif.offset);
    
    return DN_ERR_NONE;
 }
@@ -135,16 +133,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. This header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

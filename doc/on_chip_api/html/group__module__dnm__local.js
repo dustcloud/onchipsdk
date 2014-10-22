@@ -11,15 +11,15 @@ var group__module__dnm__local =
       [ "PASSTHROUGH_ON", "group__module__dnm__local.html#ggad1f5f7a7a35816607939f6930e0429c8ad618c91b8261f1bbd9c248a38fe17555", null ]
     ] ],
     [ "dnm_loc_processNotifications", "group__module__dnm__local.html#gaa2313c27d38ae7084975575b0bb1ff0a", null ],
-    [ "dnm_loc_init", "group__module__dnm__local.html#gae8f35934346e0c44911f1fc8a2088452", null ],
+    [ "dnm_loc_init", "group__module__dnm__local.html#gabda2e68ca3783c2fecad0ae87a734e3a", null ],
     [ "dnm_loc_setParameterCmd", "group__module__dnm__local.html#ga7ab60c0fa31d046287d27ccc7a5ca444", null ],
     [ "dnm_loc_getParameterCmd", "group__module__dnm__local.html#gafaede593c2ec9f9617d7f6f92e35e61d", null ],
     [ "dnm_loc_joinCmd", "group__module__dnm__local.html#ga899b67ec374310a2943d00a1496d4481", null ],
     [ "dnm_loc_disconnectCmd", "group__module__dnm__local.html#gab57c7c36a52be8857974ae27bad4e01c", null ],
     [ "dnm_loc_resetCmd", "group__module__dnm__local.html#ga91bbc50f46827f6520915131233cf1e5", null ],
     [ "dnm_loc_lowPowerSleepCmd", "group__module__dnm__local.html#gaf1f25c1deea14df1ebe70e8401d4ed97", null ],
-    [ "dnm_loc_testRadioTxCmd", "group__module__dnm__local.html#ga76e3e1ddda5fba2529581224d4c49161", null ],
-    [ "dnm_loc_testRadioRxCmd", "group__module__dnm__local.html#gaa4ae729ca9ee61a667a77b0804e2e8df", null ],
+    [ "dnm_loc_testRadioTxCmd", "group__module__dnm__local.html#gaaf89f8efb287de4413107b59658276e7", null ],
+    [ "dnm_loc_testRadioRxCmd", "group__module__dnm__local.html#ga3ddc6307ba08c4772e26afd13e3b976b", null ],
     [ "dnm_loc_requestServiceCmd", "group__module__dnm__local.html#gaabc0cd527fd86b4cb72ac83948d68929", null ],
     [ "dnm_loc_getAssignedServiceCmd", "group__module__dnm__local.html#ga2a1c430eac9f0ff63a22d6ecbafe1060", null ],
     [ "dnm_loc_openSocketCmd", "group__module__dnm__local.html#gaed1e1690dd07261c07ada25e5bda4739", null ],
@@ -32,5 +32,7 @@ var group__module__dnm__local =
     [ "dnm_loc_registerTimeNotifCallback", "group__module__dnm__local.html#ga2a4b73479c1f83fee343085fa771559e", null ],
     [ "dnm_loc_registerPassthroughEvNotifCallback", "group__module__dnm__local.html#ga69140038d2a4f9df5120bb75d35283d3", null ],
     [ "dnm_loc_registerPassThroughNotifCallback", "group__module__dnm__local.html#ga8f1cc7b8aed7d3c9a1bca62be675bd72", null ],
+    [ "dnm_loc_traceControl", "group__module__dnm__local.html#ga75ddf63afea8079c0f02b91a45bca04a", null ],
+    [ "dnm_loc_isTraceEnabled", "group__module__dnm__local.html#ga096f00a66d3263e0f5df5dd786d22a4a", null ],
     [ "rxNotifCb_t", "group__module__dnm__local.html#ga2a44c961fb12a0328280ed25cbc53b54", null ]
 ];

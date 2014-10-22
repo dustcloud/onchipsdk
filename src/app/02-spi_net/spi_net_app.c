@@ -12,6 +12,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dn_system.h"
 #include "dn_gpio.h"
 #include "dn_fs.h"
+#include "dn_exe_hdr.h"
 #include "well_known_ports.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
@@ -33,7 +34,6 @@ typedef struct{
 
 /// variables local to this application
 typedef struct {
-   dnm_cli_cont_t            cliContext;
    OS_STK                    spiTaskStack[TASK_APP_SPI_STK_SIZE];
    INT8U                     spiTxBuffer[SPI_BUFFER_LENGTH];
    INT8U                     spiRxBuffer[SPI_BUFFER_LENGTH];
@@ -48,8 +48,8 @@ spiNetApp_vars_t     spiNetApp_vars;
 //===== initialization
        void app_init(void);
 //===== CLI
-dn_error_t  spiNetApp_cli_config(INT8U* buf, INT32U len, INT8U offset);
-dn_error_t  spiNetApp_cli_period(INT8U* buf, INT32U len, INT8U offset);
+dn_error_t  spiNetApp_cli_config(INT8U* buf, INT32U len);
+dn_error_t  spiNetApp_cli_period(INT8U* buf, INT32U len);
 //===== configFile
        void initConfigFile(void);
        void syncToConfigFile(void);
@@ -59,9 +59,9 @@ static void spiTask(void* unused);
 
 //=========================== const ===========================================
 
-const dnm_cli_cmdDef_t cliCmdDefs[] = {
-   {&spiNetApp_cli_config,   "config", "config",                     DN_CLI_ACCESS_USER},
-   {&spiNetApp_cli_period,   "period", "period [newPeriod in ms]",   DN_CLI_ACCESS_USER},
+const dnm_ucli_cmdDef_t cliCmdDefs[] = {
+   {&spiNetApp_cli_config,   "config", "config",                     DN_CLI_ACCESS_LOGIN},
+   {&spiNetApp_cli_period,   "period", "period [newPeriod in ms]",   DN_CLI_ACCESS_LOGIN},
    {NULL,                    NULL,     NULL,                         0},
 };
 
@@ -88,14 +88,12 @@ int p2_init(void) {
    
    // CLI task
    cli_task_init(
-      &spiNetApp_vars.cliContext,           // cliContext
       "spi_net",                            // appName
       &cliCmdDefs                           // cliCmds
    );
    
    // local interface task
    loc_task_init(
-      &spiNetApp_vars.cliContext,           // cliContext
       JOIN_YES,                             // fJoin
       NULL,                                 // netId
       WKP_SPI_NET,                          // udpPort
@@ -126,24 +124,22 @@ int p2_init(void) {
 //=========================== CLI =============================================
 
 // "config" command
-dn_error_t spiNetApp_cli_config(INT8U* buf, INT32U len, INT8U offset) {
+dn_error_t spiNetApp_cli_config(INT8U* buf, INT32U len) {
    printConfig();
    return DN_ERR_NONE;
 }
 
 // "period" command
-dn_error_t spiNetApp_cli_period(INT8U* buf, INT32U len, INT8U offset) {
-   char*      token;
+dn_error_t spiNetApp_cli_period(INT8U* buf, INT32U len) {
    int        sarg;
-   
-   buf += offset;
+   int        l;
    
    //--- param 0: period
-   token = dnm_cli_getNextToken(&buf, ' ');
-   if (token == NULL) {
+   l = sscanf (buf, "%d", &sarg);
+   if (l < 1) {
       return DN_ERR_INVALID;
-   } else {
-      sscanf (token, "%d", &sarg);
+   }
+   else {
       spiNetApp_vars.period = (INT16U)sarg;
    }
    
@@ -263,8 +259,8 @@ void syncToConfigFile(void) {
 }
 
 void printConfig(void) {
-   dnm_cli_printf("Current config:\r\n");
-   dnm_cli_printf(" - period:  %d\r\n",spiNetApp_vars.period);
+   dnm_ucli_printf("Current config:\r\n");
+   dnm_ucli_printf(" - period:  %d\r\n",spiNetApp_vars.period);
 }
 
 //=========================== SPI task ========================================
@@ -296,9 +292,7 @@ static void spiTask(void* unused) {
       &spiOpenArgs,
       sizeof(spiOpenArgs)
    );
-   if ((dnErr < DN_ERR_NONE) && (dnErr != DN_ERR_STATE)) {
-      dnm_cli_printf("unable to open SPI device, error %d\n\r",dnErr);
-   }
+   ASSERT((dnErr == DN_ERR_NONE) || (dnErr == DN_ERR_STATE));
    
    // initialize spi communication parameters
    spiTransfer.txData             = spiNetApp_vars.spiTxBuffer;
@@ -309,7 +303,7 @@ static void spiTask(void* unused) {
    spiTransfer.clockPolarity      = DN_SPI_CPOL_0;
    spiTransfer.clockPhase         = DN_SPI_CPHA_0;
    spiTransfer.bitOrder           = DN_SPI_MSB_FIRST;
-   spiTransfer.slaveSelect        = DN_SPI_SSn0;
+   spiTransfer.slaveSelect        = DN_SPIM_SS_0n;
    spiTransfer.clockDivider       = DN_SPI_CLKDIV_16;
    
    //===== wait for the mote to have joined
@@ -332,23 +326,21 @@ static void spiTask(void* unused) {
          &spiTransfer,
          sizeof(spiTransfer)
       );
-      if (dnErr < DN_ERR_NONE) {
-         dnm_cli_printf("Unable to communicate over SPI, err=%d\r\n",dnErr);
-      }
+      ASSERT(dnErr >= DN_ERR_NONE);
       
       //===== step 2. print over CLI
       
-      dnm_cli_printf("SPI sent:    ");
+      dnm_ucli_printf("SPI sent:    ");
       for (i=0;i<sizeof(spiNetApp_vars.spiTxBuffer);i++) {
-         dnm_cli_printf(" %02x",spiNetApp_vars.spiTxBuffer[i]);
+         dnm_ucli_printf(" %02x",spiNetApp_vars.spiTxBuffer[i]);
       }
-      dnm_cli_printf("\r\n");
+      dnm_ucli_printf("\r\n");
       
-      dnm_cli_printf("SPI received:");
+      dnm_ucli_printf("SPI received:");
       for (i=0;i<sizeof(spiNetApp_vars.spiRxBuffer);i++) {
-         dnm_cli_printf(" %02x",spiNetApp_vars.spiRxBuffer[i]);
+         dnm_ucli_printf(" %02x",spiNetApp_vars.spiRxBuffer[i]);
       }
-      dnm_cli_printf("\r\n");
+      dnm_ucli_printf("\r\n");
       
       //===== step 3. send data to manager
       
@@ -384,16 +376,9 @@ A kernel header is a set of bytes prepended to the actual binary image of this
 application. Thus header is needed for your application to start running.
 */
 
-#include "loader.h"
-
-_Pragma("location=\".kernel_exe_hdr\"") __root
-const exec_par_hdr_t kernelExeHdr = {
-   {'E', 'X', 'E', '1'},
-   OTAP_UPGRADE_IDLE,
-   LOADER_CRC_IGNORE,
-   0,
-   {VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD},
-   0,
-   DUST_VENDOR_ID,
-   EXEC_HDR_RESERVED_PAD
-};
+DN_CREATE_EXE_HDR(DN_VENDOR_ID_NOT_SET,
+                  DN_APP_ID_NOT_SET,
+                  VER_MAJOR,
+                  VER_MINOR,
+                  VER_PATCH,
+                  VER_BUILD);

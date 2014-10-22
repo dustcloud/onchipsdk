@@ -10,6 +10,7 @@ var group__dn__time =
     ] ],
     [ "USEC_PER_SEC", "group__dn__time.html#ga6a69d6cbdab5f24c2e66959293f210c1", null ],
     [ "TIMER_TICKS_PER_SEC", "group__dn__time.html#ga3790164b4b6781f5988faf9c05d8eb1d", null ],
+    [ "DN_IOCTL_TIME_ENABLE_PPS", "group__dn__time.html#gaa5e8c41b53ea7acfce85570f6ff54985", null ],
     [ "dn_getNetworkTime", "group__dn__time.html#ga0365b444b078c5693f4fe0f541ed0854", null ],
     [ "dn_getSystemTime", "group__dn__time.html#gae5f291f2b7582294de66917cc47a05cd", null ],
     [ "dn_asnToUtc", "group__dn__time.html#gafd6cfd00794054f30d287982a0790113", null ],

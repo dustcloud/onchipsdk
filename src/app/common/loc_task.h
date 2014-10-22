@@ -6,7 +6,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #define __OCFDK_LOC_TASK_H
 
 #include "dn_common.h"
-#include "dnm_cli.h"
+#include "dnm_ucli.h"
 #include "dnm_local.h"
 #include "dn_mesh.h"
 
@@ -38,7 +38,6 @@ typedef dn_error_t loc_notifReceiveFunc_t(dn_api_loc_notif_received_t* rxFrame, 
 //=========================== prototypes ======================================
 
 void loc_task_init(
-   dnm_cli_cont_t*      cliContext,
    INT8U                fJoin,
    dn_netid_t           netId,
    INT16U               udpPort,

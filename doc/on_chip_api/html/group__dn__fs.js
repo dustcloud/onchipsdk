@@ -2,6 +2,7 @@ var group__dn__fs =
 [
     [ "dn_fs_fileinfo_t", "structdn__fs__fileinfo__t.html", [
       [ "mode", "structdn__fs__fileinfo__t.html#a1a6b6fb557d8d37d59700faf4e4c9167", null ],
+      [ "status", "structdn__fs__fileinfo__t.html#a85488c9ff4e6d37baf45a5e743d7fa2b", null ],
       [ "owner", "structdn__fs__fileinfo__t.html#a29914836b0c0a23b84f25fba8043e15c", null ],
       [ "len", "structdn__fs__fileinfo__t.html#a966e35e1f011dee892023d867fe3a3b2", null ],
       [ "name", "structdn__fs__fileinfo__t.html#aae68a74bbbb6ebd9476a00cdfeddb4e3", null ]
@@ -20,6 +21,7 @@ var group__dn__fs =
     [ "DN_FS_MODE_OTH_RW", "group__dn__fs.html#gad409e7b9495aa98e402aea82559a5a25", null ],
     [ "DN_FS_MODE_TEMP", "group__dn__fs.html#ga84eacd8d0c934d4bbd66d38eabcc5464", null ],
     [ "DN_FS_MODE_SHADOW", "group__dn__fs.html#ga5abd30dea7a90a46c2021788352269cd", null ],
+    [ "DN_FS_STATUS_RDONLY", "group__dn__fs.html#ga3cc73de680c45404b11b136ab1bbc2ca", null ],
     [ "DN_FS_FILENAME_SIZE", "group__dn__fs.html#ga9521273e0010b9c4cf879f86a9c6606a", null ],
     [ "dn_fs_handle_t", "group__dn__fs.html#ga83682c1b16b9a1b0e65b32a85b79893b", null ],
     [ "dn_fs_deleteTmpFiles", "group__dn__fs.html#gab160d801664d6215869d9e2218e22565", null ],
@@ -33,5 +35,5 @@ var group__dn__fs =
     [ "dn_fs_close", "group__dn__fs.html#gac8cefe866f7fb76dd0e7a36535afcc89", null ],
     [ "dn_fs_getFileInfo", "group__dn__fs.html#ga5677ded1d8611b5c72a02cacafe83de6", null ],
     [ "dn_fs_getFSInfo", "group__dn__fs.html#ga47bbfa8c5f06c2d7e0198b056bf0f61e", null ],
-    [ "dn_fs_zeroize", "group__dn__fs.html#gaffa9e1e5f81a0c99c6b4f997c799402d", null ]
+    [ "dn_fs_invalidate", "group__dn__fs.html#gae76652be28f79f26178ec439a1d3b4e8", null ]
 ];

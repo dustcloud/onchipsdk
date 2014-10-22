@@ -22,6 +22,8 @@ var group__dn__errno =
       [ "DN_ERR_SIZE", "group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167acabfca35744f6e170d4bc4f97813f90d", null ],
       [ "DN_ERR_INVALID_TYPE", "group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167aac56b5ed44383b723df05dcac995e24c", null ],
       [ "DN_ERR_UNKNOWN_PARAM", "group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6910243f7a115b96d57ad296bfba6929", null ],
+      [ "DN_ERR_ACCESS_DENIED", "group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a3a8b3c05ab4f30edc5141af1d8680a04", null ],
+      [ "DN_ERR_LOW_VOLTAGE", "group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6101f1e2d474ceba09e2e0974117496f", null ],
       [ "DN_ERR_LAST", "group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a836e96f5245d87285e8b75d7468b8340", null ]
     ] ]
 ];
