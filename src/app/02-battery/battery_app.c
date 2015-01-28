@@ -71,12 +71,15 @@ static void batteryTask(void* unused) {
    dn_error_t                dnErr;
    int                       numBytesRead;
    INT16U                    voltage;
+   dn_adc_drv_open_args_t    openArgs;
    
+   openArgs.loadBattery = DN_ADC_LOAD_BATT_NONE;
+
    // open battery sensor
    dnErr = dn_open(
       DN_BATT_DEV_ID,        // device
-      NULL,                  // args
-      0                      // argLen 
+      &openArgs,             // args
+      sizeof(openArgs)       // argLen
    );
    ASSERT(dnErr==DN_ERR_NONE);
    
