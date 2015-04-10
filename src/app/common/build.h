@@ -4,5 +4,5 @@
 
 enum {
    // This is the build number used on the next release.
-   VER_BUILD = 7
+   VER_BUILD = 9
 };
