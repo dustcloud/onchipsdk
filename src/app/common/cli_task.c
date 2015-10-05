@@ -110,24 +110,29 @@ This function is called each time a command is entered by the user.
 \param[in] paramsLen The number of bytes in the pCmdParams buffer.
 */
 void cli_procNotif(INT8U type, INT8U cmdId, INT8U *pCmdParams, INT8U paramsLen) {
-   dn_error_t  dnErr;
+   dn_error_t  dnErr = DN_ERR_NONE;
 
    if (
          cli_task_v.cliCmds==NULL ||
          cmdId > cli_task_v.numCliCommands
       ) {
-      dnm_ucli_printf("command not supported\n\r");
+      dnm_ucli_printf("Command not supported\r\n");
       return;
    }
 
    if (type == DN_CLI_NOTIF_INPUT) {
       dnErr = (cli_task_v.cliCmds[cmdId].handler)(pCmdParams, paramsLen);
       if (dnErr == DN_ERR_INVALID) {
-         dnm_ucli_printf("\rinvalid argument(s)");
+         dnm_ucli_printf("Invalid argument(s)\r\n");
       }
    }
+
+   // Print help
+   if (type == DN_CLI_NOTIF_HELP) {
+      dnm_ucli_printf("Usage: %s\r\n", cli_task_v.cliCmds[cmdId].usage);
+   }
    
-   dnm_ucli_printf("\n\r> ");
+   dnm_ucli_printf("\r\n> ");
 }
 
 //=========================== private =========================================
