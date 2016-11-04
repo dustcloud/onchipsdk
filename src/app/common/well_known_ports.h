@@ -14,13 +14,8 @@ Copyright (c) 2014, Dust Networks.  All rights reserved.
 #define WKP_USER_6                0xF0BD
 #define WKP_USER_7                0xF0BE
 #define WKP_USER_8                0xF0BF
-// port used by the On-chip Application Protocol (OAP)
-#define WKP_OAP                   WKP_USER_2
 
-// ports used by different sample applications
-#define WKP_SPI_NET               60100
-#define WKP_GPIO_NET              60101
-#define WKP_DC2126A               60102
-#define WKP_LIS311                60103
+// port used by the On-chip Application Protocol (OAP)
+#define WKP_OAP                   WKP_USER_2
 
 #endif

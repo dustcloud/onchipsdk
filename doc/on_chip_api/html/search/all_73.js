@@ -6,7 +6,8 @@ var searchData=
   ['setparam_2fgetparam_20formats',['setParam/getParam formats',['../group__loc__intf__setgetparam__formats.html',1,'']]],
   ['sampleperiod',['samplePeriod',['../structdn__ioctl__spi__transfer__t.html#a43d3ad97ad5eede4a8aff768557575ac',1,'dn_ioctl_spi_transfer_t']]],
   ['sec',['sec',['../structdn__time__utc__t.html#ab11daf950596cb87689e3e614d05e7b2',1,'dn_time_utc_t']]],
-  ['seqnum',['seqNum',['../structdn__api__loc__notif__ready__for__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2',1,'dn_api_loc_notif_ready_for_time_t::seqNum()'],['../structdn__api__set__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2',1,'dn_api_set_time_t::seqNum()']]],
+  ['sec_5fto_5fmsec',['SEC_TO_MSEC',['../group__dn__time.html#ga4c9224591937a396b150f6d735b34b31',1,'dn_time.h']]],
+  ['seqnum',['seqNum',['../structdn__time__pps__timereq__notif__t.html#ac946a1bca79e072cec9bc01cb0c827c2',1,'dn_time_pps_timereq_notif_t::seqNum()'],['../structdn__api__loc__notif__ready__for__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2',1,'dn_api_loc_notif_ready_for_time_t::seqNum()'],['../structdn__api__set__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2',1,'dn_api_set_time_t::seqNum()'],['../structdn__api__ap__set__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2',1,'dn_api_ap_set_time_t::seqNum()']]],
   ['serialnumber',['serialNumber',['../structdn__api__rsp__get__moteinfo__t.html#a78a294d49771275a767ae8888486c6b5',1,'dn_api_rsp_get_moteinfo_t']]],
   ['services',['Services',['../group___services.html',1,'']]],
   ['servicetype',['serviceType',['../structdn__api__loc__sendto__t.html#a66e71f84b7bf4d9c14fb941830517c99',1,'dn_api_loc_sendto_t']]],
@@ -24,10 +25,11 @@ var searchData=
   ['speedupfreq',['speedupFreq',['../unionread__output__t.html#aa1db24e8415bf59497b0408d13354346',1,'read_output_t']]],
   ['stack',['Stack',['../group___stack.html',1,'']]],
   ['startdelay',['startDelay',['../structdn__ioctl__spi__transfer__t.html#aec2ced2e6e8087dcdb335e74e6be7157',1,'dn_ioctl_spi_transfer_t']]],
-  ['state',['state',['../structdn__api__loc__notif__events__t.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'dn_api_loc_notif_events_t::state()'],['../structdn__api__rsp__get__motestatus__t.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'dn_api_rsp_get_motestatus_t::state()']]],
+  ['state',['state',['../structdn__time__pps__stats__t.html#a098b904cc4606bc5d8dd934d4803a979',1,'dn_time_pps_stats_t::state()'],['../structdn__api__loc__notif__events__t.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'dn_api_loc_notif_events_t::state()'],['../structdn__api__rsp__get__motestatus__t.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'dn_api_rsp_get_motestatus_t::state()'],['../structdn__api__rsp__get__ap__stats__t.html#a098b904cc4606bc5d8dd934d4803a979',1,'dn_api_rsp_get_ap_stats_t::state()'],['../structdn__api__rsp__get__apstatus__t.html#a098b904cc4606bc5d8dd934d4803a979',1,'dn_api_rsp_get_apstatus_t::state()']]],
   ['statereason',['stateReason',['../structdn__api__rsp__get__motestatus__t.html#a346a7502444719e4f5a11a61dc15af3f',1,'dn_api_rsp_get_motestatus_t']]],
   ['stationid',['stationId',['../struct_p_a_c_k_e_d___a_t_t_r.html#a01f99fffba432960bead53ae57971c62',1,'PACKED_ATTR::stationId()'],['../structdn__api__loc__testrfrx__part2__t.html#a01f99fffba432960bead53ae57971c62',1,'dn_api_loc_testrfrx_part2_t::stationId()']]],
-  ['status',['status',['../structdn__fs__fileinfo__t.html#a85488c9ff4e6d37baf45a5e743d7fa2b',1,'dn_fs_fileinfo_t::status()'],['../structdn__api__loc__rsp__get__service__t.html#a015eb90e0de9f16e87bd149d4b9ce959',1,'dn_api_loc_rsp_get_service_t::status()'],['../structdn__api__loc__notif__txdone__t.html#a015eb90e0de9f16e87bd149d4b9ce959',1,'dn_api_loc_notif_txdone_t::status()']]],
+  ['status',['status',['../structdn__fs__fileinfo__t.html#a85488c9ff4e6d37baf45a5e743d7fa2b',1,'dn_fs_fileinfo_t::status()'],['../structdn__api__loc__rsp__get__service__t.html#a015eb90e0de9f16e87bd149d4b9ce959',1,'dn_api_loc_rsp_get_service_t::status()'],['../structdn__api__loc__write__gps__status__t.html#a85488c9ff4e6d37baf45a5e743d7fa2b',1,'dn_api_loc_write_gps_status_t::status()'],['../structdn__api__loc__notif__txdone__t.html#a015eb90e0de9f16e87bd149d4b9ce959',1,'dn_api_loc_notif_txdone_t::status()']]],
+  ['stopbits',['stopBits',['../structdn__uart__raw__open__args__t.html#acd77d285f7dd23841eb7e55000c32686',1,'dn_uart_raw_open_args_t']]],
   ['subtestparam',['subtestParam',['../struct_p_a_c_k_e_d___a_t_t_r.html#a4793e46c0bd7d23cb52479a98d2e8c0f',1,'PACKED_ATTR']]],
   ['swver',['swVer',['../structdn__api__rsp__get__moteinfo__t.html#aaab308f9f121ac2e477f065457acc54a',1,'dn_api_rsp_get_moteinfo_t']]]
 ];

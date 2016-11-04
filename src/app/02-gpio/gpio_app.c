@@ -41,8 +41,6 @@ static void gpioNotifTask(void* unused);
 //=========================== initialization ==================================
 
 int p2_init(void) {
-   dn_error_t             status;
-   dn_error_t             dnErr;
    INT8U                  osErr;
    
    //==== initialize helper tasks
@@ -102,7 +100,7 @@ int p2_init(void) {
 static void gpioToggleTask(void* unused) {
    dn_error_t              dnErr;
    dn_gpio_ioctl_cfg_out_t gpioOutCfg;
-   INT8U                   pinState;
+   char                    pinState;
    
    // open pin
    dnErr = dn_open(
@@ -156,7 +154,6 @@ static void gpioNotifTask(void* unused) {
    dn_gpio_notif_t                gpioNotif;
    INT32U                         rxLen;
    INT32U                         msgType;
-   INT32U                         maxLen;
    
    // allocate memory for GPIO notification channel
    notifChannelMem = OSMemCreate(

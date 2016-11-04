@@ -9,10 +9,10 @@ Copyright (c) 2010, Dust Networks.  All rights reserved.
 #include "dnm_ucli.h"
 
 //=========================== define ==========================================
-#define REQ_BUF_CAST(var,type)      type*             ##var = (type*)(loc_v.ctrlCmdBuf  + sizeof(dn_api_cmd_hdr_t));
-#define RSP_BUF_CAST(var,type)      type*             ##var = (type*)(loc_v.ctrlRespBuf + sizeof(dn_api_cmd_hdr_t));
-#define REQ_HEADER_CAST(var)        dn_api_cmd_hdr_t* ##var = (dn_api_cmd_hdr_t*)(loc_v.ctrlCmdBuf);
-#define RSP_HEADER_CAST(var)        dn_api_cmd_hdr_t* ##var = (dn_api_cmd_hdr_t*)(loc_v.ctrlRespBuf);
+#define REQ_BUF_CAST(var,type)      type*             var = (type*)(loc_v.ctrlCmdBuf  + sizeof(dn_api_cmd_hdr_t));
+#define RSP_BUF_CAST(var,type)      type*             var = (type*)(loc_v.ctrlRespBuf + sizeof(dn_api_cmd_hdr_t));
+#define REQ_HEADER_CAST(var)        dn_api_cmd_hdr_t* var = (dn_api_cmd_hdr_t*)(loc_v.ctrlCmdBuf);
+#define RSP_HEADER_CAST(var)        dn_api_cmd_hdr_t* var = (dn_api_cmd_hdr_t*)(loc_v.ctrlRespBuf);
 
 //=========================== variables =======================================
 
@@ -21,17 +21,19 @@ typedef struct {
    CH_DESC    ctrlChDesc;                                ///< Control channel descriptor.
    CH_DESC    notifChDesc;                               ///< Notification channel descriptor.
    INT8U      ctrlCmdBuf[DN_API_LOC_MAX_REQ_SIZE];       ///< Command to be sent over the control channel.
-   INT8U      ctrlCmdBufLen;                             ///< Length on the command to be sent over the control channel, in bytes.
+   INT16U     ctrlCmdBufLen;                             ///< Length on the command to be sent over the control channel, in bytes.
    INT8U      ctrlRespBuf[DN_API_LOC_MAX_RESP_SIZE];     ///< Response received over the control channel.
    INT8U      ctrlRespBufLen;                            ///< Length of the response received over the control channel, in bytes.
    INT8U*     notifRxBuf;                                ///< Notification received over the notification channel.
-   INT8U      notifRxBufLen;                             ///< Length of the notification received over the notification channel, in bytes.
+   INT16U     notifRxBufLen;                             ///< Length of the notification received over the notification channel, in bytes.
    INT8U      notifRespBuf[DN_API_LOC_MAX_RESP_SIZE];    ///< Notification response to be sent over the notifification channel.
    INT8U      notifRespBufLen;                           ///< Length of the notification response to be sent over the notifification channel, in bytes.
    eventNotifCb_t            eventNotifCb;               ///< Event notification call back function.
    locNotifCb_t              locNotifCb;                 ///< Notification call back function in pass through mode.
    rxNotifCb_t               rxNotifCb;                  ///< Neceive notification call back function.
    timeNotifCb_t             timeNotifCb;                ///< Time notification call back function.
+   advNotifCb_t              advNotifCb;                 ///< advReceived notification call back function.
+   txDoneNotifCb_t           txDoneNotifCb;              ///< txDone notification call back function.
    passThroughEventNotifCb_t passThroughEvNotifCb;       ///< Pass-through event notif call back function.
    passThroughNotifCb_t      passThroughNotifCb;         ///< Notification call back in pass-through mode.
    passThrough_mode_t        passThroughMode;            ///< Current pass-through mode.
@@ -45,7 +47,7 @@ static loc_var_t loc_v;
 //=========================== private =========================================
 
 /**
-\brief Process local notifications when the pass-through mode is OFF.
+\brief Process local notifications.
 */
 void dnm_loc_processNotifications(void)
 {
@@ -60,7 +62,7 @@ void dnm_loc_processNotifications(void)
     dn_error = dn_readSyncMsg(loc_v.notifChDesc, loc_v.notifRxBuf, &rx_len,&msg_type, DN_API_LOC_MAX_NOTIF_SIZE, 0);
     ASSERT(dn_error == DN_ERR_NONE);
 
-    loc_v.notifRxBufLen = (INT8U)rx_len;
+    loc_v.notifRxBufLen = (INT16U)rx_len;
     hdr                 = (dn_api_cmd_hdr_t *)loc_v.notifRxBuf;
     cmd_id              = hdr->cmdId;
     dnm_ucli_traceDumpBlocking(loc_v.traceEnabled, loc_v.notifRxBuf,loc_v.notifRxBufLen, "locNotif RX:");    
@@ -88,6 +90,19 @@ void dnm_loc_processNotifications(void)
                 if(loc_v.timeNotifCb != NULL) {
                     (*loc_v.timeNotifCb)((dn_api_loc_notif_time_t *)&loc_v.notifRxBuf[sizeof(dn_api_cmd_hdr_t)],
                     (INT8U)(loc_v.notifRxBufLen-sizeof(dn_api_cmd_hdr_t)));
+                }
+                break;
+                
+            case DN_API_LOC_NOTIF_ADVRX:
+                if(loc_v.advNotifCb != NULL) {
+                     (*loc_v.advNotifCb)((dn_api_loc_notif_adv_t *)&loc_v.notifRxBuf[sizeof(dn_api_cmd_hdr_t)],
+                                        (INT8U)(loc_v.notifRxBufLen-sizeof(dn_api_cmd_hdr_t)));
+                }
+                break;
+            case DN_API_LOC_NOTIF_TXDONE:
+                if (loc_v.txDoneNotifCb != NULL) {
+                   (*loc_v.txDoneNotifCb)((dn_api_loc_notif_txdone_t *)&loc_v.notifRxBuf[sizeof(dn_api_cmd_hdr_t)],
+                                    (INT8U)(loc_v.notifRxBufLen-sizeof(dn_api_cmd_hdr_t)));
                 }
                 break;
             default:
@@ -121,7 +136,7 @@ void dnm_loc_processNotifications(void)
 \return #DN_ERR_NONE if the function completes successfully.
 \return #DN_ERR_ERROR if the function can not be completed successfully.
 */
-static dn_error_t dnm_loc_processCmd(INT8U cmd,INT8U length)
+static dn_error_t dnm_loc_processCmd(INT8U cmd, INT16U length)
 {
     dn_error_t       rc;
     INT32U           rx_len = 0;
@@ -129,7 +144,7 @@ static dn_error_t dnm_loc_processCmd(INT8U cmd,INT8U length)
 
     if(cmd != DN_API_LOC_CMD_SEND_RAW) {
         header_req->cmdId    = cmd;
-        header_req->len      = length;   
+        header_req->len      = (INT8U)length;   
     }
     loc_v.ctrlCmdBufLen  = sizeof(dn_api_cmd_hdr_t) + length;
     dnm_ucli_traceDumpBlocking(loc_v.traceEnabled, loc_v.ctrlCmdBuf, loc_v.ctrlCmdBufLen, "loc TX:");
@@ -165,7 +180,7 @@ activated.
 \return #DN_ERR_INVALID if either the control or the notification channel
    hasn't been initialized.
 */
-dn_error_t dnm_loc_init(passThrough_mode_t mode, INT8U *pBuffer, INT8U buffLen) 
+dn_error_t dnm_loc_init(passThrough_mode_t mode, INT8U *pBuffer, INT16U buffLen) 
 {
     dn_error_t rc;
 
@@ -385,6 +400,34 @@ dn_error_t dnm_loc_resetCmd(INT8U *rc)
 }
 
 /**
+\brief Start searching for network.
+
+\param[out] rc Location to write the return code to (details below).
+
+This function calls the #DN_API_LOC_CMD_SEARCH command of the local
+interface.
+There are in two elements which can be considered "return codes" when
+calling this function:
+- The value returned by this function merely indicates whether the command
+  could be issued to the local interface.
+- The outcome of that call is written at the location pointed to by the
+  <tt>rc</tt> parameter. Consult the <tt>search</tt> section in the
+  "SmartMesh IP Mote Serial API Guide" (http://www.linear.com/docs/41886); it
+  lists the possible return codes and their meaning.
+
+\return #DN_ERR_NONE if the function completes successfully.
+\return #DN_ERR_ERROR if the function cannot be completed successfully.
+*/
+dn_error_t dnm_loc_searchCmd(INT8U *rc)
+{
+    dn_error_t ret;   
+    RSP_BUF_CAST(p_rsp,dn_api_rc_rsp_t)
+    ret = dnm_loc_processCmd(DN_API_LOC_CMD_SEARCH,0);
+    *rc = p_rsp->rc;
+    return(ret);   
+}
+
+/**
 \brief Have the mote enter low-power sleep mode.
 
 \param[out] rc Location to write the return code to (details below).
@@ -584,6 +627,42 @@ dn_error_t dnm_loc_bindSocketCmd(INT8U sockId, INT16U port, INT8U *rc)
 }
 
 /**
+ \brief Get the state of a socket.
+ 
+ \param[in]  index  Index of the requested socket (i.e. 0=first, 1=second, etc).
+ \param[in]  payload Pointer to the payload to send.
+ \param[out] rc     Location to write the return code to (details below).
+ 
+ This function calls the #DN_API_LOC_CMD_SOCKET_INFO command of the local
+ interface.
+ There are in two elements which can be considered "return codes" when
+ calling this function:
+ - The value returned by this function merely indicates whether the command
+ could be issued to the local interface.
+ - The outcome of that call is written at the location pointed to by the
+ <tt>rc</tt> parameter. Consult the <tt>socketInfo</tt> section in the
+ "SmartMesh IP Mote Serial API Guide" (http://www.linear.com/docs/41886); it
+ lists the possible return codes and their meaning.
+ 
+ \return #DN_ERR_NONE if the function completes successfully.
+ \return #DN_ERR_ERROR if the function can not be completed successfully.
+ */
+dn_error_t dnm_loc_socketInfoCmd(INT8U index, INT8U *payload, INT8U *rc)
+{
+   dn_error_t ret;
+   REQ_BUF_CAST(p_socket_info, dn_api_loc_socket_info_t)
+   RSP_BUF_CAST(p_socket_info_rsp, dn_api_loc_rsp_socket_info_t)
+   
+   p_socket_info->index  = index;
+   
+   ret = dnm_loc_processCmd(DN_API_LOC_CMD_SOCKET_INFO,sizeof(dn_api_loc_socket_info_t));
+   
+   *rc = p_socket_info_rsp->rc;
+   memcpy(payload, p_socket_info_rsp, sizeof(dn_api_loc_rsp_socket_info_t));
+   return(ret);
+}
+
+/**
 \brief Request a service.
 
 \param[in]  destAddr The address of the device to establish the service to.
@@ -658,6 +737,7 @@ dn_error_t dnm_loc_getAssignedServiceCmd(dn_moteid_t destAddr, INT8U svcType,dn_
    - #DN_API_RADIOTX_TYPE_CW for a continuous (unmodulated) wave.
    - #DN_API_RADIOTX_TYPE_CM for a continuous modulated signal.
    - #DN_API_RADIOTX_TYPE_PKT to send some number of packets.
+   - #DN_API_RADIOTX_TYPE_PKCCA to send some number of packets with CCA enabled.
 \param[in] mask        Mask of channels (0-15) enabled for the test. Channel
    0 (resp. 15) corresponds to 2.405GHz (resp. 2.480GHz), i.e. channel 15
    (resp. 26) according to the IEEE802.15.4 numbering scheme. Bit 0 corresponds
@@ -863,6 +943,43 @@ dn_error_t dnm_loc_registerTimeNotifCallback(timeNotifCb_t cb)
     }
 }
 
+/**
+\brief Register a callback function for advReceived notifications.
+
+\param[in] cb A pointer to the function to call.
+
+\return #DN_ERR_NONE if the function completes successfully.
+\return #DN_ERR_ERROR if the function can not be completed successfully.
+*/
+dn_error_t dnm_loc_registerAdvNotifCallback(advNotifCb_t cb)
+{
+    if(cb != NULL) {
+        loc_v.advNotifCb = cb; 
+        return DN_ERR_NONE;
+    }
+    else {
+        return DN_ERR_ERROR;
+    }
+}
+
+/**
+\brief Register a callback function for txDone notifications.
+
+\param[in] cb A pointer to the function to call.
+
+\return #DN_ERR_NONE if the function completes successfully.
+\return #DN_ERR_ERROR if the function can not be completed successfully.
+*/
+dn_error_t dnm_loc_registerTxDoneNotifCallback(txDoneNotifCb_t cb)
+{
+    if(cb != NULL) {
+        loc_v.txDoneNotifCb = cb; 
+        return DN_ERR_NONE;
+    }
+    else {
+        return DN_ERR_ERROR;
+    }
+}
 
 /**
 \brief Send raw bytes into the network.
@@ -878,7 +995,7 @@ dn_error_t dnm_loc_registerTimeNotifCallback(timeNotifCb_t cb)
 \return #DN_ERR_NONE if the function completes successfully.
 \return #DN_ERR_ERROR if the function can not be completed successfully.
 */
-dn_error_t dnm_loc_sendRaw(INT8U* payload, INT8U length, INT8U* rsp, INT8U *rspLen)
+dn_error_t dnm_loc_sendRaw(INT8U* payload, INT16U length, INT8U* rsp, INT8U *rspLen)
 {
     dn_error_t ret;
     REQ_HEADER_CAST(header_req)
@@ -926,5 +1043,65 @@ void dnm_loc_traceControl (INT8U traceFlag)
 BOOLEAN dnm_loc_isTraceEnabled (void)
 {
    return (loc_v.traceEnabled != 0);
+}
+
+/**
+\brief Send blink payload to the mote.
+
+\param[in]  pPayload        Pointer to the payload.
+\param[in]  length          Length of the payload.
+\param[in]  fIncludeDsvNbrs Flag set to 1 if mote should include discovered neighbors when payload is sent into the network
+\param[out] rc              Location to write the return code to.
+
+This function calls the #DN_API_LOC_CMD_BLINK_PAYLOAD command of the local
+interface.
+
+\return #DN_ERR_NONE if the function completes successfully.
+\return #DN_ERR_ERROR if the function can not be completed successfully.
+*/
+dn_error_t dnm_loc_blinkPayload(INT8U *pPayload, INT8U length, INT8U fIncludeDsvNbrs, INT8U *rc)
+{
+    dn_error_t ret;
+    REQ_BUF_CAST(p_req, dn_api_loc_blink_payload_t)
+    RSP_BUF_CAST(p_rsp, dn_api_loc_rsp_blink_payload_t)
+
+    if ((sizeof(dn_api_loc_blink_payload_t) + length) > (DN_API_LOC_MAX_REQ_SIZE - sizeof(dn_api_cmd_hdr_t))) {
+       return DN_ERR_SIZE;
+    }
+    p_req->fIncludeDscvNbrs = fIncludeDsvNbrs;
+    memcpy((void*)(p_req->payload), (void*)pPayload, length);
+
+    ret = dnm_loc_processCmd(DN_API_LOC_CMD_BLINK_PAYLOAD, sizeof(dn_api_loc_blink_payload_t) + length);
+
+    *rc = p_rsp->rc;
+    return(ret);
+}
+
+/**
+\brief Stop searching for network.
+
+\param[out] rc Location to write the return code to (details below).
+
+This function calls the #DN_API_LOC_CMD_STOP_SEARCH command of the local
+interface.
+There are in two elements which can be considered "return codes" when
+calling this function:
+- The value returned by this function merely indicates whether the command
+  could be issued to the local interface.
+- The outcome of that call is written at the location pointed to by the
+  <tt>rc</tt> parameter. Consult the <tt>search</tt> section in the
+  "SmartMesh IP Mote Serial API Guide" (http://www.linear.com/docs/41886); it
+  lists the possible return codes and their meaning.
+
+\return #DN_ERR_NONE if the function completes successfully.
+\return #DN_ERR_ERROR if the function cannot be completed successfully.
+*/
+dn_error_t dnm_loc_stopSearchCmd(INT8U *rc)
+{
+    dn_error_t ret;   
+    RSP_BUF_CAST(p_rsp,dn_api_rc_rsp_t)
+    ret = dnm_loc_processCmd(DN_API_LOC_CMD_STOP_SEARCH,0);
+    *rc = p_rsp->rc;
+    return(ret);   
 }
 

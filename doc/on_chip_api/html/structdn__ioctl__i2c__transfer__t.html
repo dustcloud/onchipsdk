@@ -132,10 +132,13 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aee145bfca8e9b2eaf3cd3c47157be9a3"><td class="memItemLeft" align="right" valign="top">INT8U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__ioctl__i2c__transfer__t.html#aee145bfca8e9b2eaf3cd3c47157be9a3">timeout</a></td></tr>
 <tr class="memdesc:aee145bfca8e9b2eaf3cd3c47157be9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout.  <a href="#aee145bfca8e9b2eaf3cd3c47157be9a3">More...</a><br/></td></tr>
 <tr class="separator:aee145bfca8e9b2eaf3cd3c47157be9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462537704476846d1d253705b14e73bd"><td class="memItemLeft" align="right" valign="top">INT8U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__ioctl__i2c__transfer__t.html#a462537704476846d1d253705b14e73bd">fNoStopCondition</a></td></tr>
+<tr class="memdesc:a462537704476846d1d253705b14e73bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to 1, do not generate a stop condition for this transaction to allow for repeat starts.  <a href="#a462537704476846d1d253705b14e73bd">More...</a><br/></td></tr>
+<tr class="separator:a462537704476846d1d253705b14e73bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Specify what to transfer. </p>
-<p>Pass (a pointer to) this structure in the <code>args</code> parameter of <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a>, when setting <code>request</code> to <a class="el" href="group__device__i2c.html#ga9629f3a853daaaf532bcb0638df1c284" title="Transfer data over the I2C bus. ">DN_IOCTL_I2C_TRANSFER</a>. </p>
+<p>Pass (a pointer to) this structure in the <code>args</code> parameter of <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a>, when setting <code>request</code> to <a class="el" href="group__device__i2c.html#ga9629f3a853daaaf532bcb0638df1c284" title="Transfer data over the I2C bus. ">DN_IOCTL_I2C_TRANSFER</a>. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="ab99f2da50cd999b54d3f828021244d53"></a>
 <div class="memitem">
@@ -228,6 +231,20 @@ Data Fields</h2></td></tr>
 
 <p>Timeout. </p>
 <p>Timeout, in milliseconds, to wait for the I2C transfer to complete. </p>
+
+</div>
+</div>
+<a class="anchor" id="a462537704476846d1d253705b14e73bd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">INT8U fNoStopCondition</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set to 1, do not generate a stop condition for this transaction to allow for repeat starts. </p>
 
 </div>
 </div>

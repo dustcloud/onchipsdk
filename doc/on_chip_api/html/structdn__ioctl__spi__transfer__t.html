@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('structdn__ioctl__spi__transfer__t.html
 </div><!--header-->
 <div class="contents">
 
-<p>Structure to pass in the <code>args</code> parameter of <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a>.  
+<p>Structure to pass in the <code>args</code> parameter of <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a>.  
  <a href="structdn__ioctl__spi__transfer__t.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -123,6 +123,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a2bc2dcdb959492e57cc8cbcdc57f49d1"><td class="memItemLeft" align="right" valign="top">INT16U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1">transactionLen</a></td></tr>
 <tr class="memdesc:a2bc2dcdb959492e57cc8cbcdc57f49d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes to transmit/receive during an SPI transaction.  <a href="#a2bc2dcdb959492e57cc8cbcdc57f49d1">More...</a><br/></td></tr>
 <tr class="separator:a2bc2dcdb959492e57cc8cbcdc57f49d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaccab7bf801523f8be01683b9a3e323d"><td class="memItemLeft" align="right" valign="top">INT16U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__ioctl__spi__transfer__t.html#aaccab7bf801523f8be01683b9a3e323d">rxBufferLen</a></td></tr>
+<tr class="memdesc:aaccab7bf801523f8be01683b9a3e323d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total length of the rxData buffer.  <a href="#aaccab7bf801523f8be01683b9a3e323d">More...</a><br/></td></tr>
+<tr class="separator:aaccab7bf801523f8be01683b9a3e323d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa752cb2a6b1bac200d04d6c47d817506"><td class="memItemLeft" align="right" valign="top">INT8U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__ioctl__spi__transfer__t.html#aa752cb2a6b1bac200d04d6c47d817506">slaveSelect</a></td></tr>
 <tr class="memdesc:aa752cb2a6b1bac200d04d6c47d817506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave select line to use.  <a href="#aa752cb2a6b1bac200d04d6c47d817506">More...</a><br/></td></tr>
 <tr class="separator:aa752cb2a6b1bac200d04d6c47d817506"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,7 +152,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a43d3ad97ad5eede4a8aff768557575ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure to pass in the <code>args</code> parameter of <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a>. </p>
+<div class="textblock"><p>Structure to pass in the <code>args</code> parameter of <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a>. </p>
 <dl class="section warning"><dt>Warning</dt><dd>An extra trailing byte of value <code>0x00</code> is sent by the SPI master over the SPI bus at the end of each SPI transaction when the following combination is used:<ul>
 <li><a class="el" href="structdn__ioctl__spi__transfer__t.html#ab0e0f5cafe8a3e05e2ca698aaaa61fca" title="SPI clock phase. ">dn_ioctl_spi_transfer_t::clockPhase</a> is set to <a class="el" href="group__device__spi.html#ga10f8adb861ce5d15771a400f99967c2b" title="If CPOL==0 capture on falling edge, if CPOL==1 capture on rising edge. ">DN_SPI_CPHA_1</a>.</li>
 <li><a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is larger than 1. </li>
@@ -167,7 +170,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Data to be written to the SPI slave over the MOSI line. </p>
-<p>This buffer must contain exactly <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> bytes.</p>
+<p>This buffer must contain at least <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> bytes.</p>
 <p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to <code>1</code>, the data pointed to by this parameter is written exactly once over the MOSI line.</p>
 <p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to greater than <code>1</code>, the data pointed to by this parameter is written multiple times over the MOSI line. </p>
 
@@ -185,12 +188,12 @@ Data Fields</h2></td></tr>
 
 <p>Pointer to the memory buffer to be filled with data received from the SPI slave over the MISO line. </p>
 <p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to <code>1</code>, data received from the SPI slave will be written into this buffer.</p>
-<p>In this case, this buffer should hold at least <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> bytes.</p>
-<p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to greater than <code>1</code>, data received from the slave for each transaction will be concatenated in this buffer one after the other.</p>
-<p>The data received over the MISO line during transaction n will be written at the next word-boundary after the data received from transaction n-1. That is, if the transaction length is set to 15 bytes, the data received during the first transaction will be written in the buffer starting a byte 0, the data received during the second transaction will be written starting at byte 15.</p>
-<p>You need to take this alignment constraint into account when determining the number of bytes held by the received buffer.</p>
+<p>In this case, this buffer should hold at least <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> bytes and must be word-aligned.</p>
+<p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to greater than <code>1</code>, data received from the slave for each transaction will be concatenated in this buffer one after the other. There should be enough space in the buffer to include all transactions, considering that each transaction will be received at word-boundary.</p>
+<p>There are a number of ways to force alignment, including using IAR compiler pragma 'data_alignment' or declaring the buffer as an array of integers.</p>
+<p>The data received over the MISO line during transaction n will be written at the next word-boundary after the data received from transaction n-1. That is, if the transaction length is set to 15 bytes, the data received during the first transaction will be written in the buffer starting a byte 0, the data received during the second transaction will be written starting at byte 16. You need to take this alignment constraint into account when determining the number of bytes held by the received buffer.</p>
 <p>As a first example, assume you set <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> to 8 and <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> to 5, then your receive buffer needs to be able to hold at least 40 bytes.</p>
-<p>As a first example, assume you set <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> to 15 and <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> to 5, then your receive buffer needs to be able to hold at least 80 bytes. This is because each transaction occupies 16 bytes in the reception buffer: the 15 received byte an a single 0x00 padding byte. </p>
+<p>As a second example, assume you set <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> to 15 and <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> to 5, then your receive buffer needs to be able to hold at least 80 bytes. This is because each transaction occupies 16 bytes in the reception buffer: the 15 received byte an a single padding byte. </p>
 
 </div>
 </div>
@@ -207,8 +210,24 @@ Data Fields</h2></td></tr>
 <p>Number of bytes to transmit/receive during an SPI transaction. </p>
 <p>During a transaction, <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> bytes are read from the <a class="el" href="structdn__ioctl__spi__transfer__t.html#acebbcda4475c27e2fbb9a8177480795b" title="Data to be written to the SPI slave over the MOSI line. ">dn_ioctl_spi_transfer_t::txData</a> buffer and sent to the SPI slave over the MOSI line.</p>
 <p>At the same time, <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> bytes are read from the SPI slave over the MISO line and written into the <a class="el" href="structdn__ioctl__spi__transfer__t.html#a250f1de27b1112ab639b09b5dad97b36" title="Pointer to the memory buffer to be filled with data received from the SPI slave over the MISO line...">dn_ioctl_spi_transfer_t::rxData</a> buffer.</p>
+<p>Note that transaction length has to be less than or equal to the sizes of <a class="el" href="structdn__ioctl__spi__transfer__t.html#acebbcda4475c27e2fbb9a8177480795b" title="Data to be written to the SPI slave over the MOSI line. ">dn_ioctl_spi_transfer_t::txData</a> and <a class="el" href="structdn__ioctl__spi__transfer__t.html#a250f1de27b1112ab639b09b5dad97b36" title="Pointer to the memory buffer to be filled with data received from the SPI slave over the MISO line...">dn_ioctl_spi_transfer_t::rxData</a> buffers, but it doesn't have to be the same. For example, to send 2 bytes, <a class="el" href="structdn__ioctl__spi__transfer__t.html#a2bc2dcdb959492e57cc8cbcdc57f49d1" title="Number of bytes to transmit/receive during an SPI transaction. ">dn_ioctl_spi_transfer_t::transactionLen</a> should be set to 2, but it may be convenient to have spi_transfer_t::rxData may be a word (4 bytes).</p>
 <p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to <code>1</code>, this is the length of the (single) transaction. In this case, the minimum length is 1 byte. The maximum length is 512 bytes when <code>CPHA==0</code>, or the value passed in the <a class="el" href="structdn__spi__open__args__t.html#ab568fc403c43c6a7dbabc60ff39349c4" title="Maximum number of bytes in a transaction when CPHA is 1. ">dn_spi_open_args_t::maxTransactionLenForCPHA_1</a> parameter when opening the device when <code>CPHA==1</code>.</p>
 <p>When <a class="el" href="structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551" title="Number of consecutive SPI transactions. ">dn_ioctl_spi_transfer_t::numSamples</a> is set to greater than <code>1</code>, the minimum length is 1 byte. The maximum length is 32 bytes when <code>CPHA==0</code>, or 31 bytes when <code>CPHA==1</code>. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaccab7bf801523f8be01683b9a3e323d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rxBufferLen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total length of the rxData buffer. </p>
+<p>See description of <a class="el" href="structdn__ioctl__spi__transfer__t.html#a250f1de27b1112ab639b09b5dad97b36" title="Pointer to the memory buffer to be filled with data received from the SPI slave over the MISO line...">dn_ioctl_spi_transfer_t::rxData</a> for restrictions on buffer size and alignment requirements. </p>
 
 </div>
 </div>

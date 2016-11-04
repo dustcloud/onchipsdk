@@ -39,5 +39,6 @@ var group__device__adc =
     [ "DN_ADC_VGA_225mVpp", "group__device__adc.html#ga6ee824bce99d8942029cbe1fb21a4878", null ],
     [ "DN_IOCTL_RESERVED", "group__device__adc.html#gae1c61ac79b3d6ab0a7e5e6e0381e8ca8", null ],
     [ "DN_IOCTL_RDAC_OFFSET_CFG", "group__device__adc.html#ga300fe1ff7702bd343480fce5271d1a34", null ],
-    [ "DN_IOCTL_VGA_GAIN_CFG", "group__device__adc.html#ga87bba95bdf0ec3019108b860c60f6f7d", null ]
+    [ "DN_IOCTL_VGA_GAIN_CFG", "group__device__adc.html#ga87bba95bdf0ec3019108b860c60f6f7d", null ],
+    [ "DN_ADC_INVALID_VAL", "group__device__adc.html#ga83b9385ee35c87d19a4522bbb4bb2c48", null ]
 ];

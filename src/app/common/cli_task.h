@@ -24,7 +24,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 Typically, this function parses parameters and handles the 
 command accordingly. 
 */
-typedef dn_error_t (*dnm_ucli_cmdHandler_t)(INT8U * cmd, INT32U len);
+typedef dn_error_t (*dnm_ucli_cmdHandler_t)(char const* cmd, INT32U len);
 
 /**
 \brief CLI command descriptor
@@ -41,9 +41,9 @@ typedef struct {
 
 void cli_task_init(
    char*                appName,
-   dnm_ucli_cmdDef_t*   cliCommandDefinitions
+   dnm_ucli_cmdDef_t const*   cliCommandDefinitions
 );
 
-void cli_procNotif (INT8U type, INT8U cmdId, INT8U *pCmdParams, INT8U paramsLen);
+dn_error_t cli_procNotif(INT8U type, INT8U cmdId, char const *pCmdParams, INT8U paramsLen);
 
 #endif  

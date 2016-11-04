@@ -72,7 +72,7 @@ typedef dn_error_t (*passThroughEventNotifCb_t)(INT32U events, INT32U alarms);
 \brief Function pointer used for local notification call back functions.
 
 \param[in]  notifId     Type of the local API notification.
-\param[in]  notifBuffer Pointer the notification data.
+\param[in]  notifBuffer Pointer to the notification data.
 \param[in]  buffLen     Length of the notification data.
 \param[out] rsp         Pointer to hold the response.
 
@@ -87,12 +87,12 @@ typedef dn_error_t (*locNotifCb_t)(INT8U notfId, INT8U *notifBuffer,
    functions.
 
 \param[in]  notifBuffer Pointer to the notification frame.
-\param[in]  buffLen     Length notification frame.
+\param[in]  buffLen     Length of the notification frame.
 \param[out] rsp         Pointer to hold the response.
 
 \return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
-typedef dn_error_t (*passThroughNotifCb_t)(INT8U **pBuf, INT8U bufLen, INT8U *rsp);
+typedef dn_error_t (*passThroughNotifCb_t)(INT8U **pBuf, INT16U bufLen, INT8U *rsp);
 
 
 /**
@@ -107,12 +107,30 @@ typedef dn_error_t (*isOkToProcessNotifsCb_t)(void);
 /**
 \brief Function pointer used for time notification call back functions.
 
-\param[in] rxFrame Pointer the time notification frame.
+\param[in] rxFrame Pointer to the time notification frame.
 \param[in] length  Length of time notification frame.
 
 \return #DN_ERR_NONE on success, #DN_ERR_ERROR on failure.
 */
 typedef dn_error_t (*timeNotifCb_t)(dn_api_loc_notif_time_t *rxFrame, 
+                            INT8U length) ;
+
+/**
+\brief Function pointer used for advReceived notification call back functions.
+
+\param[in] rxFrame Pointer to the notification frame.
+\param[in] length  Length of the notification frame.
+*/
+typedef dn_error_t (*advNotifCb_t)(dn_api_loc_notif_adv_t *advReceived, 
+                            INT8U length) ;
+
+/**
+\brief Function pointer used for txDone notification call back functions.
+
+\param[in] rxFrame Pointer to the notification frame.
+\param[in] length  Length of the notification frame.
+*/
+typedef dn_error_t (*txDoneNotifCb_t)(dn_api_loc_notif_txdone_t *txDone, 
                             INT8U length) ;
 
 //=========================== prototypes ======================================
@@ -123,7 +141,7 @@ typedef dn_error_t (*timeNotifCb_t)(dn_api_loc_notif_time_t *rxFrame,
 */
 
 void dnm_loc_processNotifications(void);
-dn_error_t dnm_loc_init(passThrough_mode_t mode, INT8U *pBuffer, INT8U buffLen);
+dn_error_t dnm_loc_init(passThrough_mode_t mode, INT8U *pBuffer, INT16U buffLen);
 dn_error_t dnm_loc_setParameterCmd(INT8U paramId, INT8U *payload, 
                                    INT8U length, INT8U *rc);
 dn_error_t dnm_loc_getParameterCmd(INT8U paramId, INT8U *payload, 
@@ -132,6 +150,7 @@ dn_error_t dnm_loc_getParameterCmd(INT8U paramId, INT8U *payload,
 dn_error_t dnm_loc_joinCmd(INT8U *rc);
 dn_error_t dnm_loc_disconnectCmd(INT8U *rc);
 dn_error_t dnm_loc_resetCmd(INT8U *rc);
+dn_error_t dnm_loc_searchCmd(INT8U *rc);
 dn_error_t dnm_loc_lowPowerSleepCmd(INT8U *rc);
 dn_error_t dnm_loc_testRadioTxCmd(INT8U typeParam, INT16U mask, INT8S power, INT8U stationId,
                                   INT16U numRepeats, INT8U numSubtests, 
@@ -146,17 +165,22 @@ dn_error_t dnm_loc_getAssignedServiceCmd(dn_moteid_t destAddr, INT8U svcType,
 dn_error_t dnm_loc_openSocketCmd(INT8U protocol, INT8U *sockId, INT8U *rc);
 dn_error_t dnm_loc_closeSocketCmd(INT8U sockId, INT8U *rc);
 dn_error_t dnm_loc_bindSocketCmd(INT8U sockId, INT16U port, INT8U *rc);
+dn_error_t dnm_loc_socketInfoCmd(INT8U index, INT8U *payload, INT8U *rc);
 dn_error_t dnm_loc_sendtoCmd(loc_sendtoNW_t *sendto,INT8U length, INT8U *rc);
 dn_error_t dnm_loc_clearNVCmd(INT8U *rc);
 dn_error_t dnm_loc_registerEventNotifCallback(eventNotifCb_t cb);
 dn_error_t dnm_loc_registerRxNotifCallback(rxNotifCb_t cb);
 dn_error_t dnm_loc_registerTimeNotifCallback(timeNotifCb_t cb);
-dn_error_t dnm_loc_sendRaw(INT8U* payload, INT8U length, INT8U* rsp, INT8U *rspLen);
+dn_error_t dnm_loc_registerAdvNotifCallback(advNotifCb_t cb);
+dn_error_t dnm_loc_registerTxDoneNotifCallback(txDoneNotifCb_t cb);
+dn_error_t dnm_loc_sendRaw(INT8U* payload, INT16U length, INT8U* rsp, INT8U *rspLen);
 void dnm_loc_prepareNotifResponse(INT8U notifId, INT8U response);
 dn_error_t dnm_loc_registerPassthroughEvNotifCallback(passThroughEventNotifCb_t cb);
 dn_error_t dnm_loc_registerPassThroughNotifCallback(passThroughNotifCb_t cb);
 void dnm_loc_traceControl (INT8U traceFlag);
 BOOLEAN dnm_loc_isTraceEnabled (void);
+dn_error_t dnm_loc_blinkPayload(INT8U *pPayload, INT8U length, INT8U fIncludeDsvNbrs, INT8U *rc);
+dn_error_t dnm_loc_stopSearchCmd(INT8U *rc);
 
 /**
 // end of Local Interface API

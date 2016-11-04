@@ -29,5 +29,6 @@ var group__dn__flash =
     [ "dn_flash_write", "group__dn__flash.html#ga09f2cd505525cc54da5210ba94320412", null ],
     [ "dn_flash_read", "group__dn__flash.html#ga95e5e43334f7982cebd12d8c9e1e4a75", null ],
     [ "dn_flash_pageErase", "group__dn__flash.html#ga33984f7406eda03e60c797396d843059", null ],
-    [ "dn_flash_zeroize", "group__dn__flash.html#ga3797edccbfa21ec1879f6b128622311a", null ]
+    [ "dn_flash_zeroize", "group__dn__flash.html#ga3797edccbfa21ec1879f6b128622311a", null ],
+    [ "dn_flash_checkVoltage", "group__dn__flash.html#ga6a2d266f40df0703907e179347a26f47", null ]
 ];

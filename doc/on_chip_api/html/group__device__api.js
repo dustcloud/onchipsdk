@@ -17,6 +17,9 @@ var group__device__api =
       [ "DN_SPI_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a38be39a720e9a0fd188a9b6eceaded7f", null ],
       [ "DN_I2C_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a9ee995e3ad218b96d5bc349d2c7967a9", null ],
       [ "DN_TIME_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392ad781468e6345efcb241f0cff00caa12b", null ],
+      [ "DN_UART_RAW_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a9da4690b2a047f18d3093b98de396e93", null ],
+      [ "DN_PWM_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a26204e1405277286d37585d840e5fc8b", null ],
+      [ "DN_LPTIMER_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392aed939fa818697a2843ac4605d19cb1c6", null ],
       [ "DN_GPIO_PIN_0_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392ad85b66e2a14fe2968dd416c54934d1c7", null ],
       [ "DN_GPIO_PIN_1_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392aab7c8777ea1ceedb6843f9a30bcbdc19", null ],
       [ "DN_GPIO_PIN_2_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a4dfe071b27ae76261fa0c33ebb3b06be", null ],
@@ -56,9 +59,9 @@ var group__device__api =
       [ "DN_BATT_NO_LOAD_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a6d7cd9f159e31852ff4384a176600441", null ],
       [ "DN_MAX_DEV_ID", "group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a30f268cb3a08f001c8103ba9d7d9ce6d", null ]
     ] ],
-    [ "dn_open", "group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e", null ],
-    [ "dn_ioctl", "group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f", null ],
-    [ "dn_close", "group__device__api.html#ga070e88a529b38043d211f2f6b4f64721", null ],
-    [ "dn_read", "group__device__api.html#ga998c971cc7d23bbc6dd19e2d3dc74fca", null ],
-    [ "dn_write", "group__device__api.html#gaaafdc1ad147827ec641bd7b9dd2e762d", null ]
+    [ "dn_open", "group__device__api.html#ga17ee62e6ea1a938459f92ad45c603d96", null ],
+    [ "dn_ioctl", "group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6", null ],
+    [ "dn_close", "group__device__api.html#gafea59bb0257992c5c32f21bbb249fe71", null ],
+    [ "dn_read", "group__device__api.html#ga5836d2063216a688cdd99b93b765770e", null ],
+    [ "dn_write", "group__device__api.html#ga798b62d8c4720c27667817fa76eabf86", null ]
 ];

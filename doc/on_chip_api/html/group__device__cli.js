@@ -46,7 +46,8 @@ var group__device__cli =
       [ "DN_CLI_ACCESS_LOGIN", "group__device__cli.html#gga564d7eaa67afa6d784f3d3c75da80869a0c6f170e1a65f9544a46eb7dca038fb4", null ],
       [ "DN_CLI_ACCESS_VIEWER", "group__device__cli.html#gga564d7eaa67afa6d784f3d3c75da80869a01d82ae78e32c31417a444717e528523", null ],
       [ "DN_CLI_ACCESS_USER", "group__device__cli.html#gga564d7eaa67afa6d784f3d3c75da80869a3c6f0746cc56c756138d8bf7877696f5", null ],
-      [ "DN_CLI_ACCESS_DUST", "group__device__cli.html#gga564d7eaa67afa6d784f3d3c75da80869a21e0d79c7b57cbce565bd3e2e72337f6", null ]
+      [ "DN_CLI_ACCESS_DUST", "group__device__cli.html#gga564d7eaa67afa6d784f3d3c75da80869a21e0d79c7b57cbce565bd3e2e72337f6", null ],
+      [ "DN_CLI_ACCESS_NONE", "group__device__cli.html#gga564d7eaa67afa6d784f3d3c75da80869ab421eef569b0abe44ce77d537518a90b", null ]
     ] ],
     [ "dn_cli_outmode_t", "group__device__cli.html#ga022ea2172dc0d4b47c5b538dd6085def", [
       [ "DN_CLI_OUT_MODE_NONBLOCKING", "group__device__cli.html#gga022ea2172dc0d4b47c5b538dd6085defaddf604781f4d0145327bfa1bbd3d9cb7", null ],

@@ -17,6 +17,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "Ver.h"
 
 //=========================== definitions =====================================
+#define GPIO_NET_PORT                 WKP_USER_1
 
 // LEDs on DC9003A
 #define LED_GREEN1                DN_GPIO_PIN_20_DEV_ID
@@ -53,10 +54,10 @@ gpio_net_app_vars_t gpio_net_app_v;
 //=========================== prototypes ======================================
 
 //===== CLI
-dn_error_t  gpioNet_cli_config(INT8U* buf, INT32U len);
-dn_error_t  gpioNet_cli_lowval(INT8U* buf, INT32U len);
-dn_error_t  gpioNet_cli_highval(INT8U* buf, INT32U len);
-dn_error_t  gpioNet_cli_period(INT8U* buf, INT32U len);
+dn_error_t  gpioNet_cli_config(char const* buf, INT32U len);
+dn_error_t  gpioNet_cli_lowval(char const* buf, INT32U len);
+dn_error_t  gpioNet_cli_highval(char const* buf, INT32U len);
+dn_error_t  gpioNet_cli_period(char const* buf, INT32U len);
 //===== configFile
        void initConfigFile(void);
        void syncToConfigFile(void);
@@ -71,7 +72,7 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&gpioNet_cli_lowval,     "lowval", "lowval [newVal]",            DN_CLI_ACCESS_LOGIN},
    {&gpioNet_cli_highval,    "highval","highval [newVal]",           DN_CLI_ACCESS_LOGIN},
    {&gpioNet_cli_period,     "period", "period [newPeriod in ms]",   DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,     NULL,                         0},
+   {NULL,                    NULL,     NULL,                         DN_CLI_ACCESS_NONE},
 };
 
 //=========================== initialization ==================================
@@ -97,14 +98,14 @@ int p2_init(void) {
    // CLI task
    cli_task_init(
       "gpio_net",                           // appName
-      &cliCmdDefs                           // cliCmds
+      cliCmdDefs                            // cliCmds
    );
    
    // local interface task
    loc_task_init(
       JOIN_YES,                             // fJoin
-      NULL,                                 // netId
-      WKP_GPIO_NET,                         // udpPort
+      NETID_NONE,                           // netId
+      GPIO_NET_PORT,                        // udpPort
       gpio_net_app_v.joinedSem,             // joinedSem
       BANDWIDTH_NONE,                       // bandwidth
       NULL                                  // serviceSem
@@ -132,14 +133,13 @@ int p2_init(void) {
 //=========================== CLI =============================================
 
 // "config" command
-dn_error_t gpioNet_cli_config(INT8U* buf, INT32U len) {
+dn_error_t gpioNet_cli_config(char const* buf, INT32U len) {
    printConfig();
    return DN_ERR_NONE;
 }
 
 // "lowval" command
-dn_error_t gpioNet_cli_lowval(INT8U* buf, INT32U len) {
-   char*      token;
+dn_error_t gpioNet_cli_lowval(char const* buf, INT32U len) {
    int        sarg, l;
    
    //--- param 0: lowval
@@ -158,8 +158,7 @@ dn_error_t gpioNet_cli_lowval(INT8U* buf, INT32U len) {
 }
 
 // "highval" command
-dn_error_t gpioNet_cli_highval(INT8U* buf, INT32U len) {
-   char*      token;
+dn_error_t gpioNet_cli_highval(char const* buf, INT32U len) {
    int        sarg, l;
    
    //--- param 0: highval
@@ -178,7 +177,7 @@ dn_error_t gpioNet_cli_highval(INT8U* buf, INT32U len) {
 }
 
 // "period" command
-dn_error_t gpioNet_cli_period(INT8U* buf, INT32U len) {
+dn_error_t gpioNet_cli_period(char const* buf, INT32U len) {
    int        sarg, l;
    
    //--- param 0: period
@@ -321,11 +320,11 @@ static void gpioSampleTask(void* arg) {
    INT8U                          osErr;
    dn_gpio_ioctl_cfg_in_t         gpioInCfg;
    dn_gpio_ioctl_cfg_out_t        gpioOutCfg;
-   INT8U                          samplePinLevel;
+   char                           samplePinLevel;
    INT8U                          pkBuf[sizeof(loc_sendtoNW_t) + 1];
    loc_sendtoNW_t*                pkToSend;
    INT8U                          rc;
-   INT8U                          ledState;
+   char                           ledState;
    
    //===== initialize the configuration file
    initConfigFile();
@@ -436,7 +435,7 @@ static void gpioSampleTask(void* arg) {
       // fill in packet "header"
       pkToSend->locSendTo.socketId          = loc_getSocketId();
       pkToSend->locSendTo.destAddr          = DN_MGR_IPV6_MULTICAST_ADDR;
-      pkToSend->locSendTo.destPort          = WKP_GPIO_NET;
+      pkToSend->locSendTo.destPort          = GPIO_NET_PORT;
       pkToSend->locSendTo.serviceType       = DN_API_SERVICE_TYPE_BW;   
       pkToSend->locSendTo.priority          = DN_API_PRIORITY_MED;   
       pkToSend->locSendTo.packetId          = 0xFFFF;

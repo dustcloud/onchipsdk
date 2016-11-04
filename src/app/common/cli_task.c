@@ -13,7 +13,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 
 typedef struct {
    char*                appName;
-   dnm_ucli_cmdDef_t*   cliCmds;
+   dnm_ucli_cmdDef_t const* cliCmds;
    INT32U               cliChannelBuffer[1+DN_CH_ASYNC_RXBUF_SIZE(DN_CLI_NOTIF_SIZE)/sizeof(INT32U)];
    CH_DESC              cliChannelDesc;
    OS_STK               cliTaskStack[CLI_TASK_STK_SIZE];
@@ -28,7 +28,7 @@ static void cliTask(void* unused);
 
 //=========================== public ==========================================
 
-void cli_task_init(char* appName, dnm_ucli_cmdDef_t* cliCmds) {
+void cli_task_init(char* appName, const dnm_ucli_cmdDef_t * cliCmds) {
    dn_error_t      dnErr;
    INT8U           osErr;
    OS_MEM*         cliChannelMem;
@@ -109,25 +109,31 @@ This function is called each time a command is entered by the user.
 \param[in] pCmdParams A pointer to the the parameter to pass to the handler.
 \param[in] paramsLen The number of bytes in the pCmdParams buffer.
 */
-void cli_procNotif(INT8U type, INT8U cmdId, INT8U *pCmdParams, INT8U paramsLen) {
-   dn_error_t  dnErr;
+dn_error_t cli_procNotif(INT8U type, INT8U cmdId, char const *pCmdParams, INT8U paramsLen) {
+   dn_error_t  dnErr = DN_ERR_NONE;
 
    if (
          cli_task_v.cliCmds==NULL ||
          cmdId > cli_task_v.numCliCommands
       ) {
-      dnm_ucli_printf("command not supported\n\r");
-      return;
+      dnm_ucli_printf("Command not supported\r\n");
+      return DN_ERR_NONE;
    }
 
    if (type == DN_CLI_NOTIF_INPUT) {
       dnErr = (cli_task_v.cliCmds[cmdId].handler)(pCmdParams, paramsLen);
       if (dnErr == DN_ERR_INVALID) {
-         dnm_ucli_printf("\rinvalid argument(s)");
+         dnm_ucli_printf("Invalid argument(s)\r\n");
       }
    }
+
+   // Print help
+   if (type == DN_CLI_NOTIF_HELP) {
+      dnm_ucli_printf("Usage: %s\r\n", cli_task_v.cliCmds[cmdId].usage);
+   }
    
-   dnm_ucli_printf("\n\r> ");
+   dnm_ucli_printf("\r\n> ");
+   return DN_ERR_NONE;
 }
 
 //=========================== private =========================================
@@ -146,7 +152,7 @@ static dn_error_t cli_registerCommands(void) {
    INT8U                  i;
    INT8U                  cmdLen;
    dn_cli_registerCmd_t*  rCmd;
-   dnm_ucli_cmdDef_t*     pCmd;
+   dnm_ucli_cmdDef_t const* pCmd;
    INT8U                  buf[DN_CLI_CTRL_SIZE];
    dn_error_t             rc;
 

@@ -14,18 +14,24 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 
 //=========================== definitions =====================================
 
-#define SPI_BUFFER_LENGTH 8
+#define SPI_TX_BUFFER_LENGTH 2
+#define SPI_RX_BUFFER_LENGTH 6
 
 //=========================== variables =======================================
 
 typedef struct {
-   INT8U                     ledToggleFlag;
+   char                      ledToggleFlag;
    OS_STK                    spiTaskStack[TASK_APP_SPI_STK_SIZE];
-   INT8U                     spiTxBuffer[SPI_BUFFER_LENGTH];
-   INT8U                     spiRxBuffer[SPI_BUFFER_LENGTH];
+   INT8U                     spiTxBuffer[SPI_TX_BUFFER_LENGTH];
+   INT8U                     *spiRxBuffer;
 } spi_app_vars_t;
 
 spi_app_vars_t     spi_app_v;
+
+// Each SPI transaction is required to write into RX buffer on a word boundary,
+// so force word alignment is needed for the start address of the rx buffer
+#pragma data_alignment = 4
+INT8U                     spiRxBuffer[SPI_RX_BUFFER_LENGTH];
 
 //=========================== prototypes ======================================
 
@@ -37,14 +43,13 @@ static void   spiTask(void* unused);
 \brief This is the entry point in the application code.
 */
 int p2_init(void) {
-   dn_error_t              status;
-   dn_error_t              dnErr;
    INT8U                   osErr;
 
    cli_task_init(
       "spi",                                // appName
       NULL                                  // cliCmds
    );
+   
    loc_task_init(
       JOIN_NO,                              // fJoin
       NETID_NONE,                           // netId
@@ -116,6 +121,8 @@ static void spiTask(void* unused) {
    
    //===== initialize SPI
    // open the SPI device
+   // see doxygen documentation on maxTransactionLenForCPHA_1 when setting
+   // spiTransfer.clockPhase = DN_SPI_CPHA_1;
    spiOpenArgs.maxTransactionLenForCPHA_1 = 0;
    err = dn_open(
       DN_SPI_DEV_ID,
@@ -124,10 +131,12 @@ static void spiTask(void* unused) {
    );
    ASSERT((err == DN_ERR_NONE) || (err == DN_ERR_STATE));
    
+   spi_app_v.spiRxBuffer = spiRxBuffer;
+   
    // initialize spi communication parameters
    spiTransfer.txData             = spi_app_v.spiTxBuffer;
    spiTransfer.rxData             = spi_app_v.spiRxBuffer;
-   spiTransfer.transactionLen     = sizeof(spi_app_v.spiTxBuffer);
+   spiTransfer.transactionLen     = SPI_TX_BUFFER_LENGTH;
    spiTransfer.numSamples         = 1;
    spiTransfer.startDelay         = 0;
    spiTransfer.clockPolarity      = DN_SPI_CPOL_0;
@@ -135,6 +144,7 @@ static void spiTask(void* unused) {
    spiTransfer.bitOrder           = DN_SPI_MSB_FIRST;
    spiTransfer.slaveSelect        = DN_SPIM_SS_0n;
    spiTransfer.clockDivider       = DN_SPI_CLKDIV_16;
+   spiTransfer.rxBufferLen        = SPI_RX_BUFFER_LENGTH;
    
    while(1) {
       // infinite loop

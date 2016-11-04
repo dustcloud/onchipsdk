@@ -144,6 +144,12 @@ Device identifiers</h2></td></tr>
 <br/>
 &#160;&#160;<a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392ad781468e6345efcb241f0cff00caa12b">DN_TIME_DEV_ID</a>, 
 <br/>
+&#160;&#160;<a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a9da4690b2a047f18d3093b98de396e93">DN_UART_RAW_DEV_ID</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a26204e1405277286d37585d840e5fc8b">DN_PWM_DEV_ID</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392aed939fa818697a2843ac4605d19cb1c6">DN_LPTIMER_DEV_ID</a>, 
+<br/>
 &#160;&#160;<a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392ad85b66e2a14fe2968dd416c54934d1c7">DN_GPIO_PIN_0_DEV_ID</a>, 
 <br/>
 &#160;&#160;<a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392aab7c8777ea1ceedb6843f9a30bcbdc19">DN_GPIO_PIN_1_DEV_ID</a>, 
@@ -225,21 +231,21 @@ Device identifiers</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Device API</h2></td></tr>
-<tr class="memitem:ga561ddfae94783e45d60c75d1493efa2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e">dn_open</a> (int device, const void *args, int argLen)</td></tr>
-<tr class="memdesc:ga561ddfae94783e45d60c75d1493efa2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a device.  <a href="#ga561ddfae94783e45d60c75d1493efa2e">More...</a><br/></td></tr>
-<tr class="separator:ga561ddfae94783e45d60c75d1493efa2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga01150f35c57e36417fd1e584bcca1e6f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f">dn_ioctl</a> (int device, int request, const void *args, int argLen)</td></tr>
-<tr class="memdesc:ga01150f35c57e36417fd1e584bcca1e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control a previously opened device.  <a href="#ga01150f35c57e36417fd1e584bcca1e6f">More...</a><br/></td></tr>
-<tr class="separator:ga01150f35c57e36417fd1e584bcca1e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga070e88a529b38043d211f2f6b4f64721"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga070e88a529b38043d211f2f6b4f64721">dn_close</a> (int device)</td></tr>
-<tr class="memdesc:ga070e88a529b38043d211f2f6b4f64721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a previously opened device.  <a href="#ga070e88a529b38043d211f2f6b4f64721">More...</a><br/></td></tr>
-<tr class="separator:ga070e88a529b38043d211f2f6b4f64721"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga998c971cc7d23bbc6dd19e2d3dc74fca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga998c971cc7d23bbc6dd19e2d3dc74fca">dn_read</a> (int device, char *buf, int bufSize)</td></tr>
-<tr class="memdesc:ga998c971cc7d23bbc6dd19e2d3dc74fca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read from a previously opened device.  <a href="#ga998c971cc7d23bbc6dd19e2d3dc74fca">More...</a><br/></td></tr>
-<tr class="separator:ga998c971cc7d23bbc6dd19e2d3dc74fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaaafdc1ad147827ec641bd7b9dd2e762d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#gaaafdc1ad147827ec641bd7b9dd2e762d">dn_write</a> (int device, const char *args, int argLen)</td></tr>
-<tr class="memdesc:gaaafdc1ad147827ec641bd7b9dd2e762d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to a previously opened device.  <a href="#gaaafdc1ad147827ec641bd7b9dd2e762d">More...</a><br/></td></tr>
-<tr class="separator:gaaafdc1ad147827ec641bd7b9dd2e762d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17ee62e6ea1a938459f92ad45c603d96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga17ee62e6ea1a938459f92ad45c603d96">dn_open</a> (<a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a> device, const void *args, int argLen)</td></tr>
+<tr class="memdesc:ga17ee62e6ea1a938459f92ad45c603d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a device.  <a href="#ga17ee62e6ea1a938459f92ad45c603d96">More...</a><br/></td></tr>
+<tr class="separator:ga17ee62e6ea1a938459f92ad45c603d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc22d82d6bcaeb8bbf7fd970d963d8a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6">dn_ioctl</a> (<a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a> device, int request, const void *args, int argLen)</td></tr>
+<tr class="memdesc:gacc22d82d6bcaeb8bbf7fd970d963d8a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control a previously opened device.  <a href="#gacc22d82d6bcaeb8bbf7fd970d963d8a6">More...</a><br/></td></tr>
+<tr class="separator:gacc22d82d6bcaeb8bbf7fd970d963d8a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafea59bb0257992c5c32f21bbb249fe71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#gafea59bb0257992c5c32f21bbb249fe71">dn_close</a> (<a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a> device)</td></tr>
+<tr class="memdesc:gafea59bb0257992c5c32f21bbb249fe71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a previously opened device.  <a href="#gafea59bb0257992c5c32f21bbb249fe71">More...</a><br/></td></tr>
+<tr class="separator:gafea59bb0257992c5c32f21bbb249fe71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5836d2063216a688cdd99b93b765770e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga5836d2063216a688cdd99b93b765770e">dn_read</a> (<a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a> device, char *buf, int bufSize)</td></tr>
+<tr class="memdesc:ga5836d2063216a688cdd99b93b765770e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read from a previously opened device.  <a href="#ga5836d2063216a688cdd99b93b765770e">More...</a><br/></td></tr>
+<tr class="separator:ga5836d2063216a688cdd99b93b765770e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga798b62d8c4720c27667817fa76eabf86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__device__api.html#ga798b62d8c4720c27667817fa76eabf86">dn_write</a> (<a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a> device, const char *args, int argLen)</td></tr>
+<tr class="memdesc:ga798b62d8c4720c27667817fa76eabf86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to a previously opened device.  <a href="#ga798b62d8c4720c27667817fa76eabf86">More...</a><br/></td></tr>
+<tr class="separator:ga798b62d8c4720c27667817fa76eabf86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a class="anchor" id="ga904270a1ce2d9fefdc6b663d16bb7392"></a>
@@ -300,14 +306,23 @@ Device API</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392ad781468e6345efcb241f0cff00caa12b"></a>DN_TIME_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>Retrieve and manipulate current time, see <a class="el" href="group__dn__time.html">time</a>. </p>
 </td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a9da4690b2a047f18d3093b98de396e93"></a>DN_UART_RAW_DEV_ID</em>&nbsp;</td><td class="fielddoc">
+<p>raw UART serial port, see <a class="el" href="group__device__uart__raw.html">UART_RAW</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a26204e1405277286d37585d840e5fc8b"></a>DN_PWM_DEV_ID</em>&nbsp;</td><td class="fielddoc">
+<p>Control and configure of the PWM output line <a class="el" href="group__device__pwm.html">PWM</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392aed939fa818697a2843ac4605d19cb1c6"></a>DN_LPTIMER_DEV_ID</em>&nbsp;</td><td class="fielddoc">
+<p>Control and configure of the low power timer/counter, see <a class="el" href="group__device__lptimer.html">LPTIMER_DEV</a>. </p>
+</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392ad85b66e2a14fe2968dd416c54934d1c7"></a>DN_GPIO_PIN_0_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>General Purpose Input/Ouput (GPIO) pin 0, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392aab7c8777ea1ceedb6843f9a30bcbdc19"></a>DN_GPIO_PIN_1_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 1, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a4dfe071b27ae76261fa0c33ebb3b06be"></a>DN_GPIO_PIN_2_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 2, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a8d86e2af1d2379e2fad2222a09a00914"></a>DN_GPIO_PIN_3_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>General Purpose Input/Ouput (GPIO) pin 3, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
@@ -322,10 +337,10 @@ Device API</h2></td></tr>
 <p>General Purpose Input/Ouput (GPIO) pin 6, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a7ffb587376cb55a29c292a99c5ec83f8"></a>DN_GPIO_PIN_7_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 7, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392af3db89bc8ea2fb06052fea8220b91ad4"></a>DN_GPIO_PIN_8_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 8, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a88f8a4ee33ae57a9a1c3ed977ccb1776"></a>DN_GPIO_PIN_9_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>General Purpose Input/Ouput (GPIO) pin 9, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
@@ -343,7 +358,7 @@ Device API</h2></td></tr>
 <p>General Purpose Input/Ouput (GPIO) pin 13, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a5b68782739c9548ce0e6c4874141a205"></a>DN_GPIO_PIN_14_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 14, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a8e9e9bb33edf8b4b9eea90d9447fd8c3"></a>DN_GPIO_PIN_15_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p><em>Reserved. Do not use.</em> </p>
@@ -352,13 +367,13 @@ Device API</h2></td></tr>
 <p>General Purpose Input/Ouput (GPIO) pin 16, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a489892c570d858309013c2ea6ef3b691"></a>DN_GPIO_PIN_17_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 17, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a9ea4a1be0d56b2cb9a77e4862abe9ff1"></a>DN_GPIO_PIN_18_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 18, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a4467eb9d42a09281fa02d51b20006075"></a>DN_GPIO_PIN_19_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 19, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a3ef35292057efb97941431f3d2b67a6b"></a>DN_GPIO_PIN_20_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>General Purpose Input/Ouput (GPIO) pin 20, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
@@ -373,16 +388,16 @@ Device API</h2></td></tr>
 <p>General Purpose Input/Ouput (GPIO) pin 23, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a64253c7b6a24f87bc3831dad8238f8a2"></a>DN_GPIO_PIN_24_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 24, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a3a04fd393061ff4b7523a0e29094c2bb"></a>DN_GPIO_PIN_25_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 25, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392aafa178c9dd26600ed7e1189340426a3d"></a>DN_GPIO_PIN_26_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>General Purpose Input/Ouput (GPIO) pin 26, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392af1f749501abc2505c289d6b5a1d0d456"></a>DN_GPIO_PIN_27_DEV_ID</em>&nbsp;</td><td class="fielddoc">
-<p>General Purpose Input/Ouput (GPIO) pin 27, see <a class="el" href="group__device__gpio.html">GPIO</a>. </p>
+<p><em>Reserved. Do not use.</em> </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga904270a1ce2d9fefdc6b663d16bb7392a6cf4a776f83df794a1e9eb4a35395539"></a>DN_1WIRE_UARTC0_DEV_ID</em>&nbsp;</td><td class="fielddoc">
 <p>1-Wire device, see <a class="el" href="group__device__1wire.html">1-Wire</a>. </p>
@@ -419,14 +434,14 @@ Device API</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga561ddfae94783e45d60c75d1493efa2e"></a>
+<a class="anchor" id="ga17ee62e6ea1a938459f92ad45c603d96"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dn_open </td>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_open </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>&#160;</td>
           <td class="paramname"><em>device</em>, </td>
         </tr>
         <tr>
@@ -450,11 +465,11 @@ Device API</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Open a device. </p>
-<p>Your application must open a device before using it (i.e. calling <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl</a>, <a class="el" href="group__device__api.html#ga998c971cc7d23bbc6dd19e2d3dc74fca" title="Read from a previously opened device. ">dn_read</a> or <a class="el" href="group__device__api.html#gaaafdc1ad147827ec641bd7b9dd2e762d" title="Write to a previously opened device. ">dn_write</a> on that device). You must never open a device twice.</p>
+<p>Your application must open a device before using it (i.e. calling <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl</a>, <a class="el" href="group__device__api.html#ga5836d2063216a688cdd99b93b765770e" title="Read from a previously opened device. ">dn_read</a> or <a class="el" href="group__device__api.html#ga798b62d8c4720c27667817fa76eabf86" title="Write to a previously opened device. ">dn_write</a> on that device). You must never open a device twice.</p>
 <dl class="section post"><dt>Postcondition</dt><dd>After this function returns successfully, the device is open and ready to be used.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to open. Acceptable value are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to open. Acceptable values are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>Pointer to the arguments for opening this device. What this points to depends on the type of device you are about to open; refer to the documentation of that device. If no arguments are expected, set to <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">argLen</td><td>Length of the structure pointed to by the <code>args</code> parameter. The value to specify here depends on the type of device you are about to open; refer to the documentation of that device. If no arguments are expected, set to <code>0</code>.</td></tr>
   </table>
@@ -464,20 +479,20 @@ Device API</h2></td></tr>
 <dd>
 <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> if the device specified does not exist. </dd>
 <dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support to be opened. </dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support being opened. </dd>
 <dd>
-This function can also return device-specific error codes. These are listed in device documentation. Value will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
+This function can also return device-specific error codes. These are listed in device documentation. Values will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ga01150f35c57e36417fd1e584bcca1e6f"></a>
+<a class="anchor" id="gacc22d82d6bcaeb8bbf7fd970d963d8a6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dn_ioctl </td>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_ioctl </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>&#160;</td>
           <td class="paramname"><em>device</em>, </td>
         </tr>
         <tr>
@@ -509,10 +524,10 @@ This function can also return device-specific error codes. These are listed in d
 <p>Control a previously opened device. </p>
 <dl class="section pre"><dt>Precondition</dt><dd>You must have opened the device before calling this function.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>Depending on the device and type of request, the state of the device might have changed after this function returns successfully. Refer to the device-specific documentation for details.</dd></dl>
-<p>"Controlling" a device is a generic term which covers changing the state of the device without sending, or receving. One example is setting the baudrate on a serial port.</p>
+<p>"Controlling" a device is a generic term which covers changing the state of the device without sending, or receiving. One example is setting the baudrate on a serial port.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to control. Acceptable value are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to control. Acceptable values are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">request</td><td>The operation to be performed on the device. The value of this parameter is device-specific. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>A pointer to the arguments needed to perform this operation. The content of this structure, or whether a structure is needed at all is detailed in device-specific documentation. Set to <code>NULL</code> if no arguments are needed. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">argLen</td><td>When arguments are needed, specifies the length of the structure pointed to by the <code>args</code> parameter. Set to <code>0</code> if no arguments are needed.</td></tr>
@@ -523,20 +538,20 @@ This function can also return device-specific error codes. These are listed in d
 <dd>
 <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> if the device specified does not exist. </dd>
 <dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support to be controlled through this function. </dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support the requested operation. </dd>
 <dd>
-This function can also return device-specific error codes. These are listed in device documentation. Value will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
+This function can also return device-specific error codes. These are listed in device documentation. Values will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ga070e88a529b38043d211f2f6b4f64721"></a>
+<a class="anchor" id="gafea59bb0257992c5c32f21bbb249fe71"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dn_close </td>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_close </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>&#160;</td>
           <td class="paramname"><em>device</em></td><td>)</td>
           <td></td>
         </tr>
@@ -549,7 +564,7 @@ This function can also return device-specific error codes. These are listed in d
 <p>Your application should close a device when it's done using it. You must never close a device that you have not opened before.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to close. Acceptable value are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to close. Acceptable values are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -557,20 +572,20 @@ This function can also return device-specific error codes. These are listed in d
 <dd>
 <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> if the device specified does not exist. </dd>
 <dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support to be closed. </dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support being closed. </dd>
 <dd>
-This function can also return device-specific error codes. These are listed in device documentation. Value will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
+This function can also return device-specific error codes. These are listed in device documentation. Values will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ga998c971cc7d23bbc6dd19e2d3dc74fca"></a>
+<a class="anchor" id="ga5836d2063216a688cdd99b93b765770e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dn_read </td>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_read </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>&#160;</td>
           <td class="paramname"><em>device</em>, </td>
         </tr>
         <tr>
@@ -595,34 +610,34 @@ This function can also return device-specific error codes. These are listed in d
 
 <p>Read from a previously opened device. </p>
 <dl class="section pre"><dt>Precondition</dt><dd>You must have opened the device before calling this function.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>This function might change the contents of the memory pointed out by the <code>buf</code> parameter, but never more than the number of bytes specificed in the <code>bufSize</code> parameter.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>This function might change the contents of the memory pointed out by the <code>buf</code> parameter, but never more than the number of bytes specified in the <code>bufSize</code> parameter.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to read from. Acceptable value are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">buf</td><td>A pointer to a location in memory where this function will write the value. How many bytes will be written depends on the device, and is detailed in device-specific documentation. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">bufSize</td><td>The maximum number of bytes this function can write to the memory location pointed to by the <code>buf</code> parameter. This function will never write more that this number of bytes, but might write less (see return code).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to read from. Acceptable values are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">buf</td><td>A pointer to a location in memory where this function will write the value. The number of bytes that will be written depends on the device, and is detailed in device-specific documentation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bufSize</td><td>The maximum number of bytes this function can write to the memory location pointed to by the <code>buf</code> parameter. This function will never write more than this number of bytes, but might write less (see return code).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>All error codes are negative numbers. Getting a strictly negative return code indicates an error; getting a zero or positive number indicates the command succeeded.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes written by this function to the memory location pointed at by the <code>buf</code> parameter. This can be less or equal than the value specified in the <code>bufSize</code> parameter. The first written byte if always written at the location pointed at by the <code>buf</code> parameter; bytes are written consecutively. </dd>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes written by this function to the memory location pointed at by the <code>buf</code> parameter. This can be less or equal than the value specified in the <code>bufSize</code> parameter. The first written byte is always written at the location pointed at by the <code>buf</code> parameter; bytes are written consecutively. </dd>
 <dd>
 <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> if the device specified does not exist. </dd>
 <dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support to be read from. </dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support the read operation. </dd>
 <dd>
-This function can also return device-specific error codes. These are listed in device documentation. Value will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
+This function can also return device-specific error codes. These are listed in device documentation. Values will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="gaaafdc1ad147827ec641bd7b9dd2e762d"></a>
+<a class="anchor" id="ga798b62d8c4720c27667817fa76eabf86"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dn_write </td>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_write </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>&#160;</td>
           <td class="paramname"><em>device</em>, </td>
         </tr>
         <tr>
@@ -650,19 +665,19 @@ This function can also return device-specific error codes. These are listed in d
 <dl class="section post"><dt>Postcondition</dt><dd>Depending on the device and type of request, the state of the device might have changed after this function returns successfully. Refer to the device-specific documentation for details.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to write to. Acceptable value are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>A pointer to a location in memory where this function will read from. How many bytes will be read depends on the device, and is detailed in device-specific documentation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>The device you want to write to. Acceptable values are listed in <a class="el" href="group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392">dn_device_t</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>A pointer to a location in memory where this function will read from. The number of bytes that will be read depends on the device, and is detailed in device-specific documentation. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>The number of bytes which are expected to be read by this function.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> when the operation on the device was succesfull. </dd>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> when the operation on the device was successful. </dd>
 <dd>
 <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> if the device specified does not exist. </dd>
 <dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support to be written to. </dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a863afaf6ed9306c2802ac1497ffb7469" title="(-17) Request is valid but not supported. ">DN_ERR_NOT_SUPPORTED</a> if the device specified exists but does not support the write operation. </dd>
 <dd>
-This function can also return device-specific error codes. These are listed in device documentation. Value will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
+This function can also return device-specific error codes. These are listed in device documentation. Values will always be taken from <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>. </dd></dl>
 
 </div>
 </div>

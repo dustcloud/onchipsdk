@@ -39,8 +39,6 @@ static void i2cTask(void* unused);
 \brief This is the entry point in the application code.
 */
 int p2_init(void) {
-   dn_error_t              status;
-   dn_error_t              dnErr;
    INT8U                   osErr;
 
    cli_task_init(
@@ -84,7 +82,6 @@ static void i2cTask(void* unused) {
    dn_error_t                   dnErr;
    dn_i2c_open_args_t           i2cOpenArgs;
    INT8U                        i;
-   INT8U                        txCounter;
    
    //===== open the I2C device
    

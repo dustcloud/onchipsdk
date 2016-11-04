@@ -79,8 +79,8 @@ opposed to optimizing for real-time performance.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_sampleHandler(INT8U* arg, INT32U len);
-dn_error_t cli_fftHandler(INT8U* arg, INT32U len);
+dn_error_t cli_sampleHandler (const char* arg, INT32U len);
+dn_error_t cli_fftHandler (const char* arg, INT32U len);
 
 //===== tasks
 static void sampleTask(void* unused);
@@ -96,7 +96,7 @@ INT16U mag(INT16S a, INT16S b);
 const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_sampleHandler,      "sample", "sample", DN_CLI_ACCESS_LOGIN},
    {&cli_fftHandler,         "fft",    "fft",    DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,     NULL,     0},
+   {NULL,                    NULL,     NULL,     DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -129,7 +129,7 @@ int p2_init(void) {
    //==== initialize helper tasks
    cli_task_init(
       "fft",                      // appName
-      &cliCmdDefs                 // cliCmds
+      cliCmdDefs                  // cliCmds
    );
    loc_task_init(
       JOIN_NO,                    // fJoin
@@ -161,7 +161,7 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_sampleHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_sampleHandler (const char* arg, INT32U len) {
    INT8U osErr;
    
    // unlock the sampleTask
@@ -171,7 +171,7 @@ dn_error_t cli_sampleHandler(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_fftHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_fftHandler(const char* arg, INT32U len) {
    INT16U       i;
    INT64U       startTime;
    INT64U       finishTime;
@@ -205,7 +205,6 @@ static void sampleTask(void* unused) {
    dn_api_rsp_get_moteinfo_t*     moteInfo;
    INT8U                          respLen;
    dn_spi_open_args_t             spiOpenArgs;
-   dn_ioctl_spi_transfer_t        spiTransfer;
    INT16U                         i;
    INT8U*                         readBuffer;
    
@@ -339,6 +338,7 @@ static void sampleTask(void* unused) {
       fft_v.spiTransfer.clockDivider      = DN_SPI_CLKDIV_16;
       fft_v.spiTransfer.numSamples        = POINTS;
       fft_v.spiTransfer.samplePeriod      = 1000;  // in us, 1000 == 1 kHz
+      fft_v.spiTransfer.rxBufferLen       = sizeof(fft_v.real);
       
       //=== Z
       fft_v.spiTxBuffer[0]                = 0xec; // read bit | consecutive measure bit | 0x2c = 0xec (Z)

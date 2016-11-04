@@ -12,13 +12,13 @@ var group__device__gpio =
       [ "pullMode", "structdn__gpio__ioctl__cfg__in__t.html#ae38e65e9caeddac7904bd60f551bbce2", null ]
     ] ],
     [ "dn_gpio_notif_t", "structdn__gpio__notif__t.html", [
-      [ "gpioDeviceId", "structdn__gpio__notif__t.html#a2de25fec711d65d6905028c1a2127a52", null ],
+      [ "gpioDeviceId", "structdn__gpio__notif__t.html#a4b7b95d94bb2dc1b5b3854fcaad55c22", null ],
       [ "level", "structdn__gpio__notif__t.html#a4b5ec8dc4297b5fa6c3c174f7a473122", null ]
     ] ],
     [ "dn_gpio_out_pins_cfg_t", "structdn__gpio__out__pins__cfg__t.html", [
       [ "gpioBitMapToSetGr1", "structdn__gpio__out__pins__cfg__t.html#ad3ed3f52c6988f291004e631bf85f68e", null ],
       [ "gpioBitMapToSetGr2", "structdn__gpio__out__pins__cfg__t.html#a8099d7b6675228b758372c84272f7c4a", null ],
-      [ "gpioBitMaptoClrGr1", "structdn__gpio__out__pins__cfg__t.html#acab529e3e17e720060f7ac6c8a26b11a", null ],
+      [ "gpioBitMapToClrGr1", "structdn__gpio__out__pins__cfg__t.html#a21551868a02ca479b920d2c0bdb1cd68", null ],
       [ "gpioBitMapToClrGr2", "structdn__gpio__out__pins__cfg__t.html#a52fed1ab520f39e272d16c2d2a47935d", null ]
     ] ],
     [ "DN_IOCTL_GPIO_CFG_OUTPUT", "group__device__gpio.html#gad6ecc4b8f35ae9b020ae63da69dde5f3", null ],

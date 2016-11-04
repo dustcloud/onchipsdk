@@ -8,6 +8,10 @@ var group__device__uart =
       [ "ctsOutVal", "structdn__uart__open__args__t.html#afcf3c96b985c259d03ffb1a43eb63de1", null ],
       [ "fNoSleep", "structdn__uart__open__args__t.html#aa4d8b87708874d9479cc020636eb4d24", null ]
     ] ],
+    [ "dn_uart_notif_t", "structdn__uart__notif__t.html", [
+      [ "tstamp", "structdn__uart__notif__t.html#a6950fb2334757922b5f3e2c6290c26d6", null ],
+      [ "dataLen", "structdn__uart__notif__t.html#a141e146f161159485dc3e6b1fc88face", null ]
+    ] ],
     [ "DN_UART_MODE_M2", "group__device__uart.html#gab991b258dec8af06af267c51e22cd475", null ],
     [ "DN_UART_MODE_M4", "group__device__uart.html#ga8918e2cf5319043b48ed9d0251b9357f", null ],
     [ "DN_UART_BAUD_9600", "group__device__uart.html#gaef7b959c5c1a0b5fbceaeba0cda5154e", null ],

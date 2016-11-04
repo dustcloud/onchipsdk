@@ -4,6 +4,7 @@ Copyright (c) 2011, Dust Networks.  All rights reserved.
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "dn_common.h"
 #include "dnm_ucli.h"
 #include "dn_channel.h"
@@ -37,6 +38,7 @@ struct {
 #define ERR_INDICATOR "..."
 
 //=========================== prototypes ======================================
+static INT8U dnm_ucli_hex2byte_p(char c);
 
 //=========================== public ==========================================
 
@@ -215,7 +217,7 @@ function to process CLI notification
 */
 dn_error_t dnm_ucli_input (CH_DESC chDesc)
 {
-   INT32S              rxLen, msgType;
+   INT32U              rxLen, msgType;
    INT8U               buf[DN_CLI_NOTIF_SIZE];
    INT8U               paramsLen;
    dn_error_t          res;
@@ -231,7 +233,7 @@ dn_error_t dnm_ucli_input (CH_DESC chDesc)
       return res;
 
    paramsLen = (INT8U)rxLen - (INT8U)((((dn_cli_notifMsg_t*)(0))->data) - ((INT8U *)(dn_cli_notifMsg_t*)0)) - pCliNotif->offset;
-   return dnm_ucli_v.notifCb(pCliNotif->type, pCliNotif->cmdId, pCliNotif->data+pCliNotif->offset, paramsLen);
+   return dnm_ucli_v.notifCb(pCliNotif->type, pCliNotif->cmdId, (const char*)pCliNotif->data+pCliNotif->offset, paramsLen);
 }
 
 /**
@@ -300,7 +302,7 @@ void dnm_ucli_printfTimestamp_v(const char *format, va_list arg)
    localtime_s(&locTime, &(t.time));
    dnm_ucli_printf("(%02d:%02d:%02d.%03d) ", locTime.tm_hour, locTime.tm_min, locTime.tm_sec, t.millitm);
 #endif
-   dnm_ucli_printf("%6d : ", OSTimeGet());   // TODO change to print sec.msec
+   dnm_ucli_printf("%6u : ", OSTimeGet());   // TODO change to print sec.msec
    dnm_ucli_printf_v(format, arg);
 }
 
@@ -401,6 +403,10 @@ void dnm_ucli_traceDumpBlocking(BOOLEAN isTraceEnabled,
    va_list  marker;
    INT8U    err = OS_ERR_NONE;
 
+   if (!isTraceEnabled) {
+      return;
+   }
+
    // create mutex if not created
    if (dnm_ucli_v.blockingTraceMutex == NULL) {
       dnm_ucli_v.blockingTraceMutex = OSSemCreate(1);
@@ -410,15 +416,70 @@ void dnm_ucli_traceDumpBlocking(BOOLEAN isTraceEnabled,
    OSSemPend(dnm_ucli_v.blockingTraceMutex, 0, &err);
    ASSERT (err == OS_ERR_NONE);
    
-   
-   if (isTraceEnabled) {
-      va_start(marker, format);
-      dnm_ucli_dump_v(data, len, format, marker);
-      va_end(marker);
-   }
+   va_start(marker, format);
+   dnm_ucli_dump_v(data, len, format, marker);
+   va_end(marker);
 
    // release mutex
    err = OSSemPost(dnm_ucli_v.blockingTraceMutex);
    ASSERT (err == OS_ERR_NONE);
 }
 
+/**
+\brief Print data in hext format.
+
+\param[in] buf   Pointer to the start of the data to be printed.
+\param[in] len   Number of bytes to print.
+*/
+void dnm_ucli_printBuf(INT8U* buf, INT8U len) {
+   INT8U i;
+   
+   for (i=0; i<len; i++) {
+      dnm_ucli_printf("%02X ",buf[i]);
+   }
+}
+
+/**
+\brief Convert from hex string to byte array.
+
+Leading spaces are skipped. Special character such as 
+- and : are allowed and will be used to terminate the
+current byte. so "B-A-D:CA:DEAD:BEEF" will be 
+converted to "0B 0A 0D CA DE AD BE EF".
+
+\param[in]  str   Pointer to the start of the string.
+\param[out] buf   Pointer to the start of the array.
+\param[in]  bufSize the size of the target array.
+\return Number of bytes converted.
+*/
+INT8S dnm_ucli_hex2byte(const char * str, INT8U * buf, int bufSize) {
+   INT8U i;
+
+   if (str == NULL || buf == NULL || bufSize<=0) {
+      return 0;
+   }
+
+   while(*str == ' ') str++;
+   memset(buf, 0, bufSize);
+   for(i=0; *str && !isspace(*str) && i<bufSize; i++) {
+      if (*str == '-' || *str == ':') {
+         str++;
+      }
+      if (!isxdigit(*str)) {
+         break;
+      }
+      buf[i] = dnm_ucli_hex2byte_p(*str++);
+      if (isxdigit(*str)) {
+         buf[i] = (buf[i] << 4) | dnm_ucli_hex2byte_p(*str++);
+      }
+   }
+   if (*str && !isspace(*str)) {
+      return DN_ERR_INVALID;          // Invalid value
+   }
+   return i;
+}
+
+static INT8U dnm_ucli_hex2byte_p(char c) {
+   c = (char)tolower(c);
+   return c>='0' && c<='9' ? c - '0' : c - 'a' + 10;
+}

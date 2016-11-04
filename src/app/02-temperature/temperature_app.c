@@ -90,7 +90,7 @@ static void tempTask(void* unused) {
       // read temperature value
       numBytesRead = dn_read(
          DN_TEMP_DEV_ID ,         // device
-         &temperature,            // buf
+         (char*)&temperature,     // buf
          sizeof(temperature)      // bufSize 
       );
       ASSERT(numBytesRead== sizeof(temperature));

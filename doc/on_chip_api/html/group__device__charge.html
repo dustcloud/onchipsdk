@@ -119,7 +119,7 @@ Overview</h1>
 <dl class="section warning"><dt>Warning</dt><dd>The charge accounting module returns an <em>approximate</em> value of the charge consumed by the LTC5800 itself. It does <b>not</b> account for charge consumed by external chips which might be present on your board.</dd></dl>
 <h1><a class="anchor" id="sec_dn_open"></a>
 Open the device</h1>
-<p>To open the charge accounting device, call the <a class="el" href="group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e" title="Open a device. ">dn_open()</a> function with the following parameters:</p>
+<p>To open the charge accounting device, call the <a class="el" href="group__device__api.html#ga17ee62e6ea1a938459f92ad45c603d96" title="Open a device. ">dn_open()</a> function with the following parameters:</p>
 <table class="doxtable">
 <tr>
 <th align="left">Parameter Name </th><th align="left">Parameter Value  </th></tr>
@@ -133,7 +133,7 @@ Open the device</h1>
 <dl class="section note"><dt>Note</dt><dd>This function is provided so all devices have the same interface. This function, however, has no effect on the state of the device. This means that you can use this device without calling this function. This also means that you cannot use the return value of this function to decide whether another thread has already opened this device.</dd></dl>
 <h1><a class="anchor" id="sec_dn_read"></a>
 Read from the device</h1>
-<p>To read the charge consumed since the last reboot, call <a class="el" href="group__device__api.html#ga998c971cc7d23bbc6dd19e2d3dc74fca" title="Read from a previously opened device. ">dn_read()</a> with the following parameters:</p>
+<p>To read the charge consumed since the last reboot, call <a class="el" href="group__device__api.html#ga5836d2063216a688cdd99b93b765770e" title="Read from a previously opened device. ">dn_read()</a> with the following parameters:</p>
 <table class="doxtable">
 <tr>
 <th align="left">Parameter Name </th><th align="left">Parameter Value  </th></tr>
@@ -147,7 +147,7 @@ Read from the device</h1>
 <p>This will return the approximate number of milli-coulombs (mC) consumed since the last reboot of the mote.</p>
 <h1><a class="anchor" id="sec_dn_close"></a>
 Close the device</h1>
-<p>Close the device by calling <a class="el" href="group__device__api.html#ga070e88a529b38043d211f2f6b4f64721" title="Close a previously opened device. ">dn_close()</a>.</p>
+<p>Close the device by calling <a class="el" href="group__device__api.html#gafea59bb0257992c5c32f21bbb249fe71" title="Close a previously opened device. ">dn_close()</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>This function is provided so all devices have the same interface. This function, however, has no effect on the state of the device. This means that you can use use this device even after calling this function. </dd></dl>
 </div><!-- contents -->
 </div><!-- doc-content -->

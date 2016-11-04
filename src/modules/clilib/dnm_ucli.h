@@ -26,7 +26,7 @@ Copyright (c) 2011, Dust Networks.  All rights reserved.
 /**
 \brief User-defined function to process CLI notification. 
 */
-typedef dn_error_t (*procNotifCb_t) (INT8U type, INT8U cmdId, INT8U *pCmdParams, INT8U paramsLen);
+typedef dn_error_t (*procNotifCb_t) (INT8U type, INT8U cmdId, char const *pCmdParams, INT8U paramsLen);
 
 
 //=========================== prototypes ======================================
@@ -50,6 +50,8 @@ void       dnm_ucli_dump(const INT8U *data, INT32S len, const char * format, ...
 void       dnm_ucli_trace(BOOLEAN isTraceEnabled, const char* format, ...);
 void       dnm_ucli_traceDump(BOOLEAN isTraceEnabled, const INT8U* data, INT32S len, const char* format, ...);
 void       dnm_ucli_traceDumpBlocking(BOOLEAN isTraceEnabled, const INT8U* data, INT32S len, const char* format, ...);
+void       dnm_ucli_printBuf(INT8U* buf, INT8U len);
+INT8S      dnm_ucli_hex2byte(const char * str, INT8U * buf, int bufSize);
 
 /**
 // end of CLI module API
