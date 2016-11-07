@@ -144,6 +144,9 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__api__pwrcostinfo__t.html">dn_api_pwrcostinfo_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power cost information.  <a href="structdn__api__pwrcostinfo__t.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__api__cmd__exthdr__t.html">dn_api_cmd_exthdr_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command header for packets with request length exceeding one byte.  <a href="structdn__api__cmd__exthdr__t.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Defines</h2></td></tr>
@@ -156,6 +159,12 @@ Defines</h2></td></tr>
 <tr class="memitem:gaf77cb7958418d4957c8e1bdabc47f8ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gaf77cb7958418d4957c8e1bdabc47f8ef">DN_API_ROUTE_ALLSERVICES</a></td></tr>
 <tr class="memdesc:gaf77cb7958418d4957c8e1bdabc47f8ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default route for all services.  <a href="#gaf77cb7958418d4957c8e1bdabc47f8ef">More...</a><br/></td></tr>
 <tr class="separator:gaf77cb7958418d4957c8e1bdabc47f8ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81b46fc1a1d078570f5a5b7d601e2222"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga81b46fc1a1d078570f5a5b7d601e2222">DN_API_LOC_EXT_HDR_LEN</a></td></tr>
+<tr class="memdesc:ga81b46fc1a1d078570f5a5b7d601e2222"><td class="mdescLeft">&#160;</td><td class="mdescRight">len value in <a class="el" href="structdn__api__cmd__hdr__t.html" title="Command header. ">dn_api_cmd_hdr_t</a> for extended length  <a href="#ga81b46fc1a1d078570f5a5b7d601e2222">More...</a><br/></td></tr>
+<tr class="separator:ga81b46fc1a1d078570f5a5b7d601e2222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga025b799283c99346aea6ed89de1d01be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga025b799283c99346aea6ed89de1d01be">DN_API_ENTROPY_LENGTH</a></td></tr>
+<tr class="memdesc:ga025b799283c99346aea6ed89de1d01be"><td class="mdescLeft">&#160;</td><td class="mdescRight">length of entropy in get parameter <a class="el" href="group__loc__intf__common.html#ga7215cfc44bd707486c3d7492a369c805" title="Identifier of the &quot;entropy&quot; parameter. ">DN_API_PARAM_ENTROPY</a> (bytes)  <a href="#ga025b799283c99346aea6ed89de1d01be">More...</a><br/></td></tr>
+<tr class="separator:ga025b799283c99346aea6ed89de1d01be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -264,7 +273,7 @@ Command and notification identifiers</h2></td></tr>
 <tr class="memdesc:gaf274845320c20444d3f1a2cbafb078f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send packet into network (used by AP only, not implemented on motes)  <a href="#gaf274845320c20444d3f1a2cbafb078f6">More...</a><br/></td></tr>
 <tr class="separator:gaf274845320c20444d3f1a2cbafb078f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga51e076f664b228469ab4c2331eea2a97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga51e076f664b228469ab4c2331eea2a97">DN_API_LOC_CMD_SEARCH</a></td></tr>
-<tr class="memdesc:ga51e076f664b228469ab4c2331eea2a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "search" notification.  <a href="#ga51e076f664b228469ab4c2331eea2a97">More...</a><br/></td></tr>
+<tr class="memdesc:ga51e076f664b228469ab4c2331eea2a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "search" command.  <a href="#ga51e076f664b228469ab4c2331eea2a97">More...</a><br/></td></tr>
 <tr class="separator:ga51e076f664b228469ab4c2331eea2a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga900edace0fca0b6f6b1c27595dc2e50a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga900edace0fca0b6f6b1c27595dc2e50a">DN_API_LOC_NOTIF_TXDONE</a></td></tr>
 <tr class="memdesc:ga900edace0fca0b6f6b1c27595dc2e50a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "transmission done" notification.  <a href="#ga900edace0fca0b6f6b1c27595dc2e50a">More...</a><br/></td></tr>
@@ -290,6 +299,15 @@ Command and notification identifiers</h2></td></tr>
 <tr class="memitem:gafcc3875b93b5c523c9e3822cf6d64db3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gafcc3875b93b5c523c9e3822cf6d64db3">DN_API_LOC_NOTIF_READY_FOR_TIME</a></td></tr>
 <tr class="memdesc:gafcc3875b93b5c523c9e3822cf6d64db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ready for time notification (used by AP only, not implemented on motes)  <a href="#gafcc3875b93b5c523c9e3822cf6d64db3">More...</a><br/></td></tr>
 <tr class="separator:gafcc3875b93b5c523c9e3822cf6d64db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb38681f868e84fa779e51e4421e0fc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gadb38681f868e84fa779e51e4421e0fc0">DN_API_LOC_CMD_WRITE_GPS_STATUS</a></td></tr>
+<tr class="memdesc:gadb38681f868e84fa779e51e4421e0fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write GPS status (used by AP only, not implemented on motes)  <a href="#gadb38681f868e84fa779e51e4421e0fc0">More...</a><br/></td></tr>
+<tr class="separator:gadb38681f868e84fa779e51e4421e0fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86be90f6c79c62e11c211ff9fda3be0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga86be90f6c79c62e11c211ff9fda3be0a">DN_API_LOC_CMD_BLINK_PAYLOAD</a></td></tr>
+<tr class="memdesc:ga86be90f6c79c62e11c211ff9fda3be0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write Blink payload.  <a href="#ga86be90f6c79c62e11c211ff9fda3be0a">More...</a><br/></td></tr>
+<tr class="separator:ga86be90f6c79c62e11c211ff9fda3be0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga20cc63e0650c4724f50141f573dac32e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga20cc63e0650c4724f50141f573dac32e">DN_API_LOC_CMD_STOP_SEARCH</a></td></tr>
+<tr class="memdesc:ga20cc63e0650c4724f50141f573dac32e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "stop search" command.  <a href="#ga20cc63e0650c4724f50141f573dac32e">More...</a><br/></td></tr>
+<tr class="separator:ga20cc63e0650c4724f50141f573dac32e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Event Flags</h2></td></tr>
@@ -319,9 +337,9 @@ Event Flags</h2></td></tr>
 <tr class="memitem:ga02c29e350f6b59d5550b727ba4a2017d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga02c29e350f6b59d5550b727ba4a2017d">DN_API_LOC_EV_JOINSTART</a></td></tr>
 <tr class="memdesc:ga02c29e350f6b59d5550b727ba4a2017d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mote initiated a joining sequence.  <a href="#ga02c29e350f6b59d5550b727ba4a2017d">More...</a><br/></td></tr>
 <tr class="separator:ga02c29e350f6b59d5550b727ba4a2017d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7973f7301bf6e781adebdcfe45018c44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga7973f7301bf6e781adebdcfe45018c44">DN_API_LOC_EV_AP_RDY_FOR_TIME</a></td></tr>
-<tr class="memdesc:ga7973f7301bf6e781adebdcfe45018c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">AP is ready to set time from APC.  <a href="#ga7973f7301bf6e781adebdcfe45018c44">More...</a><br/></td></tr>
-<tr class="separator:ga7973f7301bf6e781adebdcfe45018c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e88e29e1081d80c48ef897a14e45a1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga0e88e29e1081d80c48ef897a14e45a1d">DN_API_LOC_EV_AP_SYNC_LOST</a></td></tr>
+<tr class="memdesc:ga0e88e29e1081d80c48ef897a14e45a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">AP lost sync with PPS signal.  <a href="#ga0e88e29e1081d80c48ef897a14e45a1d">More...</a><br/></td></tr>
+<tr class="separator:ga0e88e29e1081d80c48ef897a14e45a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Set/Get Parameters</h2></td></tr>
@@ -390,6 +408,24 @@ Set/Get Parameters</h2></td></tr>
 <tr class="memitem:gad07dab763aadfb5d9455fdd22a59f326"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gad07dab763aadfb5d9455fdd22a59f326">DN_API_PARAM_AP_CLKSRC</a></td></tr>
 <tr class="memdesc:gad07dab763aadfb5d9455fdd22a59f326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "AP clock source" parameter.  <a href="#gad07dab763aadfb5d9455fdd22a59f326">More...</a><br/></td></tr>
 <tr class="separator:gad07dab763aadfb5d9455fdd22a59f326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaeb90dc8003897a09edb34e04fe0f86f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gaaeb90dc8003897a09edb34e04fe0f86f">DN_API_PARAM_AP_STATS</a></td></tr>
+<tr class="memdesc:gaaeb90dc8003897a09edb34e04fe0f86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "AP statistics" parameter.  <a href="#gaaeb90dc8003897a09edb34e04fe0f86f">More...</a><br/></td></tr>
+<tr class="separator:gaaeb90dc8003897a09edb34e04fe0f86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c343c4a1fbce79906296c5ff02a7363"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga1c343c4a1fbce79906296c5ff02a7363">DN_API_PARAM_AP_STATUS</a></td></tr>
+<tr class="memdesc:ga1c343c4a1fbce79906296c5ff02a7363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "AP status" parameter.  <a href="#ga1c343c4a1fbce79906296c5ff02a7363">More...</a><br/></td></tr>
+<tr class="separator:ga1c343c4a1fbce79906296c5ff02a7363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga784be250e8a5f11f2aed140688a62732"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga784be250e8a5f11f2aed140688a62732">DN_API_PARAM_ANT_GAIN</a></td></tr>
+<tr class="memdesc:ga784be250e8a5f11f2aed140688a62732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "Antenna gain" parameter.  <a href="#ga784be250e8a5f11f2aed140688a62732">More...</a><br/></td></tr>
+<tr class="separator:ga784be250e8a5f11f2aed140688a62732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8680e848789b090ae9185a9277091d46"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga8680e848789b090ae9185a9277091d46">DN_API_PARAM_EU_COMPLIANT_MODE</a></td></tr>
+<tr class="memdesc:ga8680e848789b090ae9185a9277091d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "EU compliant mode" parameter.  <a href="#ga8680e848789b090ae9185a9277091d46">More...</a><br/></td></tr>
+<tr class="separator:ga8680e848789b090ae9185a9277091d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82975c5d1d0cd06ada053b28e4757b69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga82975c5d1d0cd06ada053b28e4757b69">DN_API_PARAM_SIZEINFOEXT</a></td></tr>
+<tr class="memdesc:ga82975c5d1d0cd06ada053b28e4757b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "size information extended" parameter.  <a href="#ga82975c5d1d0cd06ada053b28e4757b69">More...</a><br/></td></tr>
+<tr class="separator:ga82975c5d1d0cd06ada053b28e4757b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7215cfc44bd707486c3d7492a369c805"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga7215cfc44bd707486c3d7492a369c805">DN_API_PARAM_ENTROPY</a></td></tr>
+<tr class="memdesc:ga7215cfc44bd707486c3d7492a369c805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of the "entropy" parameter.  <a href="#ga7215cfc44bd707486c3d7492a369c805">More...</a><br/></td></tr>
+<tr class="separator:ga7215cfc44bd707486c3d7492a369c805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Transport protocol</h2></td></tr>
@@ -497,6 +533,9 @@ Mote state</h2></td></tr>
 <tr class="memitem:gaf47144814fa6019d87da00e90022f568"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gaf47144814fa6019d87da00e90022f568">DN_API_ST_PROMISC_LISTEN</a></td></tr>
 <tr class="memdesc:gaf47144814fa6019d87da00e90022f568"><td class="mdescLeft">&#160;</td><td class="mdescRight">Received search command, listening for nearby networks.  <a href="#gaf47144814fa6019d87da00e90022f568">More...</a><br/></td></tr>
 <tr class="separator:gaf47144814fa6019d87da00e90022f568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6a4bf79e1bf7d8d0f973cce698af32d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gab6a4bf79e1bf7d8d0f973cce698af32d">DN_API_ST_BLINK</a></td></tr>
+<tr class="memdesc:gab6a4bf79e1bf7d8d0f973cce698af32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blink.  <a href="#gab6a4bf79e1bf7d8d0f973cce698af32d">More...</a><br/></td></tr>
+<tr class="separator:gab6a4bf79e1bf7d8d0f973cce698af32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Transmission power</h2></td></tr>
@@ -567,6 +606,45 @@ Type of radiotest transmission</h2></td></tr>
 <tr class="memitem:gad01e63aadb66d04fb678f4894f2b0178"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gad01e63aadb66d04fb678f4894f2b0178">DN_API_RADIOTX_TYPE_PKCCA</a></td></tr>
 <tr class="memdesc:gad01e63aadb66d04fb678f4894f2b0178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packet transmission with CCA mode.  <a href="#gad01e63aadb66d04fb678f4894f2b0178">More...</a><br/></td></tr>
 <tr class="separator:gad01e63aadb66d04fb678f4894f2b0178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+GPS status</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp119da465ee63630e09e710e83ae732e9"></a>Options for:</p>
+<ul>
+<li><a class="el" href="structdn__api__loc__write__gps__status__t.html#a85488c9ff4e6d37baf45a5e743d7fa2b" title="GPS status. ">dn_api_loc_write_gps_status_t::status</a> </li>
+</ul>
+</td></tr>
+<tr class="memitem:gad8a13d2d5f9fb4df6ecd2bd042407784"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gad8a13d2d5f9fb4df6ecd2bd042407784">DN_API_GPS_STATUS_SYNCHED</a></td></tr>
+<tr class="separator:gad8a13d2d5f9fb4df6ecd2bd042407784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga160e4d8feba5015cdca21457e1803d8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga160e4d8feba5015cdca21457e1803d8f">DN_API_GPS_STATUS_LOST</a></td></tr>
+<tr class="separator:ga160e4d8feba5015cdca21457e1803d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+clock source status</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpfe15c3b208543b162c827a2b0c7fcb77"></a>Options for:</p>
+<ul>
+<li>#dn_api_net_rsp_read_clk_src_status_t::status </li>
+</ul>
+</td></tr>
+<tr class="memitem:gab5bf7c89f3fa5187ac93cec9b541baea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gab5bf7c89f3fa5187ac93cec9b541baea">DN_API_CLK_SRC_STATUS_VALID</a></td></tr>
+<tr class="separator:gab5bf7c89f3fa5187ac93cec9b541baea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac59a27b520841c6b5a30edeedf57665d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#gac59a27b520841c6b5a30edeedf57665d">DN_API_CLK_SRC_STATUS_INVALID</a></td></tr>
+<tr class="separator:gac59a27b520841c6b5a30edeedf57665d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+EU compliant mode</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp58f9ecb4a534eec5ccbe559ff10c4140"></a>Options for:</p>
+<ul>
+<li><a class="el" href="structdn__api__set__comp__mode__t.html#a328b17505e30df3cd4d9ef158fb279fc" title="EU compliant mode. ">dn_api_set_comp_mode_t::compMode</a></li>
+<li><a class="el" href="structdn__api__rsp__get__comp__mode__t.html#a328b17505e30df3cd4d9ef158fb279fc" title="EU compliant mode. ">dn_api_rsp_get_comp_mode_t::compMode</a> </li>
+</ul>
+</td></tr>
+<tr class="memitem:ga535e6faf6723e88eed76548c2f2405d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga535e6faf6723e88eed76548c2f2405d5">DN_API_EU_COMP_MODE_OFF</a></td></tr>
+<tr class="memdesc:ga535e6faf6723e88eed76548c2f2405d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">EU compliant mode off.  <a href="#ga535e6faf6723e88eed76548c2f2405d5">More...</a><br/></td></tr>
+<tr class="separator:ga535e6faf6723e88eed76548c2f2405d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga72b4735b4ea6f1f524e7528484a88493"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__common.html#ga72b4735b4ea6f1f524e7528484a88493">DN_API_EU_COMP_MODE_ON</a></td></tr>
+<tr class="memdesc:ga72b4735b4ea6f1f524e7528484a88493"><td class="mdescLeft">&#160;</td><td class="mdescRight">EU compliant mode on.  <a href="#ga72b4735b4ea6f1f524e7528484a88493">More...</a><br/></td></tr>
+<tr class="separator:ga72b4735b4ea6f1f524e7528484a88493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Defines</h2>
 <a class="anchor" id="ga919af14c39e7089c44aedab731aa21e8"></a>
@@ -845,7 +923,7 @@ Type of radiotest transmission</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Identifier of the "search" notification. </p>
+<p>Identifier of the "search" command. </p>
 
 </div>
 </div>
@@ -961,6 +1039,48 @@ Type of radiotest transmission</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gadb38681f868e84fa779e51e4421e0fc0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_LOC_CMD_WRITE_GPS_STATUS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write GPS status (used by AP only, not implemented on motes) </p>
+
+</div>
+</div>
+<a class="anchor" id="ga86be90f6c79c62e11c211ff9fda3be0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_LOC_CMD_BLINK_PAYLOAD</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write Blink payload. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga20cc63e0650c4724f50141f573dac32e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_LOC_CMD_STOP_SEARCH</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "stop search" command. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga93b12c056be552852bbdcf6ea76bbb6d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1073,17 +1193,17 @@ Type of radiotest transmission</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga7973f7301bf6e781adebdcfe45018c44"></a>
+<a class="anchor" id="ga0e88e29e1081d80c48ef897a14e45a1d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DN_API_LOC_EV_AP_RDY_FOR_TIME</td>
+          <td class="memname">#define DN_API_LOC_EV_AP_SYNC_LOST</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>AP is ready to set time from APC. </p>
+<p>AP lost sync with PPS signal. </p>
 
 </div>
 </div>
@@ -1381,6 +1501,90 @@ Type of radiotest transmission</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gaaeb90dc8003897a09edb34e04fe0f86f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_PARAM_AP_STATS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "AP statistics" parameter. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1c343c4a1fbce79906296c5ff02a7363"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_PARAM_AP_STATUS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "AP status" parameter. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga784be250e8a5f11f2aed140688a62732"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_PARAM_ANT_GAIN</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "Antenna gain" parameter. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8680e848789b090ae9185a9277091d46"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_PARAM_EU_COMPLIANT_MODE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "EU compliant mode" parameter. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga82975c5d1d0cd06ada053b28e4757b69"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_PARAM_SIZEINFOEXT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "size information extended" parameter. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7215cfc44bd707486c3d7492a369c805"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_PARAM_ENTROPY</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifier of the "entropy" parameter. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga6a57daa8359ed0f8afa09f5e5a9d740a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1633,6 +1837,20 @@ Type of radiotest transmission</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gab6a4bf79e1bf7d8d0f973cce698af32d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_ST_BLINK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blink. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga5c1ad862eb4ab2265ba5bec9aad46356"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1840,6 +2058,110 @@ Type of radiotest transmission</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Packet transmission with CCA mode. </p>
+
+</div>
+</div>
+<a class="anchor" id="gad8a13d2d5f9fb4df6ecd2bd042407784"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_GPS_STATUS_SYNCHED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ga160e4d8feba5015cdca21457e1803d8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_GPS_STATUS_LOST</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="gab5bf7c89f3fa5187ac93cec9b541baea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_CLK_SRC_STATUS_VALID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="gac59a27b520841c6b5a30edeedf57665d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_CLK_SRC_STATUS_INVALID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ga535e6faf6723e88eed76548c2f2405d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_EU_COMP_MODE_OFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EU compliant mode off. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga72b4735b4ea6f1f524e7528484a88493"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_EU_COMP_MODE_ON</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EU compliant mode on. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga81b46fc1a1d078570f5a5b7d601e2222"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_LOC_EXT_HDR_LEN</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>len value in <a class="el" href="structdn__api__cmd__hdr__t.html" title="Command header. ">dn_api_cmd_hdr_t</a> for extended length </p>
+
+</div>
+</div>
+<a class="anchor" id="ga025b799283c99346aea6ed89de1d01be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_ENTROPY_LENGTH</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>length of entropy in get parameter <a class="el" href="group__loc__intf__common.html#ga7215cfc44bd707486c3d7492a369c805" title="Identifier of the &quot;entropy&quot; parameter. ">DN_API_PARAM_ENTROPY</a> (bytes) </p>
 
 </div>
 </div>

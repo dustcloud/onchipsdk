@@ -131,13 +131,13 @@ $(document).ready(function(){initNavTree('group__module__dnm__local.html','');})
 <p>To use this module, your application must follow these steps:</p>
 <ul>
 <li>Create a synchronous channel and register it with the <a class="el" href="group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a0891fcc77d14ac297a1a4edde08a6800" title="NET notification. ">DN_MSG_TYPE_NET_NOTIF</a> message type.</li>
-<li>Initialize the module by calling <a class="el" href="group__module__dnm__local.html#gabda2e68ca3783c2fecad0ae87a734e3a" title="Initialize this module. ">dnm_loc_init()</a>.</li>
+<li>Initialize the module by calling <a class="el" href="group__module__dnm__local.html#ga47ec72ba263591f372ad92a873096868" title="Initialize this module. ">dnm_loc_init()</a>.</li>
 <li>Optionally, register callback functions for event and frame reception notifications by calling <a class="el" href="group__module__dnm__local.html#gafa47b809e14b505092bc91534fa2caf7" title="Register a callback function for notification events. ">dnm_loc_registerEventNotifCallback()</a> and <a class="el" href="group__module__dnm__local.html#gad10e74ce03156d67d317fe030a0c9e3a" title="Register a callback function for received frames. ">dnm_loc_registerRxNotifCallback()</a>.</li>
-<li>Continuously call <a class="el" href="group__module__dnm__local.html#gaa2313c27d38ae7084975575b0bb1ff0a" title="Process local notifications when the pass-through mode is OFF. ">dnm_loc_processNotifications()</a>, which internally waits for the next notification and processes it depending on the command received.</li>
+<li>Continuously call <a class="el" href="group__module__dnm__local.html#gaa2313c27d38ae7084975575b0bb1ff0a" title="Process local notifications. ">dnm_loc_processNotifications()</a>, which internally waits for the next notification and processes it depending on the command received.</li>
 <li>Use the provided API calls to issue commands to the stack (e.g. <a class="el" href="group__module__dnm__local.html#ga899b67ec374310a2943d00a1496d4481" title="Have the mote join a network. ">dnm_loc_joinCmd()</a> or <a class="el" href="group__module__dnm__local.html#gad78d3d1e0717b719376ec7295aa418d2" title="Send a packet into the network. ">dnm_loc_sendtoCmd()</a>).</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>The SmartMesh Firmware Development Kit comes with numerous example applications which do the above, and which are available in source code.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Call functions in this module only after calling <a class="el" href="group__module__dnm__local.html#gabda2e68ca3783c2fecad0ae87a734e3a" title="Initialize this module. ">dnm_loc_init()</a>, and making sure that it returned a <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> error code. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Call functions in this module only after calling <a class="el" href="group__module__dnm__local.html#ga47ec72ba263591f372ad92a873096868" title="Initialize this module. ">dnm_loc_init()</a>, and making sure that it returned a <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> error code. </dd></dl>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -161,15 +161,21 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga49037545e95c60c6ceeb7d87ee8d9e50"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga49037545e95c60c6ceeb7d87ee8d9e50">locNotifCb_t</a> )(INT8U notfId, INT8U *notifBuffer, INT8U buffLen, INT8U *rsp)</td></tr>
 <tr class="memdesc:ga49037545e95c60c6ceeb7d87ee8d9e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for local notification call back functions.  <a href="#ga49037545e95c60c6ceeb7d87ee8d9e50">More...</a><br/></td></tr>
 <tr class="separator:ga49037545e95c60c6ceeb7d87ee8d9e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa85a07c2ab98e2ec52b415100a698825"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gaa85a07c2ab98e2ec52b415100a698825">passThroughNotifCb_t</a> )(INT8U **pBuf, INT8U bufLen, INT8U *rsp)</td></tr>
-<tr class="memdesc:gaa85a07c2ab98e2ec52b415100a698825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for pass through notifications call back functions.  <a href="#gaa85a07c2ab98e2ec52b415100a698825">More...</a><br/></td></tr>
-<tr class="separator:gaa85a07c2ab98e2ec52b415100a698825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad3151fce0b1e052698ed8f3869a8dfcd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gad3151fce0b1e052698ed8f3869a8dfcd">passThroughNotifCb_t</a> )(INT8U **pBuf, INT16U bufLen, INT8U *rsp)</td></tr>
+<tr class="memdesc:gad3151fce0b1e052698ed8f3869a8dfcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for pass through notifications call back functions.  <a href="#gad3151fce0b1e052698ed8f3869a8dfcd">More...</a><br/></td></tr>
+<tr class="separator:gad3151fce0b1e052698ed8f3869a8dfcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad6b0cfb7e56f1e9ae52ae95dea1baa2c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gad6b0cfb7e56f1e9ae52ae95dea1baa2c">isOkToProcessNotifsCb_t</a> )(void)</td></tr>
 <tr class="memdesc:gad6b0cfb7e56f1e9ae52ae95dea1baa2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for 'mote state verification' callback functions.  <a href="#gad6b0cfb7e56f1e9ae52ae95dea1baa2c">More...</a><br/></td></tr>
 <tr class="separator:gad6b0cfb7e56f1e9ae52ae95dea1baa2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa252b66ffd1c32af5b77015e6ab66402"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gaa252b66ffd1c32af5b77015e6ab66402">timeNotifCb_t</a> )(<a class="el" href="structdn__api__loc__notif__time__t.html">dn_api_loc_notif_time_t</a> *rxFrame, INT8U length)</td></tr>
 <tr class="memdesc:gaa252b66ffd1c32af5b77015e6ab66402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for time notification call back functions.  <a href="#gaa252b66ffd1c32af5b77015e6ab66402">More...</a><br/></td></tr>
 <tr class="separator:gaa252b66ffd1c32af5b77015e6ab66402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga162106c97711a0bbd9e13c55d855f255"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga162106c97711a0bbd9e13c55d855f255">advNotifCb_t</a> )(<a class="el" href="structdn__api__loc__notif__adv__t.html">dn_api_loc_notif_adv_t</a> *advReceived, INT8U length)</td></tr>
+<tr class="memdesc:ga162106c97711a0bbd9e13c55d855f255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for advReceived notification call back functions.  <a href="#ga162106c97711a0bbd9e13c55d855f255">More...</a><br/></td></tr>
+<tr class="separator:ga162106c97711a0bbd9e13c55d855f255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55fe3c4bad237d0a08ebd367a4394456"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga55fe3c4bad237d0a08ebd367a4394456">txDoneNotifCb_t</a> )(<a class="el" href="structdn__api__loc__notif__txdone__t.html">dn_api_loc_notif_txdone_t</a> *txDone, INT8U length)</td></tr>
+<tr class="memdesc:ga55fe3c4bad237d0a08ebd367a4394456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer used for txDone notification call back functions.  <a href="#ga55fe3c4bad237d0a08ebd367a4394456">More...</a><br/></td></tr>
+<tr class="separator:ga55fe3c4bad237d0a08ebd367a4394456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -180,11 +186,11 @@ Variables</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Local Interface API</h2></td></tr>
 <tr class="memitem:gaa2313c27d38ae7084975575b0bb1ff0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gaa2313c27d38ae7084975575b0bb1ff0a">dnm_loc_processNotifications</a> (void)</td></tr>
-<tr class="memdesc:gaa2313c27d38ae7084975575b0bb1ff0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process local notifications when the pass-through mode is OFF.  <a href="#gaa2313c27d38ae7084975575b0bb1ff0a">More...</a><br/></td></tr>
+<tr class="memdesc:gaa2313c27d38ae7084975575b0bb1ff0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process local notifications.  <a href="#gaa2313c27d38ae7084975575b0bb1ff0a">More...</a><br/></td></tr>
 <tr class="separator:gaa2313c27d38ae7084975575b0bb1ff0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabda2e68ca3783c2fecad0ae87a734e3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gabda2e68ca3783c2fecad0ae87a734e3a">dnm_loc_init</a> (<a class="el" href="group__module__dnm__local.html#gad1f5f7a7a35816607939f6930e0429c8">passThrough_mode_t</a> mode, INT8U *pBuffer, INT8U buffLen)</td></tr>
-<tr class="memdesc:gabda2e68ca3783c2fecad0ae87a734e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize this module.  <a href="#gabda2e68ca3783c2fecad0ae87a734e3a">More...</a><br/></td></tr>
-<tr class="separator:gabda2e68ca3783c2fecad0ae87a734e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47ec72ba263591f372ad92a873096868"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga47ec72ba263591f372ad92a873096868">dnm_loc_init</a> (<a class="el" href="group__module__dnm__local.html#gad1f5f7a7a35816607939f6930e0429c8">passThrough_mode_t</a> mode, INT8U *pBuffer, INT16U buffLen)</td></tr>
+<tr class="memdesc:ga47ec72ba263591f372ad92a873096868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize this module.  <a href="#ga47ec72ba263591f372ad92a873096868">More...</a><br/></td></tr>
+<tr class="separator:ga47ec72ba263591f372ad92a873096868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ab60c0fa31d046287d27ccc7a5ca444"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga7ab60c0fa31d046287d27ccc7a5ca444">dnm_loc_setParameterCmd</a> (INT8U paramId, INT8U *payload, INT8U length, INT8U *rc)</td></tr>
 <tr class="memdesc:ga7ab60c0fa31d046287d27ccc7a5ca444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set some configuration parameter.  <a href="#ga7ab60c0fa31d046287d27ccc7a5ca444">More...</a><br/></td></tr>
 <tr class="separator:ga7ab60c0fa31d046287d27ccc7a5ca444"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,6 +206,9 @@ Local Interface API</h2></td></tr>
 <tr class="memitem:ga91bbc50f46827f6520915131233cf1e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga91bbc50f46827f6520915131233cf1e5">dnm_loc_resetCmd</a> (INT8U *rc)</td></tr>
 <tr class="memdesc:ga91bbc50f46827f6520915131233cf1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the mote.  <a href="#ga91bbc50f46827f6520915131233cf1e5">More...</a><br/></td></tr>
 <tr class="separator:ga91bbc50f46827f6520915131233cf1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6863d6bf61dc7825ce35844d70cfbdbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga6863d6bf61dc7825ce35844d70cfbdbe">dnm_loc_searchCmd</a> (INT8U *rc)</td></tr>
+<tr class="memdesc:ga6863d6bf61dc7825ce35844d70cfbdbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start searching for network.  <a href="#ga6863d6bf61dc7825ce35844d70cfbdbe">More...</a><br/></td></tr>
+<tr class="separator:ga6863d6bf61dc7825ce35844d70cfbdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf1f25c1deea14df1ebe70e8401d4ed97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gaf1f25c1deea14df1ebe70e8401d4ed97">dnm_loc_lowPowerSleepCmd</a> (INT8U *rc)</td></tr>
 <tr class="memdesc:gaf1f25c1deea14df1ebe70e8401d4ed97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Have the mote enter low-power sleep mode.  <a href="#gaf1f25c1deea14df1ebe70e8401d4ed97">More...</a><br/></td></tr>
 <tr class="separator:gaf1f25c1deea14df1ebe70e8401d4ed97"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,6 +233,9 @@ Local Interface API</h2></td></tr>
 <tr class="memitem:gaab8ec5ba1f483c8622292249c5f78976"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gaab8ec5ba1f483c8622292249c5f78976">dnm_loc_bindSocketCmd</a> (INT8U sockId, INT16U port, INT8U *rc)</td></tr>
 <tr class="memdesc:gaab8ec5ba1f483c8622292249c5f78976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind a socket to some port.  <a href="#gaab8ec5ba1f483c8622292249c5f78976">More...</a><br/></td></tr>
 <tr class="separator:gaab8ec5ba1f483c8622292249c5f78976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga54f52c197a9f3df61d65fd32e1a58763"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga54f52c197a9f3df61d65fd32e1a58763">dnm_loc_socketInfoCmd</a> (INT8U index, INT8U *payload, INT8U *rc)</td></tr>
+<tr class="memdesc:ga54f52c197a9f3df61d65fd32e1a58763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state of a socket.  <a href="#ga54f52c197a9f3df61d65fd32e1a58763">More...</a><br/></td></tr>
+<tr class="separator:ga54f52c197a9f3df61d65fd32e1a58763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad78d3d1e0717b719376ec7295aa418d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gad78d3d1e0717b719376ec7295aa418d2">dnm_loc_sendtoCmd</a> (loc_sendtoNW_t *sendto, INT8U length, INT8U *rc)</td></tr>
 <tr class="memdesc:gad78d3d1e0717b719376ec7295aa418d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a packet into the network.  <a href="#gad78d3d1e0717b719376ec7295aa418d2">More...</a><br/></td></tr>
 <tr class="separator:gad78d3d1e0717b719376ec7295aa418d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,9 +251,15 @@ Local Interface API</h2></td></tr>
 <tr class="memitem:ga2a4b73479c1f83fee343085fa771559e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga2a4b73479c1f83fee343085fa771559e">dnm_loc_registerTimeNotifCallback</a> (<a class="el" href="group__module__dnm__local.html#gaa252b66ffd1c32af5b77015e6ab66402">timeNotifCb_t</a> cb)</td></tr>
 <tr class="memdesc:ga2a4b73479c1f83fee343085fa771559e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a callback function for time notifications.  <a href="#ga2a4b73479c1f83fee343085fa771559e">More...</a><br/></td></tr>
 <tr class="separator:ga2a4b73479c1f83fee343085fa771559e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad3004387e61f2d26f95f0da220026028"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#gad3004387e61f2d26f95f0da220026028">dnm_loc_registerAdvNotifCallback</a> (<a class="el" href="group__module__dnm__local.html#ga162106c97711a0bbd9e13c55d855f255">advNotifCb_t</a> cb)</td></tr>
+<tr class="memdesc:gad3004387e61f2d26f95f0da220026028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a callback function for advReceived notifications.  <a href="#gad3004387e61f2d26f95f0da220026028">More...</a><br/></td></tr>
+<tr class="separator:gad3004387e61f2d26f95f0da220026028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f2bdbd5ee4f9b19597f799cd8fb9da3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga7f2bdbd5ee4f9b19597f799cd8fb9da3">dnm_loc_registerTxDoneNotifCallback</a> (<a class="el" href="group__module__dnm__local.html#ga55fe3c4bad237d0a08ebd367a4394456">txDoneNotifCb_t</a> cb)</td></tr>
+<tr class="memdesc:ga7f2bdbd5ee4f9b19597f799cd8fb9da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a callback function for txDone notifications.  <a href="#ga7f2bdbd5ee4f9b19597f799cd8fb9da3">More...</a><br/></td></tr>
+<tr class="separator:ga7f2bdbd5ee4f9b19597f799cd8fb9da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga69140038d2a4f9df5120bb75d35283d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga69140038d2a4f9df5120bb75d35283d3">dnm_loc_registerPassthroughEvNotifCallback</a> (<a class="el" href="group__module__dnm__local.html#gad25660b77c902961a5998948bf23412d">passThroughEventNotifCb_t</a> cb)</td></tr>
 <tr class="separator:ga69140038d2a4f9df5120bb75d35283d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8f1cc7b8aed7d3c9a1bca62be675bd72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga8f1cc7b8aed7d3c9a1bca62be675bd72">dnm_loc_registerPassThroughNotifCallback</a> (<a class="el" href="group__module__dnm__local.html#gaa85a07c2ab98e2ec52b415100a698825">passThroughNotifCb_t</a> cb)</td></tr>
+<tr class="memitem:ga8f1cc7b8aed7d3c9a1bca62be675bd72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga8f1cc7b8aed7d3c9a1bca62be675bd72">dnm_loc_registerPassThroughNotifCallback</a> (<a class="el" href="group__module__dnm__local.html#gad3151fce0b1e052698ed8f3869a8dfcd">passThroughNotifCb_t</a> cb)</td></tr>
 <tr class="memdesc:ga8f1cc7b8aed7d3c9a1bca62be675bd72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a callback function for received frames, in passthrough mode.  <a href="#ga8f1cc7b8aed7d3c9a1bca62be675bd72">More...</a><br/></td></tr>
 <tr class="separator:ga8f1cc7b8aed7d3c9a1bca62be675bd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga75ddf63afea8079c0f02b91a45bca04a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga75ddf63afea8079c0f02b91a45bca04a">dnm_loc_traceControl</a> (INT8U traceFlag)</td></tr>
@@ -250,6 +268,12 @@ Local Interface API</h2></td></tr>
 <tr class="memitem:ga096f00a66d3263e0f5df5dd786d22a4a"><td class="memItemLeft" align="right" valign="top">BOOLEAN&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga096f00a66d3263e0f5df5dd786d22a4a">dnm_loc_isTraceEnabled</a> (void)</td></tr>
 <tr class="memdesc:ga096f00a66d3263e0f5df5dd786d22a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if trace is enabled.  <a href="#ga096f00a66d3263e0f5df5dd786d22a4a">More...</a><br/></td></tr>
 <tr class="separator:ga096f00a66d3263e0f5df5dd786d22a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9172cae021277e5784a2fad8c1491324"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga9172cae021277e5784a2fad8c1491324">dnm_loc_blinkPayload</a> (INT8U *pPayload, INT8U length, INT8U fIncludeDsvNbrs, INT8U *rc)</td></tr>
+<tr class="memdesc:ga9172cae021277e5784a2fad8c1491324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send blink payload to the mote.  <a href="#ga9172cae021277e5784a2fad8c1491324">More...</a><br/></td></tr>
+<tr class="separator:ga9172cae021277e5784a2fad8c1491324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga102547b3854a973a969aff92fb6386dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__module__dnm__local.html#ga102547b3854a973a969aff92fb6386dc">dnm_loc_stopSearchCmd</a> (INT8U *rc)</td></tr>
+<tr class="memdesc:ga102547b3854a973a969aff92fb6386dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop searching for network.  <a href="#ga102547b3854a973a969aff92fb6386dc">More...</a><br/></td></tr>
+<tr class="separator:ga102547b3854a973a969aff92fb6386dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="gaba678f97a867489cdb439b7b875473e4"></a>
@@ -310,7 +334,7 @@ Local Interface API</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">notifId</td><td>Type of the local API notification. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">notifBuffer</td><td>Pointer the notification data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">notifBuffer</td><td>Pointer to the notification data. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">buffLen</td><td>Length of the notification data. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">rsp</td><td>Pointer to hold the response.</td></tr>
   </table>
@@ -320,12 +344,12 @@ Local Interface API</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gaa85a07c2ab98e2ec52b415100a698825"></a>
+<a class="anchor" id="gad3151fce0b1e052698ed8f3869a8dfcd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(* passThroughNotifCb_t)(INT8U **pBuf, INT8U bufLen, INT8U *rsp)</td>
+          <td class="memname">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(* passThroughNotifCb_t)(INT8U **pBuf, INT16U bufLen, INT8U *rsp)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -334,7 +358,7 @@ Local Interface API</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">notifBuffer</td><td>Pointer to the notification frame. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">buffLen</td><td>Length notification frame. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffLen</td><td>Length of the notification frame. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">rsp</td><td>Pointer to hold the response.</td></tr>
   </table>
   </dd>
@@ -377,12 +401,54 @@ Local Interface API</h2></td></tr>
 <p>Function pointer used for time notification call back functions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">rxFrame</td><td>Pointer the time notification frame. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rxFrame</td><td>Pointer to the time notification frame. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>Length of time notification frame.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> on success, <a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> on failure. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga162106c97711a0bbd9e13c55d855f255"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(* advNotifCb_t)(<a class="el" href="structdn__api__loc__notif__adv__t.html">dn_api_loc_notif_adv_t</a> *advReceived, INT8U length)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer used for advReceived notification call back functions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rxFrame</td><td>Pointer to the notification frame. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>Length of the notification frame. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga55fe3c4bad237d0a08ebd367a4394456"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>(* txDoneNotifCb_t)(<a class="el" href="structdn__api__loc__notif__txdone__t.html">dn_api_loc_notif_txdone_t</a> *txDone, INT8U length)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer used for txDone notification call back functions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rxFrame</td><td>Pointer to the notification frame. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>Length of the notification frame. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -424,11 +490,11 @@ Local Interface API</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Process local notifications when the pass-through mode is OFF. </p>
+<p>Process local notifications. </p>
 
 </div>
 </div>
-<a class="anchor" id="gabda2e68ca3783c2fecad0ae87a734e3a"></a>
+<a class="anchor" id="ga47ec72ba263591f372ad92a873096868"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -447,7 +513,7 @@ Local Interface API</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">INT8U&#160;</td>
+          <td class="paramtype">INT16U&#160;</td>
           <td class="paramname"><em>buffLen</em>&#160;</td>
         </tr>
         <tr>
@@ -699,6 +765,38 @@ Local Interface API</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga6863d6bf61dc7825ce35844d70cfbdbe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_searchCmd </td>
+          <td>(</td>
+          <td class="paramtype">INT8U *&#160;</td>
+          <td class="paramname"><em>rc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start searching for network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Location to write the return code to (details below).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function calls the <a class="el" href="group__loc__intf__common.html#ga51e076f664b228469ab4c2331eea2a97" title="Identifier of the &quot;search&quot; command. ">DN_API_LOC_CMD_SEARCH</a> command of the local interface. There are in two elements which can be considered "return codes" when calling this function:</p>
+<ul>
+<li>The value returned by this function merely indicates whether the command could be issued to the local interface.</li>
+<li>The outcome of that call is written at the location pointed to by the <code>rc</code> parameter. Consult the <code>search</code> section in the "SmartMesh IP Mote Serial API Guide" (<a href="http://www.linear.com/docs/41886">http://www.linear.com/docs/41886</a>); it lists the possible return codes and their meaning.</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> if the function completes successfully. </dd>
+<dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> if the function cannot be completed successfully. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="gaf1f25c1deea14df1ebe70e8401d4ed97"></a>
 <div class="memitem">
 <div class="memproto">
@@ -797,7 +895,8 @@ Local Interface API</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Transmition type. Acceptable values are:<ul>
 <li><a class="el" href="group__loc__intf__common.html#ga0becb1f3fcb0e75d3ec03a18563dae31" title="Continuous wave. ">DN_API_RADIOTX_TYPE_CW</a> for a continuous (unmodulated) wave.</li>
 <li><a class="el" href="group__loc__intf__common.html#gaea4daca6c6d4905d02cb8cff3bb9ff1d" title="Continuous modulation. ">DN_API_RADIOTX_TYPE_CM</a> for a continuous modulated signal.</li>
-<li><a class="el" href="group__loc__intf__common.html#ga1321aaa3d8f178b8f680c6ae7ef4b3b0" title="Packet transmission. ">DN_API_RADIOTX_TYPE_PKT</a> to send some number of packets. </li>
+<li><a class="el" href="group__loc__intf__common.html#ga1321aaa3d8f178b8f680c6ae7ef4b3b0" title="Packet transmission. ">DN_API_RADIOTX_TYPE_PKT</a> to send some number of packets.</li>
+<li><a class="el" href="group__loc__intf__common.html#gad01e63aadb66d04fb678f4894f2b0178" title="Packet transmission with CCA mode. ">DN_API_RADIOTX_TYPE_PKCCA</a> to send some number of packets with CCA enabled. </li>
 </ul>
 </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">mask</td><td>Mask of channels (0-15) enabled for the test. Channel 0 (resp. 15) corresponds to 2.405GHz (resp. 2.480GHz), i.e. channel 15 (resp. 26) according to the IEEE802.15.4 numbering scheme. Bit 0 corresponds to channel 0. For continuous wave and continuous modulation tests, enable exactly one channel. </td></tr>
@@ -1127,6 +1226,56 @@ Local Interface API</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga54f52c197a9f3df61d65fd32e1a58763"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_socketInfoCmd </td>
+          <td>(</td>
+          <td class="paramtype">INT8U&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INT8U *&#160;</td>
+          <td class="paramname"><em>payload</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INT8U *&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the state of a socket. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>Index of the requested socket (i.e. 0=first, 1=second, etc). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">payload</td><td>Pointer to the payload to send. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Location to write the return code to (details below).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function calls the <a class="el" href="group__loc__intf__common.html#ga3ea20718370be5d6202628e294588471" title="Get info about the previously opened socket. ">DN_API_LOC_CMD_SOCKET_INFO</a> command of the local interface. There are in two elements which can be considered "return codes" when calling this function:</p>
+<ul>
+<li>The value returned by this function merely indicates whether the command could be issued to the local interface.</li>
+<li>The outcome of that call is written at the location pointed to by the <code>rc</code> parameter. Consult the <code>socketInfo</code> section in the "SmartMesh IP Mote Serial API Guide" (<a href="http://www.linear.com/docs/41886">http://www.linear.com/docs/41886</a>); it lists the possible return codes and their meaning.</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> if the function completes successfully. </dd>
+<dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> if the function can not be completed successfully. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="gad78d3d1e0717b719376ec7295aa418d2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1290,6 +1439,60 @@ Local Interface API</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gad3004387e61f2d26f95f0da220026028"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_registerAdvNotifCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__module__dnm__local.html#ga162106c97711a0bbd9e13c55d855f255">advNotifCb_t</a>&#160;</td>
+          <td class="paramname"><em>cb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a callback function for advReceived notifications. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cb</td><td>A pointer to the function to call.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> if the function completes successfully. </dd>
+<dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> if the function can not be completed successfully. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga7f2bdbd5ee4f9b19597f799cd8fb9da3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_registerTxDoneNotifCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__module__dnm__local.html#ga55fe3c4bad237d0a08ebd367a4394456">txDoneNotifCb_t</a>&#160;</td>
+          <td class="paramname"><em>cb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a callback function for txDone notifications. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cb</td><td>A pointer to the function to call.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> if the function completes successfully. </dd>
+<dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> if the function can not be completed successfully. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga69140038d2a4f9df5120bb75d35283d3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1313,7 +1516,7 @@ Local Interface API</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_registerPassThroughNotifCallback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__module__dnm__local.html#gaa85a07c2ab98e2ec52b415100a698825">passThroughNotifCb_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__module__dnm__local.html#gad3151fce0b1e052698ed8f3869a8dfcd">passThroughNotifCb_t</a>&#160;</td>
           <td class="paramname"><em>cb</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1373,6 +1576,91 @@ Local Interface API</h2></td></tr>
 
 <p>Check if trace is enabled. </p>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if trace is enabled, FALSE otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9172cae021277e5784a2fad8c1491324"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_blinkPayload </td>
+          <td>(</td>
+          <td class="paramtype">INT8U *&#160;</td>
+          <td class="paramname"><em>pPayload</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INT8U&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INT8U&#160;</td>
+          <td class="paramname"><em>fIncludeDsvNbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INT8U *&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send blink payload to the mote. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pPayload</td><td>Pointer to the payload. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>Length of the payload. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fIncludeDsvNbrs</td><td>Flag set to 1 if mote should include discovered neighbors when payload is sent into the network </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Location to write the return code to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function calls the <a class="el" href="group__loc__intf__common.html#ga86be90f6c79c62e11c211ff9fda3be0a" title="Write Blink payload. ">DN_API_LOC_CMD_BLINK_PAYLOAD</a> command of the local interface.</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> if the function completes successfully. </dd>
+<dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> if the function can not be completed successfully. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga102547b3854a973a969aff92fb6386dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dnm_loc_stopSearchCmd </td>
+          <td>(</td>
+          <td class="paramtype">INT8U *&#160;</td>
+          <td class="paramname"><em>rc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop searching for network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Location to write the return code to (details below).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function calls the <a class="el" href="group__loc__intf__common.html#ga20cc63e0650c4724f50141f573dac32e" title="Identifier of the &quot;stop search&quot; command. ">DN_API_LOC_CMD_STOP_SEARCH</a> command of the local interface. There are in two elements which can be considered "return codes" when calling this function:</p>
+<ul>
+<li>The value returned by this function merely indicates whether the command could be issued to the local interface.</li>
+<li>The outcome of that call is written at the location pointed to by the <code>rc</code> parameter. Consult the <code>search</code> section in the "SmartMesh IP Mote Serial API Guide" (<a href="http://www.linear.com/docs/41886">http://www.linear.com/docs/41886</a>); it lists the possible return codes and their meaning.</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167ab6740c777f27844e1a3e150e549dedec" title="(0) No error. ">DN_ERR_NONE</a> if the function completes successfully. </dd>
+<dd>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a6ced3cd8aceb155b107c43d87586927a" title="(-1) Common error code. ">DN_ERR_ERROR</a> if the function cannot be completed successfully. </dd></dl>
 
 </div>
 </div>

@@ -10,5 +10,6 @@ var searchData=
   ['dn_5fdevice_5ft',['dn_device_t',['../group__device__api.html#ga904270a1ce2d9fefdc6b663d16bb7392',1,'dn_system.h']]],
   ['dn_5ferror_5ft',['dn_error_t',['../group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167',1,'dn_errno.h']]],
   ['dn_5fflash_5fpar_5fid_5ft',['dn_flash_par_id_t',['../group__dn__flash.html#ga5fd7304a6956c57a20922c0e23f17869',1,'dn_flash_drv.h']]],
+  ['dn_5fioctl_5flptimer_5ftype_5ft',['dn_ioctl_lptimer_type_t',['../group__device__lptimer.html#ga080b282dfa8456c0f2cef6ff2e834e3c',1,'dn_lptimer.h']]],
   ['dn_5fmsg_5ftype_5ft',['dn_msg_type_t',['../group__dn__channel.html#ga8dbd8057e60f8aa0a54e3d9f6d0a5362',1,'dn_channel.h']]]
 ];

@@ -127,6 +127,12 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__time__asn__t.html">dn_time_asn_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASN time.  <a href="structdn__time__asn__t.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__time__pps__timereq__notif__t.html">dn_time_pps_timereq_notif_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__time__pps__stats__t.html">dn_time_pps_stats_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__time__extclk__stats__t.html">dn_time_extclk_stats_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Defines</h2></td></tr>
@@ -136,6 +142,11 @@ Defines</h2></td></tr>
 <tr class="memitem:ga3790164b4b6781f5988faf9c05d8eb1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga3790164b4b6781f5988faf9c05d8eb1d">TIMER_TICKS_PER_SEC</a></td></tr>
 <tr class="memdesc:ga3790164b4b6781f5988faf9c05d8eb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of timer ticks per second.  <a href="#ga3790164b4b6781f5988faf9c05d8eb1d">More...</a><br/></td></tr>
 <tr class="separator:ga3790164b4b6781f5988faf9c05d8eb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cec37a19ca90f886609cbdd039a9a47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga1cec37a19ca90f886609cbdd039a9a47">MSEC_TO_SEC</a>(m)</td></tr>
+<tr class="memdesc:ga1cec37a19ca90f886609cbdd039a9a47"><td class="mdescLeft">&#160;</td><td class="mdescRight">conversion between sec and msec.  <a href="#ga1cec37a19ca90f886609cbdd039a9a47">More...</a><br/></td></tr>
+<tr class="separator:ga1cec37a19ca90f886609cbdd039a9a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c9224591937a396b150f6d735b34b31"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga4c9224591937a396b150f6d735b34b31">SEC_TO_MSEC</a>(m)</td></tr>
+<tr class="separator:ga4c9224591937a396b150f6d735b34b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -154,14 +165,34 @@ Functions</h2></td></tr>
 <tr class="memitem:gadb5824c33f3abc22f764058e1e510f27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#gadb5824c33f3abc22f764058e1e510f27">dn_getAsn</a> (<a class="el" href="structdn__time__asn__t.html">dn_time_asn_t</a> *pASN)</td></tr>
 <tr class="memdesc:gadb5824c33f3abc22f764058e1e510f27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current ASN.  <a href="#gadb5824c33f3abc22f764058e1e510f27">More...</a><br/></td></tr>
 <tr class="separator:gadb5824c33f3abc22f764058e1e510f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ea3c649bee4af681c891f3949fca283"><td class="memItemLeft" align="right" valign="top">INT32U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga6ea3c649bee4af681c891f3949fca283">dn_getSlotWidth</a> (void)</td></tr>
+<tr class="memdesc:ga6ea3c649bee4af681c891f3949fca283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current slot width in 32 kHz ticks in Q9.7 format.  <a href="#ga6ea3c649bee4af681c891f3949fca283">More...</a><br/></td></tr>
+<tr class="separator:ga6ea3c649bee4af681c891f3949fca283"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c1ee0b0b664c8c7ff31284001ebd9c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga4c1ee0b0b664c8c7ff31284001ebd9c7">dn_clksrc_init</a> (void)</td></tr>
+<tr class="separator:ga4c1ee0b0b664c8c7ff31284001ebd9c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb79a31ce492fe49bd3088c1e7e8b2df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#gabb79a31ce492fe49bd3088c1e7e8b2df">dn_clksrc_configure</a> (void)</td></tr>
+<tr class="separator:gabb79a31ce492fe49bd3088c1e7e8b2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17864b8849e38f4bf28b184b8d32ae5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga17864b8849e38f4bf28b184b8d32ae5d">dn_clksrc_procSetTime</a> (<a class="el" href="structdn__time__utc__t.html">dn_time_utc_t</a> *pUtcTime)</td></tr>
+<tr class="separator:ga17864b8849e38f4bf28b184b8d32ae5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46de23f409160d2620e8b2d2dafa3aeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga46de23f409160d2620e8b2d2dafa3aeb">dn_pps_setTime</a> (<a class="el" href="structdn__time__utc__t.html">dn_time_utc_t</a> *utcTime, INT8U seqNum)</td></tr>
+<tr class="separator:ga46de23f409160d2620e8b2d2dafa3aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 dn_ioctl() request options.</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9b59944a896e2ac19116ec23893a57d8"></a>Acceptable options for the <code>request</code> parameter of the <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a> function. </p>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9b59944a896e2ac19116ec23893a57d8"></a>Acceptable options for the <code>request</code> parameter of the <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a> function. </p>
 </td></tr>
 <tr class="memitem:gaa5e8c41b53ea7acfce85570f6ff54985"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#gaa5e8c41b53ea7acfce85570f6ff54985">DN_IOCTL_TIME_ENABLE_PPS</a></td></tr>
 <tr class="memdesc:gaa5e8c41b53ea7acfce85570f6ff54985"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>Reserved. Do not use.</em>  <a href="#gaa5e8c41b53ea7acfce85570f6ff54985">More...</a><br/></td></tr>
 <tr class="separator:gaa5e8c41b53ea7acfce85570f6ff54985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac65e6bf9e0d5cc274d82677b2b77719d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#gac65e6bf9e0d5cc274d82677b2b77719d">DN_IOCTL_TIME_GET_PPS_CLK_STATS</a></td></tr>
+<tr class="memdesc:gac65e6bf9e0d5cc274d82677b2b77719d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>Reserved. Do not use.</em>  <a href="#gac65e6bf9e0d5cc274d82677b2b77719d">More...</a><br/></td></tr>
+<tr class="separator:gac65e6bf9e0d5cc274d82677b2b77719d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga330f8a7d4cd2eabc2a00ce78b5c67b2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#ga330f8a7d4cd2eabc2a00ce78b5c67b2b">DN_IOCTL_TIME_GET_EXT_CLK_STATS</a></td></tr>
+<tr class="memdesc:ga330f8a7d4cd2eabc2a00ce78b5c67b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>Reserved. Do not use.</em>  <a href="#ga330f8a7d4cd2eabc2a00ce78b5c67b2b">More...</a><br/></td></tr>
+<tr class="separator:ga330f8a7d4cd2eabc2a00ce78b5c67b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9d11b7cc4ba0ce990d698f0ca3be2b4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dn__time.html#gae9d11b7cc4ba0ce990d698f0ca3be2b4">DN_IOCTL_TIME_CLEAR_CLK_STATS</a></td></tr>
+<tr class="memdesc:gae9d11b7cc4ba0ce990d698f0ca3be2b4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><em>Reserved. Do not use.</em>  <a href="#gae9d11b7cc4ba0ce990d698f0ca3be2b4">More...</a><br/></td></tr>
+<tr class="separator:gae9d11b7cc4ba0ce990d698f0ca3be2b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Defines</h2>
 <a class="anchor" id="ga6a69d6cbdab5f24c2e66959293f210c1"></a>
@@ -203,6 +234,82 @@ dn_ioctl() request options.</h2></td></tr>
 </div><div class="memdoc">
 
 <p><em>Reserved. Do not use.</em> </p>
+
+</div>
+</div>
+<a class="anchor" id="gac65e6bf9e0d5cc274d82677b2b77719d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_IOCTL_TIME_GET_PPS_CLK_STATS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><em>Reserved. Do not use.</em> </p>
+
+</div>
+</div>
+<a class="anchor" id="ga330f8a7d4cd2eabc2a00ce78b5c67b2b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_IOCTL_TIME_GET_EXT_CLK_STATS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><em>Reserved. Do not use.</em> </p>
+
+</div>
+</div>
+<a class="anchor" id="gae9d11b7cc4ba0ce990d698f0ca3be2b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_IOCTL_TIME_CLEAR_CLK_STATS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><em>Reserved. Do not use.</em> </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1cec37a19ca90f886609cbdd039a9a47"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MSEC_TO_SEC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>conversion between sec and msec. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4c9224591937a396b150f6d735b34b31"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEC_TO_MSEC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">m</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -362,6 +469,98 @@ dn_ioctl() request options.</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ga6ea3c649bee4af681c891f3949fca283"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">INT32U dn_getSlotWidth </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current slot width in 32 kHz ticks in Q9.7 format. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4c1ee0b0b664c8c7ff31284001ebd9c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dn_clksrc_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="gabb79a31ce492fe49bd3088c1e7e8b2df"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_clksrc_configure </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ga17864b8849e38f4bf28b184b8d32ae5d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_clksrc_procSetTime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdn__time__utc__t.html">dn_time_utc_t</a> *&#160;</td>
+          <td class="paramname"><em>pUtcTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ga46de23f409160d2620e8b2d2dafa3aeb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__dn__errno.html#ga9479eb133dd4d20cf03e2e5c9f2b5167">dn_error_t</a> dn_pps_setTime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdn__time__utc__t.html">dn_time_utc_t</a> *&#160;</td>
+          <td class="paramname"><em>utcTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INT8U&#160;</td>
+          <td class="paramname"><em>seqNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -71,7 +71,7 @@ int p2_init(void) {
 static void randomTask(void* unused) {
    dn_error_t      dnErr;
    int             numBytesRead;
-   INT8U           randomBuf[16];
+   char            randomBuf[16];
    INT8U           i;
    
    // open random device

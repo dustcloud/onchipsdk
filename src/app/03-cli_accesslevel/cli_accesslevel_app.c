@@ -14,11 +14,11 @@ Copyright (c) 2014, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_levelHandler(INT8U* arg, INT32U len);
-dn_error_t cli_cloginHandler(INT8U* arg, INT32U len);
-dn_error_t cli_cviewerHandler(INT8U* arg, INT32U len);
-dn_error_t cli_cuserHandler(INT8U* arg, INT32U len);
-dn_error_t cli_cdustHandler(INT8U* arg, INT32U len);
+dn_error_t cli_levelHandler(const char *arg, INT32U len);
+dn_error_t cli_cloginHandler(const char *arg, INT32U len);
+dn_error_t cli_cviewerHandler(const char *arg, INT32U len);
+dn_error_t cli_cuserHandler(const char *arg, INT32U len);
+dn_error_t cli_cdustHandler(const char *arg, INT32U len);
 
 //=========================== const ===========================================
 
@@ -28,7 +28,7 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_cviewerHandler,     "cviewer",     "",       DN_CLI_ACCESS_VIEWER},
    {&cli_cuserHandler,       "cuser",       "",       DN_CLI_ACCESS_USER},
    {&cli_cdustHandler,       "cdust",       "",       DN_CLI_ACCESS_DUST},
-   {NULL,                    NULL,          NULL,     0},
+   {NULL,                    NULL,          NULL,     DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -39,15 +39,12 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
-   INT8U           osErr;
-   OS_MEM*         cliChannelMem;
    
    //==== initialize helper tasks
    
    cli_task_init(
       "cli accesslevel",                    // appName
-      &cliCmdDefs                           // cliCmds
+      cliCmdDefs                            // cliCmds
    );
    loc_task_init(
       JOIN_NO,                              // fJoin
@@ -63,10 +60,10 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_levelHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_levelHandler(const char *arg, INT32U len) {
    dn_error_t      dnErr;
    int             l; 
-   int             level;
+   dn_cli_access_t level;
   
    //--- param 0: level
    l = sscanf(arg, "%d", &level);
@@ -92,22 +89,22 @@ dn_error_t cli_levelHandler(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 };
 
-dn_error_t cli_cloginHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_cloginHandler(const char *arg, INT32U len) {
    dnm_ucli_printf("handling clogin command\r\n");
    return DN_ERR_NONE;
 };
 
-dn_error_t cli_cviewerHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_cviewerHandler(const char *arg, INT32U len) {
    dnm_ucli_printf("handling cviewer command\r\n");
    return DN_ERR_NONE;
 };
 
-dn_error_t cli_cuserHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_cuserHandler(const char *arg, INT32U len) {
    dnm_ucli_printf("handling cuser command\r\n");
    return DN_ERR_NONE;
 };
 
-dn_error_t cli_cdustHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_cdustHandler(const char *arg, INT32U len) {
    dnm_ucli_printf("handling cdust command\r\n");
    return DN_ERR_NONE;
 };

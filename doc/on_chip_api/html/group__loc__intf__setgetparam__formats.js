@@ -73,6 +73,12 @@ var group__loc__intf__setgetparam__formats =
       [ "seqNum", "structdn__api__set__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2", null ],
       [ "utcTime", "structdn__api__set__time__t.html#acd254388f0d24657fe9923631c3e1910", null ]
     ] ],
+    [ "dn_api_ap_set_time_t", "structdn__api__ap__set__time__t.html", [
+      [ "paramId", "structdn__api__ap__set__time__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "seqNum", "structdn__api__ap__set__time__t.html#ac946a1bca79e072cec9bc01cb0c827c2", null ],
+      [ "utcTime", "structdn__api__ap__set__time__t.html#acd254388f0d24657fe9923631c3e1910", null ],
+      [ "uartTstamp", "structdn__api__ap__set__time__t.html#a7a5994af009adce03861672aed25e042", null ]
+    ] ],
     [ "dn_api_rsp_get_time_t", "structdn__api__rsp__get__time__t.html", [
       [ "rc", "structdn__api__rsp__get__time__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
       [ "paramId", "structdn__api__rsp__get__time__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
@@ -201,6 +207,54 @@ var group__loc__intf__setgetparam__formats =
       [ "paramId", "structdn__api__rsp__get__ap__clksrc__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
       [ "apClkSrc", "structdn__api__rsp__get__ap__clksrc__t.html#ab62ce09c44329afe38d10d28a7a2c39c", null ]
     ] ],
+    [ "dn_api_rsp_get_ap_stats_t", "structdn__api__rsp__get__ap__stats__t.html", [
+      [ "rc", "structdn__api__rsp__get__ap__stats__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__ap__stats__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "lastPO", "structdn__api__rsp__get__ap__stats__t.html#a98426225fca3fbd3ac0051af6df45fcf", null ],
+      [ "lastPFE", "structdn__api__rsp__get__ap__stats__t.html#a82ca3d8e60b6ee5304b80078f8a4559f", null ],
+      [ "numRxSetTimeErr", "structdn__api__rsp__get__ap__stats__t.html#ab7021c9f8e181c638a12d2e34d924678", null ],
+      [ "numSignalErr", "structdn__api__rsp__get__ap__stats__t.html#aef6db2a3c53f5360af4ea0476e1d6543", null ],
+      [ "state", "structdn__api__rsp__get__ap__stats__t.html#a098b904cc4606bc5d8dd934d4803a979", null ]
+    ] ],
+    [ "dn_api_rsp_get_apstatus_t", "structdn__api__rsp__get__apstatus__t.html", [
+      [ "rc", "structdn__api__rsp__get__apstatus__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__apstatus__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "state", "structdn__api__rsp__get__apstatus__t.html#a098b904cc4606bc5d8dd934d4803a979", null ],
+      [ "clkSrc", "structdn__api__rsp__get__apstatus__t.html#a6fe266cbc634a7d79721f5dfab378d43", null ]
+    ] ],
+    [ "dn_api_set_ant_gain_t", "structdn__api__set__ant__gain__t.html", [
+      [ "paramId", "structdn__api__set__ant__gain__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "antGain", "structdn__api__set__ant__gain__t.html#aab1bb021887cb621effce620b6ca35b7", null ]
+    ] ],
+    [ "dn_api_rsp_get_ant_gain_t", "structdn__api__rsp__get__ant__gain__t.html", [
+      [ "rc", "structdn__api__rsp__get__ant__gain__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__ant__gain__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "antGain", "structdn__api__rsp__get__ant__gain__t.html#aab1bb021887cb621effce620b6ca35b7", null ]
+    ] ],
+    [ "dn_api_set_comp_mode_t", "structdn__api__set__comp__mode__t.html", [
+      [ "paramId", "structdn__api__set__comp__mode__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "compMode", "structdn__api__set__comp__mode__t.html#a328b17505e30df3cd4d9ef158fb279fc", null ]
+    ] ],
+    [ "dn_api_rsp_get_comp_mode_t", "structdn__api__rsp__get__comp__mode__t.html", [
+      [ "rc", "structdn__api__rsp__get__comp__mode__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__comp__mode__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "compMode", "structdn__api__rsp__get__comp__mode__t.html#a328b17505e30df3cd4d9ef158fb279fc", null ]
+    ] ],
+    [ "dn_api_rsp_get_sizeinfoext_t", "structdn__api__rsp__get__sizeinfoext__t.html", [
+      [ "rc", "structdn__api__rsp__get__sizeinfoext__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__sizeinfoext__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "maxFrames", "structdn__api__rsp__get__sizeinfoext__t.html#a382692c69007467ba01583eda5f29af7", null ],
+      [ "maxLinks", "structdn__api__rsp__get__sizeinfoext__t.html#ad5f320ae044a401fd698391cbf71c2cf", null ],
+      [ "maxNbrs", "structdn__api__rsp__get__sizeinfoext__t.html#aed49feb25ef52aea37555a26e73e37c6", null ],
+      [ "maxRoutes", "structdn__api__rsp__get__sizeinfoext__t.html#a0603e151bbe2860fa87b072976314adf", null ],
+      [ "maxGraphs", "structdn__api__rsp__get__sizeinfoext__t.html#aa6607c9c7429d7847658896287f4dcc8", null ],
+      [ "maxQSize", "structdn__api__rsp__get__sizeinfoext__t.html#a38d5655d5daf4ce95b0430f671fac20a", null ]
+    ] ],
+    [ "dn_api_rsp_get_entropy_t", "structdn__api__rsp__get__entropy__t.html", [
+      [ "rc", "structdn__api__rsp__get__entropy__t.html#aa4fd90a56ce14cd9cc93f81091801273", null ],
+      [ "paramId", "structdn__api__rsp__get__entropy__t.html#aabb4c6c2ea2dc965dbb305a92eca6a7e", null ],
+      [ "entropy", "structdn__api__rsp__get__entropy__t.html#aaa81bfa7f4df02a941c74c326844750b", null ]
+    ] ],
     [ "dn_api_rsp_set_macaddr_t", "group__loc__intf__setgetparam__formats.html#gad1e6e97c635b799c8e4b4a35746c77f3", null ],
     [ "dn_api_get_macaddr_t", "group__loc__intf__setgetparam__formats.html#gad66c58c9cda66a1af9ffd4f8ca0adf70", null ],
     [ "dn_api_rsp_set_joinkey_t", "group__loc__intf__setgetparam__formats.html#ga2fb68f3cab1a06413a3692ba59045894", null ],
@@ -240,5 +294,13 @@ var group__loc__intf__setgetparam__formats =
     [ "dn_api_rsp_set_autojoin_t", "group__loc__intf__setgetparam__formats.html#ga5a13031fe33ab9829a80afda3a7ead48", null ],
     [ "dn_api_get_autojoin_t", "group__loc__intf__setgetparam__formats.html#ga714f234c4a40c4b7c79eef29f27763aa", null ],
     [ "dn_api_rsp_set_ap_clksrc_t", "group__loc__intf__setgetparam__formats.html#ga80ea44061ee69eecf15895d6171ba8a6", null ],
-    [ "dn_api_get_ap_clksrc_t", "group__loc__intf__setgetparam__formats.html#gaf63c10829b79a136c309ef99929e29bb", null ]
+    [ "dn_api_get_ap_clksrc_t", "group__loc__intf__setgetparam__formats.html#gaf63c10829b79a136c309ef99929e29bb", null ],
+    [ "dn_api_get_ap_stats_t", "group__loc__intf__setgetparam__formats.html#ga3e5de3cbe7fb8f02c5a96a75e92344b5", null ],
+    [ "dn_api_get_apstatus_t", "group__loc__intf__setgetparam__formats.html#ga486412552fe9de94c683fa9703d3c19f", null ],
+    [ "dn_api_rsp_set_ant_gain_t", "group__loc__intf__setgetparam__formats.html#ga87b39ed0f8bb84c9e54d5f9116b5875f", null ],
+    [ "dn_api_get_ant_gain_t", "group__loc__intf__setgetparam__formats.html#ga5dcddbeae4ae2d3f2e949ca360d04257", null ],
+    [ "dn_api_rsp_set_comp_mode_t", "group__loc__intf__setgetparam__formats.html#ga6e62eab40ad792ab969de08ba7739bb0", null ],
+    [ "dn_api_get_comp_mode_t", "group__loc__intf__setgetparam__formats.html#ga62971ba6b71b6402eca40da6db9e1124", null ],
+    [ "dn_api_get_sizeinfoext_t", "group__loc__intf__setgetparam__formats.html#gab5e3f0cb8caf145f9899b65db97b331b", null ],
+    [ "dn_api_get_entropy_t", "group__loc__intf__setgetparam__formats.html#ga9742f4e39f77b5a26fea159a61edf340", null ]
 ];

@@ -120,16 +120,16 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a8099d7b6675228b758372c84272f7c4a"><td class="memItemLeft" align="right" valign="top">INT16U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__gpio__out__pins__cfg__t.html#a8099d7b6675228b758372c84272f7c4a">gpioBitMapToSetGr2</a></td></tr>
 <tr class="memdesc:a8099d7b6675228b758372c84272f7c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmap of GPIOs to set (GPIO 16 through 27).  <a href="#a8099d7b6675228b758372c84272f7c4a">More...</a><br/></td></tr>
 <tr class="separator:a8099d7b6675228b758372c84272f7c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab529e3e17e720060f7ac6c8a26b11a"><td class="memItemLeft" align="right" valign="top">INT16U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__gpio__out__pins__cfg__t.html#acab529e3e17e720060f7ac6c8a26b11a">gpioBitMaptoClrGr1</a></td></tr>
-<tr class="memdesc:acab529e3e17e720060f7ac6c8a26b11a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmap of GPIOs to clear (GPIO 0 through 15).  <a href="#acab529e3e17e720060f7ac6c8a26b11a">More...</a><br/></td></tr>
-<tr class="separator:acab529e3e17e720060f7ac6c8a26b11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21551868a02ca479b920d2c0bdb1cd68"><td class="memItemLeft" align="right" valign="top">INT16U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__gpio__out__pins__cfg__t.html#a21551868a02ca479b920d2c0bdb1cd68">gpioBitMapToClrGr1</a></td></tr>
+<tr class="memdesc:a21551868a02ca479b920d2c0bdb1cd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmap of GPIOs to clear (GPIO 0 through 15).  <a href="#a21551868a02ca479b920d2c0bdb1cd68">More...</a><br/></td></tr>
+<tr class="separator:a21551868a02ca479b920d2c0bdb1cd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52fed1ab520f39e272d16c2d2a47935d"><td class="memItemLeft" align="right" valign="top">INT16U&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__gpio__out__pins__cfg__t.html#a52fed1ab520f39e272d16c2d2a47935d">gpioBitMapToClrGr2</a></td></tr>
 <tr class="memdesc:a52fed1ab520f39e272d16c2d2a47935d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmap of GPIOs to clear (GPIO 16 through 27).  <a href="#a52fed1ab520f39e272d16c2d2a47935d">More...</a><br/></td></tr>
 <tr class="separator:a52fed1ab520f39e272d16c2d2a47935d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Set/clear multiple GPIOs at the same time. </p>
-<p>Pass a pointer to the following struct as the <code>buf</code> argument of the <a class="el" href="group__device__api.html#gaaafdc1ad147827ec641bd7b9dd2e762d" title="Write to a previously opened device. ">dn_write()</a> function, when using the <a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a5b43c3b3d01213323034d227fddbca1d" title="Set multiple GPIOs at the same time, see GPIO. ">DN_GPIO_OUT_PINS_DEV_ID</a> device. </p>
+<p>Pass a pointer to the following struct as the <code>args</code> argument of the <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a> function, when using the <a class="el" href="group__device__api.html#gga904270a1ce2d9fefdc6b663d16bb7392a5b43c3b3d01213323034d227fddbca1d" title="Set multiple GPIOs at the same time, see GPIO. ">DN_GPIO_OUT_PINS_DEV_ID</a> device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="ad3ed3f52c6988f291004e631bf85f68e"></a>
 <div class="memitem">
@@ -159,12 +159,12 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acab529e3e17e720060f7ac6c8a26b11a"></a>
+<a class="anchor" id="a21551868a02ca479b920d2c0bdb1cd68"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">INT16U gpioBitMaptoClrGr1</td>
+          <td class="memname">INT16U gpioBitMapToClrGr1</td>
         </tr>
       </table>
 </div><div class="memdoc">

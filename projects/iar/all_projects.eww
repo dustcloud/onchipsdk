@@ -17,7 +17,19 @@
     <path>$WS_DIR$\00-uc_timers\00-uc_timers.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\01-blink\01-blink.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\01-events\01-events.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\01-join\01-join.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\01-join_control\01-join_control.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\01-search\01-search.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\01-service\01-service.ewp</path>
@@ -32,10 +44,16 @@
     <path>$WS_DIR$\02-gpio\02-gpio.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\02-gpio_multi\02-gpio_multi.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\02-gpio_net\02-gpio_net.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\02-i2c\02-i2c.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\02-lptimer\02-lptimer.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\02-onewire\02-onewire.ewp</path>
@@ -53,7 +71,16 @@
     <path>$WS_DIR$\02-temperature\02-temperature.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\02-tristate\02-tristate.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\02-uart\02-uart.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\02-uart_raw\02-uart_raw.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\02-pwm\02-pwm.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\03-cli_accesslevel\03-cli_accesslevel.ewp</path>
@@ -62,16 +89,16 @@
     <path>$WS_DIR$\03-cli_module\03-cli_module.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\03-radioTest\03-radioTest.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\03-security\03-security.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\03-sockets\03-sockets.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\03-time\03-time.ewp</path>
-  </project>
-  <project>
-    <path>$WS_DIR$\04-bridge\04-bridge.ewp</path>
-  </project>
-  <project>
-    <path>$WS_DIR$\04-dc2126a\04-dc2126a.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\04-fft\04-fft.ewp</path>
@@ -158,6 +185,14 @@
       </member>
       <member>
         <project>02-uart</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>02-uart_raw</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>02-pwm</project>
         <configuration>Debug</configuration>
       </member>
       <member>

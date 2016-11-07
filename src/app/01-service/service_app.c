@@ -9,9 +9,10 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dnm_local.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
+#include "well_known_ports.h"
 
 //=========================== defines =========================================
-
+#define SERVICE_PORT                   WKP_USER_1
 #define PAYLOAD_LENGTH                 10
 
 //=========================== variables =======================================
@@ -27,7 +28,6 @@ service_app_vars_t service_app_vars;
 //=========================== prototypes ======================================
 
 static void serviceTask(void* unused);
-dn_error_t rxNotifCb(dn_api_loc_notif_received_t* rxFrame, INT8U length);
 void printService();
 
 //=========================== initialization ==================================
@@ -52,8 +52,8 @@ int p2_init(void) {
    );
    loc_task_init(
       JOIN_YES,                             // fJoin
-      NULL,                                 // netId
-      60000,                                // udpPort
+      NETID_NONE,                           // netId
+      WKP_USER_1,                           // udpPort
       service_app_vars.joinedSem,           // joinedSem
       1000,                                 // bandwidth
       service_app_vars.serviceSem           // serviceSem
@@ -80,7 +80,6 @@ int p2_init(void) {
 }
 
 static void serviceTask(void* unused) {
-   dn_error_t dnErr;
    INT8U      osErr;
    
    // wait for the loc_task to finish joining the network
@@ -117,7 +116,7 @@ void printService() {
       DN_API_SERVICE_TYPE_BW,  // svcType
       &currentService          // svcRsp 
    );
-   ASSERT(currentService.rc==DN_API_RC_OK);
+   ASSERT(dnErr==DN_ERR_NONE && currentService.rc==DN_API_RC_OK);
    
    // print
    dnm_ucli_printf("Service:\r\n");

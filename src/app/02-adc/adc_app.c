@@ -94,7 +94,7 @@ static void adcTask(void* unused) {
       // read ADC value
       numBytesRead = dn_read(
          DN_ADC_AI_0_DEV_ID ,        // device
-         &adcVal,                    // buf
+         (char*)&adcVal,             // buf
          sizeof(adcVal)              // bufSize 
       );
       ASSERT(numBytesRead== sizeof(adcVal));

@@ -16,11 +16,11 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len);
-dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len);
-dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len);
-dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len);
-dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_cbcCmdHandler(const char* arg, INT32U len);
+dn_error_t cli_ctrCmdHandler(const char* arg, INT32U len);
+dn_error_t cli_ccm1CmdHandler(const char* arg, INT32U len);
+dn_error_t cli_ccm2CmdHandler(const char* arg, INT32U len);
+dn_error_t cli_ccm3CmdHandler(const char* arg, INT32U len);
 //===== helpers
 void printBuf(INT8U* buf, INT8U len);
 
@@ -102,7 +102,7 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_ccm1CmdHandler,     "ccm1",   "",       DN_CLI_ACCESS_LOGIN},
    {&cli_ccm2CmdHandler,     "ccm2",   "",       DN_CLI_ACCESS_LOGIN},
    {&cli_ccm3CmdHandler,     "ccm3",   "",       DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,     NULL,     0},
+   {NULL,                    NULL,     NULL,     DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -124,15 +124,13 @@ security_app_vars_t security_app_vars;
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
-   INT8U           osErr;
    
    //===== initialize helper tasks
    
    // CLI task
    cli_task_init(
       "security",                           // appName
-      &cliCmdDefs                           // cliCmds
+      cliCmdDefs                            // cliCmds
    );
    
    // local interface task
@@ -152,7 +150,7 @@ int p2_init(void) {
 
 //===== 'ctr': CTR AES mode
 
-dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_ctrCmdHandler(const char* arg, INT32U len) {
    dn_error_t      dnErr;
    
    // prepare paramaters
@@ -209,7 +207,7 @@ dn_error_t cli_ctrCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'cbc': CBC-MAC AES mode
 
-dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_cbcCmdHandler(const char* arg, INT32U len) {
    dn_error_t      dnErr;
    
    // prepare paramaters
@@ -249,7 +247,7 @@ dn_error_t cli_cbcCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'ccm': CCM* AES mode
 
-dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_ccm1CmdHandler(const char* arg, INT32U len) {
    dn_error_t      dnErr;
    dn_sec_ccmopt_t dn_sec_ccmopt;
    INT8U           aBuf[sizeof(ccm1_a)];
@@ -284,13 +282,13 @@ dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len) {
    // encrypt and authenticate
    dnErr = dn_sec_aesCcmEncrypt(
       &dn_sec_ccmopt,             // opt
-      &aBuf,                      // aBuf
+      aBuf,                       // aBuf
       sizeof(aBuf),               // aLen
       NULL,                       // mBuf
       0,                          // mLen
-      &security_app_vars.key,     // key
-      &security_app_vars.iv,      // nonce
-      &security_app_vars.mic      // mic
+      security_app_vars.key,      // key
+      security_app_vars.iv,       // nonce
+      security_app_vars.mic       // mic
    );
    ASSERT(dnErr==DN_ERR_NONE);
    
@@ -304,7 +302,7 @@ dn_error_t cli_ccm1CmdHandler(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_ccm2CmdHandler(const char* arg, INT32U len) {
    dn_error_t      dnErr;
    dn_sec_ccmopt_t dn_sec_ccmopt;
    INT8U           aBuf[sizeof(ccm2_a)];
@@ -344,13 +342,13 @@ dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len) {
    // encrypt and authenticate
    dnErr = dn_sec_aesCcmEncrypt(
       &dn_sec_ccmopt,             // opt
-      &aBuf,                      // aBuf
+      aBuf,                       // aBuf
       sizeof(aBuf),               // aLen
-      &mBuf,                      // mBuf
+      mBuf,                       // mBuf
       sizeof(mBuf),               // mLen
-      &security_app_vars.key,     // key
-      &security_app_vars.iv,      // nonce
-      &security_app_vars.mic      // mic
+      security_app_vars.key,      // key
+      security_app_vars.iv,       // nonce
+      security_app_vars.mic       // mic
    );
    ASSERT(dnErr==DN_ERR_NONE);
    
@@ -364,7 +362,7 @@ dn_error_t cli_ccm2CmdHandler(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_ccm3CmdHandler(const char* arg, INT32U len) {
    
    dn_error_t      dnErr;
    dn_sec_ccmopt_t dn_sec_ccmopt;
@@ -405,13 +403,13 @@ dn_error_t cli_ccm3CmdHandler(INT8U* arg, INT32U len) {
    // encrypt and authenticate
    dnErr = dn_sec_aesCcmEncrypt(
       &dn_sec_ccmopt,             // opt
-      &aBuf,                      // aBuf
+      aBuf,                       // aBuf
       sizeof(aBuf),               // aLen
-      &mBuf,                      // mBuf
+      mBuf,                       // mBuf
       sizeof(mBuf),               // mLen
-      &security_app_vars.key,     // key
-      &security_app_vars.iv,      // nonce
-      &security_app_vars.mic      // mic
+      security_app_vars.key,      // key
+      security_app_vars.iv,       // nonce
+      security_app_vars.mic       // mic
    );
    ASSERT(dnErr==DN_ERR_NONE);
    

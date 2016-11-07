@@ -217,7 +217,7 @@ function to process CLI notification
 */
 dn_error_t dnm_ucli_input (CH_DESC chDesc)
 {
-   INT32S              rxLen, msgType;
+   INT32U              rxLen, msgType;
    INT8U               buf[DN_CLI_NOTIF_SIZE];
    INT8U               paramsLen;
    dn_error_t          res;
@@ -233,7 +233,7 @@ dn_error_t dnm_ucli_input (CH_DESC chDesc)
       return res;
 
    paramsLen = (INT8U)rxLen - (INT8U)((((dn_cli_notifMsg_t*)(0))->data) - ((INT8U *)(dn_cli_notifMsg_t*)0)) - pCliNotif->offset;
-   return dnm_ucli_v.notifCb(pCliNotif->type, pCliNotif->cmdId, pCliNotif->data+pCliNotif->offset, paramsLen);
+   return dnm_ucli_v.notifCb(pCliNotif->type, pCliNotif->cmdId, (const char*)pCliNotif->data+pCliNotif->offset, paramsLen);
 }
 
 /**
@@ -302,7 +302,7 @@ void dnm_ucli_printfTimestamp_v(const char *format, va_list arg)
    localtime_s(&locTime, &(t.time));
    dnm_ucli_printf("(%02d:%02d:%02d.%03d) ", locTime.tm_hour, locTime.tm_min, locTime.tm_sec, t.millitm);
 #endif
-   dnm_ucli_printf("%6d : ", OSTimeGet());   // TODO change to print sec.msec
+   dnm_ucli_printf("%6u : ", OSTimeGet());   // TODO change to print sec.msec
    dnm_ucli_printf_v(format, arg);
 }
 
@@ -403,6 +403,10 @@ void dnm_ucli_traceDumpBlocking(BOOLEAN isTraceEnabled,
    va_list  marker;
    INT8U    err = OS_ERR_NONE;
 
+   if (!isTraceEnabled) {
+      return;
+   }
+
    // create mutex if not created
    if (dnm_ucli_v.blockingTraceMutex == NULL) {
       dnm_ucli_v.blockingTraceMutex = OSSemCreate(1);
@@ -412,12 +416,9 @@ void dnm_ucli_traceDumpBlocking(BOOLEAN isTraceEnabled,
    OSSemPend(dnm_ucli_v.blockingTraceMutex, 0, &err);
    ASSERT (err == OS_ERR_NONE);
    
-   
-   if (isTraceEnabled) {
-      va_start(marker, format);
-      dnm_ucli_dump_v(data, len, format, marker);
-      va_end(marker);
-   }
+   va_start(marker, format);
+   dnm_ucli_dump_v(data, len, format, marker);
+   va_end(marker);
 
    // release mutex
    err = OSSemPost(dnm_ucli_v.blockingTraceMutex);
@@ -479,6 +480,6 @@ INT8S dnm_ucli_hex2byte(const char * str, INT8U * buf, int bufSize) {
 }
 
 static INT8U dnm_ucli_hex2byte_p(char c) {
-   c = tolower(c);
+   c = (char)tolower(c);
    return c>='0' && c<='9' ? c - '0' : c - 'a' + 10;
 }

@@ -44,10 +44,10 @@ static void blinkTask(void* unused);
 
 // callback
 void blinkTmr_cb(OS_TMR *ptmr, void *p_arg);
-void openLed(int led);
-void blinkLed(int led);
-void ledOn(int led);
-void ledOff(int led);
+void openLed(dn_device_t led);
+void blinkLed(dn_device_t led);
+void ledOn(dn_device_t led);
+void ledOff(dn_device_t led);
 
 //=========================== initialization ==================================
 
@@ -64,7 +64,7 @@ int p2_init(void) {
       COMPUTATION_DURATION,  // dly
       0,                     // period
       OS_TMR_OPT_ONE_SHOT,   // opt
-      blinkTmr_cb,           // callback
+      (OS_TMR_CALLBACK)blinkTmr_cb, // callback
       NULL,                  // callback_arg
       NULL,                  // pname
       &osErr                 // perr
@@ -199,7 +199,7 @@ static void blinkTask(void* unused) {
 
 //=========================== helpers =========================================
 
-void openLed(int led) {
+void openLed(dn_device_t led) {
    dn_error_t                dnErr;
    dn_gpio_ioctl_cfg_out_t   gpioOutCfg;
    
@@ -222,15 +222,15 @@ void openLed(int led) {
    ASSERT(dnErr==DN_ERR_NONE);
 }
 
-void blinkLed(int led) {
+void blinkLed(dn_device_t led) {
    ledOn(led);
    OSTimeDly(FLASH_DURATION);
    ledOff(led);
 }
 
-void ledOn(int led) {
+void ledOn(dn_device_t led) {
    dn_error_t                dnErr;
-   INT8U                     pinState;
+   char                      pinState;
    
    // turn LED on
    pinState = 0x01;
@@ -242,9 +242,9 @@ void ledOn(int led) {
    ASSERT(dnErr==DN_ERR_NONE);
 }
 
-void ledOff(int led) {
+void ledOff(dn_device_t led) {
    dn_error_t                dnErr;
-   INT8U                     pinState;
+   char                      pinState;
    
    // turn LED off
    pinState = 0x00;

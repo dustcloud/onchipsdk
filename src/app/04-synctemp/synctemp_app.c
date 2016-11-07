@@ -23,12 +23,7 @@ Copyright (c) 2014, Dust Networks.  All rights reserved.
 #include "app_task_cfg.h"
 
 //=========================== defines =========================================
-
-#ifndef WKP_USER3
-#define WKP_USER3 0xF0BA
-#endif
-
-#define SYNCTEMP_UDP_PORT    WKP_USER3
+#define SYNCTEMP_UDP_PORT    WKP_USER_3
 
 #define APP_CONFIG_FILENAME  "2syncBlk.cfg"
 #define DEFAULT_RPT_PERIOD   3600             // seconds
@@ -93,8 +88,8 @@ synctemp_app_vars_t synctemp_v;
 //=========================== prototypes ======================================
 
 //=== CLI handlers
-dn_error_t cli_getPeriod(INT8U* arg, INT32U len);
-dn_error_t cli_setPeriod(INT8U* arg, INT32U len);
+dn_error_t cli_getPeriod(const char* arg, INT32U len);
+dn_error_t cli_setPeriod(const char* arg, INT32U len);
 
 //=== tasks
 static void sampleTask(void* unused);
@@ -127,7 +122,7 @@ void unlockRxPk();
 const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_getPeriod,      "getperiod",    "getperiod",              DN_CLI_ACCESS_LOGIN},
    {&cli_setPeriod,      "setperiod",    "setperiod <period>",     DN_CLI_ACCESS_LOGIN},
-   {NULL,                 NULL,          NULL,                     0},
+   {NULL,                 NULL,          NULL,                     DN_CLI_ACCESS_NONE},
 };
 
 //=========================== initialization ==================================
@@ -137,7 +132,6 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
 */
 int p2_init(void) {
    INT8U           osErr;
-   dn_error_t      dnErr;
    
    // clear module variables
    memset(&synctemp_v,0,sizeof(synctemp_app_vars_t));
@@ -170,7 +164,7 @@ int p2_init(void) {
    
    cli_task_init(
       "synctemp",                    // appName
-      &cliCmdDefs                    // cliCmds
+      cliCmdDefs                     // cliCmds
    );
    
    loc_task_init(
@@ -233,9 +227,7 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_getPeriod(INT8U* arg, INT32U len) {
-   dn_error_t      dnErr;
-   INT8U           osErr;
+dn_error_t cli_getPeriod(const char* arg, INT32U len) {
    INT8U           isJoined;
    INT64S          nextReportUTCSec;
    dn_time_asn_t   currentASN;
@@ -276,7 +268,7 @@ dn_error_t cli_getPeriod(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_setPeriod(INT8U* arg, INT32U len) {
+dn_error_t cli_setPeriod(const char* arg, INT32U len) {
    INT32U     newReportPeriod;
    int        l;
    
@@ -372,7 +364,7 @@ static void sampleTask(void* unused) {
       // read temperature
       numBytesRead = dn_read(
          DN_TEMP_DEV_ID ,         // device
-         &temperature,            // buf
+         (char*)&temperature,     // buf
          sizeof(temperature)      // bufSize 
       );
       ASSERT(numBytesRead==sizeof(temperature));
@@ -430,9 +422,7 @@ void sampleTaskStackTimer_cb(void* pTimer, void *pArgs) {
 
 static void processRxTask(void* unused) {
    INT8U           osErr;
-   INT8U           dnErr;
    app_payload_ht* appHdr;
-   INT8U*          pkPtr;
    
    while (1) { // this is a task, it executes forever
       
@@ -509,10 +499,7 @@ static void processRxTask(void* unused) {
 \return DN_ERR_NONE always
 */
 dn_error_t rxNotif(dn_api_loc_notif_received_t* rxFrame, INT8U length) {
-   INT8U                          osErr;
    INT8U                          payloadLen;
-   INT16U                         cmdId;
-   dn_error_t                     dnErr;
 
    // calc data size
    payloadLen = length-sizeof(dn_api_loc_notif_received_t);

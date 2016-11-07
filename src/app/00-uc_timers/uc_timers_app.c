@@ -45,7 +45,6 @@ uc_timers_app_vars_t uc_timers_app_vars;
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
    INT8U           osErr;
    
    //==== initialize local variable

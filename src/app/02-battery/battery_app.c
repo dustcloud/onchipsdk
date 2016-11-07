@@ -9,6 +9,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dn_adc.h"
 #include "dn_exe_hdr.h"
 #include "app_task_cfg.h"
+#include <string.h>
 #include "Ver.h"
 
 //=========================== variables =======================================
@@ -73,13 +74,14 @@ static void batteryTask(void* unused) {
    INT16U                    voltage;
    dn_adc_drv_open_args_t    openArgs;
    
+   memset(&openArgs, 0, sizeof(dn_adc_drv_open_args_t));
    openArgs.loadBattery = DN_ADC_LOAD_BATT_NONE;
-
+   
    // open battery sensor
    dnErr = dn_open(
       DN_BATT_DEV_ID,        // device
       &openArgs,             // args
-      sizeof(openArgs)       // argLen
+      sizeof(openArgs)      // argLen 
    );
    ASSERT(dnErr==DN_ERR_NONE);
    
@@ -92,7 +94,7 @@ static void batteryTask(void* unused) {
       // read battery value
       numBytesRead = dn_read(
          DN_BATT_DEV_ID,          // device
-         &voltage,                // buf
+         (char*)&voltage,         // buf
          sizeof(voltage)          // bufSize 
       );
       ASSERT(numBytesRead== sizeof(INT16U));

@@ -16,7 +16,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_iterCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_iterCmdHandler(char const* arg, INT32U len);
 //===== tasks
 static void stackTask(void* unused);
 //===== helpers
@@ -26,7 +26,7 @@ INT32U recursiveSum(INT32U val);
 
 const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_iterCmdHandler,     "iter",   "[a]",         DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,     NULL,          0},
+   {NULL,                    NULL,     NULL,          DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -45,7 +45,6 @@ uc_stack_app_vars_t uc_stack_app_vars;
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
    INT8U           osErr;
    
    //==== initialize local variable
@@ -56,7 +55,7 @@ int p2_init(void) {
    
    cli_task_init(
       "uc_stack",                           // appName
-      &cliCmdDefs                           // cliCmds
+       cliCmdDefs                           // cliCmds
    );
    loc_task_init(
       JOIN_NO,                              // fJoin
@@ -89,7 +88,7 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_iterCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_iterCmdHandler(char const* arg, INT32U len) {
    int   a, l;
    
    //--- param 0: iter

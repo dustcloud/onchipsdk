@@ -212,6 +212,10 @@ Enumerations</h2></td></tr>
 <br/>
 &#160;&#160;<a class="el" href="group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a0b15f011433c52e401e17b6e9dcd1cb5">DN_MSG_TYPE_REQTIME_NOTIF</a>, 
 <br/>
+&#160;&#160;<a class="el" href="group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a3b9cebfad350d05656857f08dc24c8d9">DN_MSG_TYPE_TIMEMAP_ESTABLISHED_NOTIF</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a9a81a9368ba367b7db9edb83564dd3f5">DN_MSG_TYPE_LPTIMER_NOTIF</a>, 
+<br/>
 &#160;&#160;<a class="el" href="group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362aa68cbc744ec928fd9e88437acf3adc94">DN_MSG_TYPE_LAST</a>
 <br/>
  }</td></tr>
@@ -450,7 +454,13 @@ Synchronous channels</h2></td></tr>
 <p>Radio-test notification. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga8dbd8057e60f8aa0a54e3d9f6d0a5362a0b15f011433c52e401e17b6e9dcd1cb5"></a>DN_MSG_TYPE_REQTIME_NOTIF</em>&nbsp;</td><td class="fielddoc">
-<p>Notification to request time. </p>
+<p>Request time notification. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga8dbd8057e60f8aa0a54e3d9f6d0a5362a3b9cebfad350d05656857f08dc24c8d9"></a>DN_MSG_TYPE_TIMEMAP_ESTABLISHED_NOTIF</em>&nbsp;</td><td class="fielddoc">
+<p>Time map established notification. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga8dbd8057e60f8aa0a54e3d9f6d0a5362a9a81a9368ba367b7db9edb83564dd3f5"></a>DN_MSG_TYPE_LPTIMER_NOTIF</em>&nbsp;</td><td class="fielddoc">
+<p>LP Timer notifications. </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="gga8dbd8057e60f8aa0a54e3d9f6d0a5362aa68cbc744ec928fd9e88437acf3adc94"></a>DN_MSG_TYPE_LAST</em>&nbsp;</td><td class="fielddoc">
 </td></tr>
@@ -594,9 +604,7 @@ Synchronous channels</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of pending messages. This is <code>0</code> if no messages are pending. </dd>
 <dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> (a negative number) if <code>chDesc</code> is not a valid channel descriptor. </dd>
-<dd>
-<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> (a negative number) if this function can not complete successfully. </dd></dl>
+<a class="el" href="group__dn__errno.html#gga9479eb133dd4d20cf03e2e5c9f2b5167a95d9d63acaa33a60da8acab3924ccb63" title="(-3) Invalid value or parameter. ">DN_ERR_INVALID</a> (a negative number) if <code>chDesc</code> is not a valid channel descriptor. </dd></dl>
 
 </div>
 </div>

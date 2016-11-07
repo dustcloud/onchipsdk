@@ -25,6 +25,8 @@ var group__dn__channel =
       [ "DN_MSG_TYPE_GPIO_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a32b78c24818d7e8cb6994209b64677b9", null ],
       [ "DN_MSG_TYPE_RADIOTEST", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362ad0ba9a311e392a1723c140100af408b6", null ],
       [ "DN_MSG_TYPE_REQTIME_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a0b15f011433c52e401e17b6e9dcd1cb5", null ],
+      [ "DN_MSG_TYPE_TIMEMAP_ESTABLISHED_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a3b9cebfad350d05656857f08dc24c8d9", null ],
+      [ "DN_MSG_TYPE_LPTIMER_NOTIF", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a9a81a9368ba367b7db9edb83564dd3f5", null ],
       [ "DN_MSG_TYPE_LAST", "group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362aa68cbc744ec928fd9e88437acf3adc94", null ]
     ] ],
     [ "dn_registerChannel", "group__dn__channel.html#gae42baab8889803dd65dead999d3e842f", null ],

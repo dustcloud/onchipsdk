@@ -17,8 +17,6 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
-   INT8U           osErr;
    
    cli_task_init(
       "hello_common",                       // appName

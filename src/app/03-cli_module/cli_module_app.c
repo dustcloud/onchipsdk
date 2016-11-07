@@ -14,13 +14,13 @@ Copyright (c) 2014, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_sumCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_sumCmdHandler(const char *arg, INT32U len);
 
 //=========================== const ===========================================
 
 const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_sumCmdHandler,      "sum",         "a b",         DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,          NULL,          0},
+   {NULL,                    NULL,          NULL,          DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -31,15 +31,12 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
-   INT8U           osErr;
-   OS_MEM*         cliChannelMem;
    
    //==== initialize helper tasks
    
    cli_task_init(
       "cli",                                // appName
-      &cliCmdDefs                           // cliCmds
+      cliCmdDefs                            // cliCmds
    );
    loc_task_init(
       JOIN_NO,                              // fJoin
@@ -55,8 +52,7 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_sumCmdHandler(INT8U* arg, INT32U len) {
-   char* token;
+dn_error_t cli_sumCmdHandler(const char* arg, INT32U len) {
    int   a;
    int   b;
    int   l;

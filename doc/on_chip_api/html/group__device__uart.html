@@ -120,7 +120,7 @@ The UART uses HDLC encoding.</dd></dl>
 </table>
 <h1><a class="anchor" id="sec_uart_dn_open"></a>
 Open the device</h1>
-<p>You need to call <a class="el" href="group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e" title="Open a device. ">dn_open()</a> to open this device before using any of the other functions. To open this device, use the <a class="el" href="group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e" title="Open a device. ">dn_open()</a> function with the following parameters:</p>
+<p>You need to call <a class="el" href="group__device__api.html#ga17ee62e6ea1a938459f92ad45c603d96" title="Open a device. ">dn_open()</a> to open this device before using any of the other functions. To open this device, use the <a class="el" href="group__device__api.html#ga17ee62e6ea1a938459f92ad45c603d96" title="Open a device. ">dn_open()</a> function with the following parameters:</p>
 <table class="doxtable">
 <tr>
 <th align="left">Parameter Name </th><th align="left">Parameter Value  </th></tr>
@@ -155,12 +155,15 @@ Transmitting over UART</h1>
 <p>To send a frame over UART, use <a class="el" href="group__dn__channel.html#gacffabeeeb11009f32e56a2f0923cae21" title="Send a message over a synchronous channel, by type. ">dn_sendSyncMsgByType()</a> with message type set to <a class="el" href="group__dn__channel.html#gga8dbd8057e60f8aa0a54e3d9f6d0a5362a8974c4d1a6e3d4eeae4991a3f2624efb" title="UART control. ">DN_MSG_TYPE_UART_TX_CTRL</a>.</p>
 <h1><a class="anchor" id="sec_dn_close"></a>
 Close the device</h1>
-<p>Close the UART device by calling the <a class="el" href="group__device__api.html#ga070e88a529b38043d211f2f6b4f64721" title="Close a previously opened device. ">dn_close()</a> function. This will release the device and allow a (possibly different) task to open and use it. </p>
+<p>Close the UART device by calling the <a class="el" href="group__device__api.html#gafea59bb0257992c5c32f21bbb249fe71" title="Close a previously opened device. ">dn_close()</a> function. This will release the device and allow a (possibly different) task to open and use it. </p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__uart__open__args__t.html">dn_uart_open_args_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__device__api.html#ga561ddfae94783e45d60c75d1493efa2e" title="Open a device. ">dn_open()</a> argument.  <a href="structdn__uart__open__args__t.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__device__api.html#ga17ee62e6ea1a938459f92ad45c603d96" title="Open a device. ">dn_open()</a> argument.  <a href="structdn__uart__open__args__t.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__uart__notif__t.html">dn_uart_notif_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">UART RX ISR notification Initial timestamp is taken at UART RX ISR using 32kHz system clock.  <a href="structdn__uart__notif__t.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>

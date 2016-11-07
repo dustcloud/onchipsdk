@@ -9,9 +9,10 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #include "dnm_local.h"
 #include "app_task_cfg.h"
 #include "Ver.h"
+#include "Well_known_ports.h"
 
 //=========================== defines =========================================
-
+#define JOIN_PORT                      WKP_USER_1
 #define PAYLOAD_LENGTH                 10
 
 //=========================== variables =======================================
@@ -34,7 +35,6 @@ dn_error_t rxNotifCb(dn_api_loc_notif_received_t* rxFrame, INT8U length);
 \brief This is the entry point for the application code.
 */
 int p2_init(void) {
-   dn_error_t      dnErr;
    INT8U           osErr;
    
    // create semaphore for loc_task to indicate when joined
@@ -48,8 +48,8 @@ int p2_init(void) {
    );
    loc_task_init(
       JOIN_YES,                             // fJoin
-      NULL,                                 // netId
-      60000,                                // udpPort
+      NETID_NONE,                           // netId
+      JOIN_PORT,                            // udpPort
       join_app_vars.joinedSem,              // joinedSem
       BANDWIDTH_NONE,                       // bandwidth
       NULL                                  // serviceSem
@@ -103,7 +103,7 @@ static void sendTask(void* unused) {
       pkToSend = (loc_sendtoNW_t*)pkBuf;
       pkToSend->locSendTo.socketId          = loc_getSocketId();
       pkToSend->locSendTo.destAddr          = DN_MGR_IPV6_MULTICAST_ADDR;
-      pkToSend->locSendTo.destPort          = 60000;
+      pkToSend->locSendTo.destPort          = JOIN_PORT;
       pkToSend->locSendTo.serviceType       = DN_API_SERVICE_TYPE_BW;   
       pkToSend->locSendTo.priority          = DN_API_PRIORITY_MED;   
       pkToSend->locSendTo.packetId          = 0xFFFF;

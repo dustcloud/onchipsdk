@@ -24,9 +24,9 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len);
-dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len);
-dn_error_t cli_txCmdHandler(INT8U* arg, INT32U len);
+dn_error_t cli_lenCmdHandler(const char* arg, INT32U len);
+dn_error_t cli_delayCmdHandler(const char* arg, INT32U len);
+dn_error_t cli_txCmdHandler(const char* arg, INT32U len);
 //===== tasks
 static void  uartTxTask(void* unused);
 static void  uartRxTask(void* unused);
@@ -37,7 +37,7 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_lenCmdHandler,      "len",         "length",      DN_CLI_ACCESS_LOGIN},
    {&cli_delayCmdHandler,    "delay",       "num ms",      DN_CLI_ACCESS_LOGIN},
    {&cli_txCmdHandler,       "tx",          "num packets", DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,          NULL,          0},
+   {NULL,                    NULL,          NULL,          DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -77,7 +77,7 @@ int p2_init(void) {
    
    cli_task_init(
       "uart",                               // appName
-      &cliCmdDefs                           // cliCmds
+      cliCmdDefs                            // cliCmds
    );
    loc_task_init(
       JOIN_NO,                              // fJoin
@@ -127,7 +127,7 @@ int p2_init(void) {
 
 //=========================== CLI handlers ====================================
 
-dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_lenCmdHandler(const char* arg, INT32U len) {
    int   uartTxLen, l;
    
    //--- param 0: len
@@ -142,7 +142,7 @@ dn_error_t cli_lenCmdHandler(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_delayCmdHandler(const char* arg, INT32U len) {
    int   delay, l;
    
    //--- param 0: len
@@ -157,7 +157,7 @@ dn_error_t cli_delayCmdHandler(INT8U* arg, INT32U len) {
    return DN_ERR_NONE;
 }
 
-dn_error_t cli_txCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_txCmdHandler(const char* arg, INT32U len) {
    int   numLeft, l;
    INT8U osErr;
    
@@ -220,6 +220,7 @@ static void uartTxTask(void* unused) {
              sizeof(reply),
              &replyLen
          );
+         ASSERT(dnErr==DN_ERR_NONE);
          ASSERT(replyLen==sizeof(INT8U));
          ASSERT(reply==DN_ERR_NONE);
          

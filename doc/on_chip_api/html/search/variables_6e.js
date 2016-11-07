@@ -8,6 +8,8 @@ var searchData=
   ['numofpagesused',['numOfPagesUsed',['../structdn__fs__fsinfo__t.html#a08ebd524440365e71a2533dc47c6edef',1,'dn_fs_fsinfo_t']]],
   ['numparents',['numParents',['../structdn__api__rsp__get__motestatus__t.html#a0b3caaaafd96a94e86fc7626546cbbb6',1,'dn_api_rsp_get_motestatus_t']]],
   ['numrepeats',['numRepeats',['../struct_p_a_c_k_e_d___a_t_t_r.html#a2cc69b994a7789a74fcd2c9b401e2b0d',1,'PACKED_ATTR']]],
+  ['numrxsettimeerr',['numRxSetTimeErr',['../structdn__time__pps__stats__t.html#ab7021c9f8e181c638a12d2e34d924678',1,'dn_time_pps_stats_t::numRxSetTimeErr()'],['../structdn__api__rsp__get__ap__stats__t.html#ab7021c9f8e181c638a12d2e34d924678',1,'dn_api_rsp_get_ap_stats_t::numRxSetTimeErr()']]],
   ['numsamples',['numSamples',['../structdn__ioctl__spi__transfer__t.html#a6de3b24374c0305ce3915ed63dd96551',1,'dn_ioctl_spi_transfer_t']]],
+  ['numsignalerr',['numSignalErr',['../structdn__time__pps__stats__t.html#aef6db2a3c53f5360af4ea0476e1d6543',1,'dn_time_pps_stats_t::numSignalErr()'],['../structdn__api__rsp__get__ap__stats__t.html#aef6db2a3c53f5360af4ea0476e1d6543',1,'dn_api_rsp_get_ap_stats_t::numSignalErr()']]],
   ['numsubtests',['numSubtests',['../struct_p_a_c_k_e_d___a_t_t_r.html#a6cb88d07c312d1d2af6a2e68e5387b71',1,'PACKED_ATTR']]]
 ];

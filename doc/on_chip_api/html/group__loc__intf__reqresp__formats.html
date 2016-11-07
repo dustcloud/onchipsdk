@@ -167,12 +167,22 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__api__loc__apsend__t.html">dn_api_loc_apsend_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the request when issuing a <a class="el" href="group__loc__intf__common.html#gaf274845320c20444d3f1a2cbafb078f6" title="Send packet into network (used by AP only, not implemented on motes) ">DN_API_LOC_CMD_AP_SEND</a> command.  <a href="structdn__api__loc__apsend__t.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__api__loc__write__gps__status__t.html">dn_api_loc_write_gps_status_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the request when issuing a <a class="el" href="group__loc__intf__common.html#gadb38681f868e84fa779e51e4421e0fc0" title="Write GPS status (used by AP only, not implemented on motes) ">DN_API_LOC_CMD_WRITE_GPS_STATUS</a> command.  <a href="structdn__api__loc__write__gps__status__t.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdn__api__loc__blink__payload__t.html">dn_api_loc_blink_payload_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the request when issuing a <a class="el" href="group__loc__intf__common.html#ga86be90f6c79c62e11c211ff9fda3be0a" title="Write Blink payload. ">DN_API_LOC_CMD_BLINK_PAYLOAD</a> command.  <a href="structdn__api__loc__blink__payload__t.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr class="memitem:ga16a7a6188978d5ac7e601e73197813db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#ga16a7a6188978d5ac7e601e73197813db">DN_API_RTEST_MAX_SUBTESTS</a></td></tr>
 <tr class="memdesc:ga16a7a6188978d5ac7e601e73197813db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum value for dn_api_loc_testrftx_t::numSubtests.  <a href="#ga16a7a6188978d5ac7e601e73197813db">More...</a><br/></td></tr>
 <tr class="separator:ga16a7a6188978d5ac7e601e73197813db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef1a9fd088b1498fbbbf85dcc6663f23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#gaef1a9fd088b1498fbbbf85dcc6663f23">DN_API_LOC_MAX_BLINK_PAYLOAD_NO_NBRS</a></td></tr>
+<tr class="separator:gaef1a9fd088b1498fbbbf85dcc6663f23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc64b0dd1b20ff961f6c721e6055348e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#gabc64b0dd1b20ff961f6c721e6055348e">DN_API_LOC_MAX_BLINK_PAYLOAD_WITH_NBRS</a></td></tr>
+<tr class="separator:gabc64b0dd1b20ff961f6c721e6055348e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -216,8 +226,17 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:gaf89d8f929ad405194b03590dc8db457f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#gaf274845320c20444d3f1a2cbafb078f6" title="Send packet into network (used by AP only, not implemented on motes) ">DN_API_LOC_CMD_AP_SEND</a> command.  <a href="#gaf89d8f929ad405194b03590dc8db457f">More...</a><br/></td></tr>
 <tr class="separator:gaf89d8f929ad405194b03590dc8db457f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0206c927b710b13ddd23c6ed7d591a60"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#ga0206c927b710b13ddd23c6ed7d591a60">dn_api_loc_rsp_search_t</a></td></tr>
-<tr class="memdesc:ga0206c927b710b13ddd23c6ed7d591a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga51e076f664b228469ab4c2331eea2a97" title="Identifier of the &quot;search&quot; notification. ">DN_API_LOC_CMD_SEARCH</a> command.  <a href="#ga0206c927b710b13ddd23c6ed7d591a60">More...</a><br/></td></tr>
+<tr class="memdesc:ga0206c927b710b13ddd23c6ed7d591a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga51e076f664b228469ab4c2331eea2a97" title="Identifier of the &quot;search&quot; command. ">DN_API_LOC_CMD_SEARCH</a> command.  <a href="#ga0206c927b710b13ddd23c6ed7d591a60">More...</a><br/></td></tr>
 <tr class="separator:ga0206c927b710b13ddd23c6ed7d591a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8949b3f8e0a1e2f322e45d842b6e05a"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#gaa8949b3f8e0a1e2f322e45d842b6e05a">dn_api_loc_rsp_write_gps_status_t</a></td></tr>
+<tr class="memdesc:gaa8949b3f8e0a1e2f322e45d842b6e05a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#gadb38681f868e84fa779e51e4421e0fc0" title="Write GPS status (used by AP only, not implemented on motes) ">DN_API_LOC_CMD_WRITE_GPS_STATUS</a> command.  <a href="#gaa8949b3f8e0a1e2f322e45d842b6e05a">More...</a><br/></td></tr>
+<tr class="separator:gaa8949b3f8e0a1e2f322e45d842b6e05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae03db0b58db1e16f6940cef5f14a709f"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#gae03db0b58db1e16f6940cef5f14a709f">dn_api_loc_rsp_blink_payload_t</a></td></tr>
+<tr class="memdesc:gae03db0b58db1e16f6940cef5f14a709f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga86be90f6c79c62e11c211ff9fda3be0a" title="Write Blink payload. ">DN_API_LOC_CMD_BLINK_PAYLOAD</a> command.  <a href="#gae03db0b58db1e16f6940cef5f14a709f">More...</a><br/></td></tr>
+<tr class="separator:gae03db0b58db1e16f6940cef5f14a709f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a9acb6ecb391c6e221c9a4a7f754ee6"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__loc__intf__reqresp__formats.html#ga0a9acb6ecb391c6e221c9a4a7f754ee6">dn_api_loc_rsp_stop_search_t</a></td></tr>
+<tr class="memdesc:ga0a9acb6ecb391c6e221c9a4a7f754ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga20cc63e0650c4724f50141f573dac32e" title="Identifier of the &quot;stop search&quot; command. ">DN_API_LOC_CMD_STOP_SEARCH</a> command.  <a href="#ga0a9acb6ecb391c6e221c9a4a7f754ee6">More...</a><br/></td></tr>
+<tr class="separator:ga0a9acb6ecb391c6e221c9a4a7f754ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Defines</h2>
 <a class="anchor" id="ga16a7a6188978d5ac7e601e73197813db"></a>
@@ -231,6 +250,30 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Maximum value for dn_api_loc_testrftx_t::numSubtests. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaef1a9fd088b1498fbbbf85dcc6663f23"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_LOC_MAX_BLINK_PAYLOAD_NO_NBRS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="gabc64b0dd1b20ff961f6c721e6055348e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DN_API_LOC_MAX_BLINK_PAYLOAD_WITH_NBRS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -427,7 +470,49 @@ Typedefs</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga51e076f664b228469ab4c2331eea2a97" title="Identifier of the &quot;search&quot; notification. ">DN_API_LOC_CMD_SEARCH</a> command. </p>
+<p>Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga51e076f664b228469ab4c2331eea2a97" title="Identifier of the &quot;search&quot; command. ">DN_API_LOC_CMD_SEARCH</a> command. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa8949b3f8e0a1e2f322e45d842b6e05a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a> <a class="el" href="group__loc__intf__reqresp__formats.html#gaa8949b3f8e0a1e2f322e45d842b6e05a">dn_api_loc_rsp_write_gps_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#gadb38681f868e84fa779e51e4421e0fc0" title="Write GPS status (used by AP only, not implemented on motes) ">DN_API_LOC_CMD_WRITE_GPS_STATUS</a> command. </p>
+
+</div>
+</div>
+<a class="anchor" id="gae03db0b58db1e16f6940cef5f14a709f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a> <a class="el" href="group__loc__intf__reqresp__formats.html#gae03db0b58db1e16f6940cef5f14a709f">dn_api_loc_rsp_blink_payload_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga86be90f6c79c62e11c211ff9fda3be0a" title="Write Blink payload. ">DN_API_LOC_CMD_BLINK_PAYLOAD</a> command. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0a9acb6ecb391c6e221c9a4a7f754ee6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="structdn__api__rc__rsp__t.html">dn_api_rc_rsp_t</a> <a class="el" href="group__loc__intf__reqresp__formats.html#ga0a9acb6ecb391c6e221c9a4a7f754ee6">dn_api_loc_rsp_stop_search_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Format of the response when issuing a <a class="el" href="group__loc__intf__common.html#ga20cc63e0650c4724f50141f573dac32e" title="Identifier of the &quot;stop search&quot; command. ">DN_API_LOC_CMD_STOP_SEARCH</a> command. </p>
 
 </div>
 </div>

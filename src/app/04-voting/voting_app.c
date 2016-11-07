@@ -50,6 +50,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 #define VOTING_LED_ON   10     // ms
 #define VOTING_LED_OFF  10     // ms
 
+#define VOTING_PORT   WKP_USER_1
 //=========================== variables =======================================
 
 typedef struct {
@@ -92,7 +93,6 @@ void unlockData();
 \brief This is the entry point in the application code.
 */
 int p2_init(void) {
-   dn_error_t dnErr;
    INT8U      osErr;
    
    //===== initialize module variables
@@ -126,7 +126,7 @@ int p2_init(void) {
    loc_task_init(
       JOIN_YES,                             // fJoin
       NETID_NONE,                           // netId
-      WKP_USER_1,                           // udpPort
+      VOTING_PORT,                          // udpPort
       voting_v.joinedSem,                   // joinedSem
       BANDWIDTH_NONE,                       // bandwidth
       NULL                                  // serviceSem
@@ -215,7 +215,6 @@ static void buttonTask(void* unused) {
    dn_gpio_notif_t               gpioNotif;
    INT32U                        rxLen;
    INT32U                        msgType;
-   INT8U                         rc;
    INT8U                         buttonMask;
    
    //===== wait for the mote to have joined
@@ -375,7 +374,7 @@ static void sendTask(void* unused) {
       // write packet metadata
       packet->locSendTo.socketId       = loc_getSocketId();
       packet->locSendTo.destAddr       = DN_MGR_IPV6_MULTICAST_ADDR;
-      packet->locSendTo.destPort       = WKP_USER_1;
+      packet->locSendTo.destPort       = VOTING_PORT;
       packet->locSendTo.serviceType    = DN_API_SERVICE_TYPE_BW;   
       packet->locSendTo.priority       = DN_API_PRIORITY_MED;   
       packet->locSendTo.packetId       = 0xFFFF;
@@ -425,7 +424,7 @@ static void votingLEDTask(void* unused) {
    dn_error_t                     dnErr;
    INT8U                          osErr;
    dn_gpio_ioctl_cfg_out_t        gpioOutCfg;
-   INT8U                          ledState;
+   char                           ledState;
    INT8U                          keepBlinking;
    
    // open LED pin as output
@@ -481,7 +480,7 @@ static void statusLEDsTask(void* unused) {
    INT8U                          statusBuf[2+sizeof(dn_api_rsp_get_motestatus_t)];
    INT8U                          respLen;
    INT8U                          rc;
-   INT8U                          ledState;
+   char                           ledState;
    
    //=== open LEDs
    dnErr = dn_open(GREEN1_LED, NULL, 0);
@@ -508,7 +507,7 @@ static void statusLEDsTask(void* unused) {
       
       dnErr =  dnm_loc_getParameterCmd(
          DN_API_PARAM_MOTESTATUS,
-         &statusBuf,                        // payload
+         statusBuf,                         // payload
          0,                                 // txPayloadLen
          &respLen,                          // rxPayloadLen
          &rc                                // rc

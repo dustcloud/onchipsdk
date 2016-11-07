@@ -101,7 +101,16 @@ var group__loc__intf__reqresp__formats =
       [ "control", "structdn__api__loc__apsend__t.html#a8c2c98d5c6394bb120b8740b01b57eaf", null ],
       [ "payload", "structdn__api__loc__apsend__t.html#a322ec651b6cdaaefe4b9baf6bab765fe", null ]
     ] ],
+    [ "dn_api_loc_write_gps_status_t", "structdn__api__loc__write__gps__status__t.html", [
+      [ "status", "structdn__api__loc__write__gps__status__t.html#a85488c9ff4e6d37baf45a5e743d7fa2b", null ]
+    ] ],
+    [ "dn_api_loc_blink_payload_t", "structdn__api__loc__blink__payload__t.html", [
+      [ "fIncludeDscvNbrs", "structdn__api__loc__blink__payload__t.html#a5a2d47322189cc35f8e6ce851b65041c", null ],
+      [ "payload", "structdn__api__loc__blink__payload__t.html#ad5215ed66763dfdd9a6ef010aa2def37", null ]
+    ] ],
     [ "DN_API_RTEST_MAX_SUBTESTS", "group__loc__intf__reqresp__formats.html#ga16a7a6188978d5ac7e601e73197813db", null ],
+    [ "DN_API_LOC_MAX_BLINK_PAYLOAD_NO_NBRS", "group__loc__intf__reqresp__formats.html#gaef1a9fd088b1498fbbbf85dcc6663f23", null ],
+    [ "DN_API_LOC_MAX_BLINK_PAYLOAD_WITH_NBRS", "group__loc__intf__reqresp__formats.html#gabc64b0dd1b20ff961f6c721e6055348e", null ],
     [ "dn_api_loc_rsp_join_t", "group__loc__intf__reqresp__formats.html#ga6775a6ac2fc189d91a30801868b2d7ab", null ],
     [ "dn_api_loc_rsp_discon_t", "group__loc__intf__reqresp__formats.html#ga393ad7b77fe78f4e5bace8988e7f59e2", null ],
     [ "dn_api_loc_rsp_reset_t", "group__loc__intf__reqresp__formats.html#ga4fc77e611e07d8355785bbf6d9437b75", null ],
@@ -115,5 +124,8 @@ var group__loc__intf__reqresp__formats =
     [ "dn_api_loc_rsp_bind_socket_t", "group__loc__intf__reqresp__formats.html#ga931d7ea97442e37933f6abc934b52b2b", null ],
     [ "dn_api_loc_rsp_sendto_t", "group__loc__intf__reqresp__formats.html#gaac169a871c6f7cb83800f1ce2fded6de", null ],
     [ "dn_api_loc_rsp_apsend_t", "group__loc__intf__reqresp__formats.html#gaf89d8f929ad405194b03590dc8db457f", null ],
-    [ "dn_api_loc_rsp_search_t", "group__loc__intf__reqresp__formats.html#ga0206c927b710b13ddd23c6ed7d591a60", null ]
+    [ "dn_api_loc_rsp_search_t", "group__loc__intf__reqresp__formats.html#ga0206c927b710b13ddd23c6ed7d591a60", null ],
+    [ "dn_api_loc_rsp_write_gps_status_t", "group__loc__intf__reqresp__formats.html#gaa8949b3f8e0a1e2f322e45d842b6e05a", null ],
+    [ "dn_api_loc_rsp_blink_payload_t", "group__loc__intf__reqresp__formats.html#gae03db0b58db1e16f6940cef5f14a709f", null ],
+    [ "dn_api_loc_rsp_stop_search_t", "group__loc__intf__reqresp__formats.html#ga0a9acb6ecb391c6e221c9a4a7f754ee6", null ]
 ];

@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('structdn__gpio__ioctl__notif__enable__
 </div><!--header-->
 <div class="contents">
 
-<p>args field for <a class="el" href="group__device__gpio.html#gaf14271a4ac62d0e2b30138a67be46718" title="Enable or disable this GPIO&#39;s interrupt notifications. ">DN_IOCTL_GPIO_ENABLE_NOTIF</a> <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a>.  
+<p>args field for <a class="el" href="group__device__gpio.html#gaf14271a4ac62d0e2b30138a67be46718" title="Enable or disable this GPIO&#39;s interrupt notifications. ">DN_IOCTL_GPIO_ENABLE_NOTIF</a> <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a>.  
  <a href="structdn__gpio__ioctl__notif__enable__t.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -125,8 +125,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a042388d39ec76f4db8cd3c1336dbed94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>args field for <a class="el" href="group__device__gpio.html#gaf14271a4ac62d0e2b30138a67be46718" title="Enable or disable this GPIO&#39;s interrupt notifications. ">DN_IOCTL_GPIO_ENABLE_NOTIF</a> <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a>. </p>
-<p>Pass a pointer to the following struct as the <code>args</code> argument of the <a class="el" href="group__device__api.html#ga01150f35c57e36417fd1e584bcca1e6f" title="Control a previously opened device. ">dn_ioctl()</a> function, when calling with <code>request</code> set to <a class="el" href="group__device__gpio.html#gaf14271a4ac62d0e2b30138a67be46718" title="Enable or disable this GPIO&#39;s interrupt notifications. ">DN_IOCTL_GPIO_ENABLE_NOTIF</a>.</p>
+<div class="textblock"><p>args field for <a class="el" href="group__device__gpio.html#gaf14271a4ac62d0e2b30138a67be46718" title="Enable or disable this GPIO&#39;s interrupt notifications. ">DN_IOCTL_GPIO_ENABLE_NOTIF</a> <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a>. </p>
+<p>Pass a pointer to the following struct as the <code>args</code> argument of the <a class="el" href="group__device__api.html#gacc22d82d6bcaeb8bbf7fd970d963d8a6" title="Control a previously opened device. ">dn_ioctl()</a> function, when calling with <code>request</code> set to <a class="el" href="group__device__gpio.html#gaf14271a4ac62d0e2b30138a67be46718" title="Enable or disable this GPIO&#39;s interrupt notifications. ">DN_IOCTL_GPIO_ENABLE_NOTIF</a>.</p>
 <p>When notifications are enabled, a notification of type <a class="el" href="structdn__gpio__notif__t.html" title="Notification message generated when a pin interrupt occurs. ">dn_gpio_notif_t</a> is published to the specified asynchronous channel whenever the input level matches the specified active level. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a6322ceef8013c432636796e42d99d3b9"></a>

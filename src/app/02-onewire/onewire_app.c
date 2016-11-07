@@ -44,14 +44,14 @@ Copyright (c) 2015, Dust Networks.  All rights reserved.
 //=========================== prototypes ======================================
 
 //===== CLI handlers
-dn_error_t    cli_detectCmdHandler(   INT8U* arg, INT32U len);
-dn_error_t    cli_writeCmdHandler(    INT8U* arg, INT32U len);
-dn_error_t    cli_writeBitCmdHandler( INT8U* arg, INT32U len);
-dn_error_t    cli_readCmdHandler(     INT8U* arg, INT32U len);
-dn_error_t    cli_readBitCmdHandler(  INT8U* arg, INT32U len);
-dn_error_t    cli_searchCmdHandler(   INT8U* arg, INT32U len);
-dn_error_t    cli_familyFindCmdHandler(INT8U* arg, INT32U len);
-dn_error_t    cli_familySkipCmdHandler(INT8U* arg, INT32U len);
+dn_error_t    cli_detectCmdHandler(      char const* arg, INT32U len);
+dn_error_t    cli_writeCmdHandler(       char const* arg, INT32U len);
+dn_error_t    cli_writeBitCmdHandler(    char const* arg, INT32U len);
+dn_error_t    cli_readCmdHandler(        char const* arg, INT32U len);
+dn_error_t    cli_readBitCmdHandler(     char const* arg, INT32U len);
+dn_error_t    cli_searchCmdHandler(      char const* arg, INT32U len);
+dn_error_t    cli_familyFindCmdHandler(  char const* arg, INT32U len);
+dn_error_t    cli_familySkipCmdHandler(  char const* arg, INT32U len);
 
 BOOLEAN       owi_first();
 BOOLEAN       owi_next();
@@ -98,7 +98,7 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&cli_searchCmdHandler,       "s",      "",       DN_CLI_ACCESS_LOGIN},
    {&cli_familyFindCmdHandler,   "ff",     "",       DN_CLI_ACCESS_LOGIN},
    {&cli_familySkipCmdHandler,   "fs",     "",       DN_CLI_ACCESS_LOGIN},
-   {NULL,                        NULL,     NULL,     0},
+   {NULL,                        NULL,     NULL,     DN_CLI_ACCESS_NONE},
 };
 
 //=========================== variables =======================================
@@ -162,7 +162,7 @@ int p2_init(void) {
 
 //===== 'd' (detect) CLI command
 
-dn_error_t cli_detectCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_detectCmdHandler(char const *arg, INT32U len) {
    
    if (owi_reset()) {
       dnm_ucli_printf("1-wire device found\r\n");
@@ -175,7 +175,7 @@ dn_error_t cli_detectCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'w' (write) CLI command
 
-dn_error_t cli_writeCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_writeCmdHandler(char const* arg, INT32U len) {
    dn_error_t dnErr;
    INT8S      numBytes;
    
@@ -205,8 +205,7 @@ dn_error_t cli_writeCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'wb' (write bit) CLI command
 
-dn_error_t cli_writeBitCmdHandler(INT8U* arg, INT32U len) {
-   dn_error_t                dnErr;
+dn_error_t cli_writeBitCmdHandler(char const* arg, INT32U len) {
    int                       bitToWrite;
    int                       l;
    
@@ -228,7 +227,7 @@ dn_error_t cli_writeBitCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'r' (read) CLI command
 
-dn_error_t cli_readCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_readCmdHandler(char const* arg, INT32U len) {
    int        numBytes;
    int        numRead;
    int        l;
@@ -262,9 +261,7 @@ dn_error_t cli_readCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'rb' (read bit) CLI command
 
-dn_error_t cli_readBitCmdHandler(INT8U* arg, INT32U len) {
-   dn_error_t dnErr;
-   dn_ow_ioctl_readbit_t  dn_ow_ioctl_readbit;
+dn_error_t cli_readBitCmdHandler(char const* arg, INT32U len) {
    INT8U      bitToRead;
    
    //--- read
@@ -276,7 +273,7 @@ dn_error_t cli_readBitCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 's' (search) CLI command
 
-dn_error_t cli_searchCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_searchCmdHandler(char const* arg, INT32U len) {
    INT8U      counter;
    BOOLEAN    result;
    
@@ -299,7 +296,7 @@ dn_error_t cli_searchCmdHandler(INT8U* arg, INT32U len) {
 
 //===== 'ff' (family find) CLI command
 // find all onewire devices has the specified family code
-dn_error_t cli_familyFindCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_familyFindCmdHandler(char const* arg, INT32U len) {
    INT8S      numBytes;
    INT8U      counter;
    INT8U      familyCode;
@@ -340,7 +337,7 @@ dn_error_t cli_familyFindCmdHandler(INT8U* arg, INT32U len) {
 //===== 'fs' (family skip) CLI command
 // find all except the device has the specified family code
 
-dn_error_t cli_familySkipCmdHandler(INT8U* arg, INT32U len) {
+dn_error_t cli_familySkipCmdHandler(char const* arg, INT32U len) {
    INT8S      numBytes;
    INT8U      counter;
    INT8U      familyCode;

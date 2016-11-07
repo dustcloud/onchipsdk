@@ -19,6 +19,7 @@ Copyright (c) 2013, Dust Networks.  All rights reserved.
 
 //=========================== definitions =====================================
 
+#define SPI_NET_PORT              WKP_USER_1
 #define SPI_BUFFER_LENGTH         4
 #define APP_DATA_BUF_SIZE         SPI_BUFFER_LENGTH
 #define PERIOD_DEFAULT            10000
@@ -48,8 +49,8 @@ spiNetApp_vars_t     spiNetApp_vars;
 //===== initialization
        void app_init(void);
 //===== CLI
-dn_error_t  spiNetApp_cli_config(INT8U* buf, INT32U len);
-dn_error_t  spiNetApp_cli_period(INT8U* buf, INT32U len);
+dn_error_t  spiNetApp_cli_config(char const* buf, INT32U len);
+dn_error_t  spiNetApp_cli_period(char const* buf, INT32U len);
 //===== configFile
        void initConfigFile(void);
        void syncToConfigFile(void);
@@ -62,7 +63,7 @@ static void spiTask(void* unused);
 const dnm_ucli_cmdDef_t cliCmdDefs[] = {
    {&spiNetApp_cli_config,   "config", "config",                     DN_CLI_ACCESS_LOGIN},
    {&spiNetApp_cli_period,   "period", "period [newPeriod in ms]",   DN_CLI_ACCESS_LOGIN},
-   {NULL,                    NULL,     NULL,                         0},
+   {NULL,                    NULL,     NULL,                         DN_CLI_ACCESS_NONE},
 };
 
 //=========================== initialization ==================================
@@ -71,9 +72,6 @@ const dnm_ucli_cmdDef_t cliCmdDefs[] = {
 \brief This is the entry point in the application code.
 */
 int p2_init(void) {
-   dn_gpio_ioctl_cfg_out_t   gpioOutCfg;
-   dn_error_t                status;
-   dn_error_t                dnErr;
    INT8U                     osErr;
    
    //===== initialize module variables
@@ -89,14 +87,14 @@ int p2_init(void) {
    // CLI task
    cli_task_init(
       "spi_net",                            // appName
-      &cliCmdDefs                           // cliCmds
+      cliCmdDefs                            // cliCmds
    );
    
    // local interface task
    loc_task_init(
       JOIN_YES,                             // fJoin
-      NULL,                                 // netId
-      WKP_SPI_NET,                          // udpPort
+      NETID_NONE,                           // netId
+      SPI_NET_PORT,                         // udpPort
       spiNetApp_vars.joinedSem,             // joinedSem
       BANDWIDTH_NONE,                       // bandwidth
       NULL                                  // serviceSem
@@ -124,13 +122,13 @@ int p2_init(void) {
 //=========================== CLI =============================================
 
 // "config" command
-dn_error_t spiNetApp_cli_config(INT8U* buf, INT32U len) {
+dn_error_t spiNetApp_cli_config(char const* buf, INT32U len) {
    printConfig();
    return DN_ERR_NONE;
 }
 
 // "period" command
-dn_error_t spiNetApp_cli_period(INT8U* buf, INT32U len) {
+dn_error_t spiNetApp_cli_period(char const* buf, INT32U len) {
    int        sarg;
    int        l;
    
@@ -286,6 +284,8 @@ static void spiTask(void* unused) {
    
    //===== initialize SPI
    // open the SPI device
+   // see doxygen documentation on maxTransactionLenForCPHA_1 when setting
+   // spiTransfer.clockPhase = DN_SPI_CPHA_1;
    spiOpenArgs.maxTransactionLenForCPHA_1 = 0;
    dnErr = dn_open(
       DN_SPI_DEV_ID,
@@ -305,6 +305,7 @@ static void spiTask(void* unused) {
    spiTransfer.bitOrder           = DN_SPI_MSB_FIRST;
    spiTransfer.slaveSelect        = DN_SPIM_SS_0n;
    spiTransfer.clockDivider       = DN_SPI_CLKDIV_16;
+   spiTransfer.rxBufferLen        = sizeof(spiNetApp_vars.spiRxBuffer);
    
    //===== wait for the mote to have joined
    OSSemPend(spiNetApp_vars.joinedSem,0,&osErr);
@@ -348,7 +349,7 @@ static void spiTask(void* unused) {
       // Note: sendto->header is filled in dnm_loc_sendtoCmd
       pkToSend->locSendTo.socketId          = loc_getSocketId();
       pkToSend->locSendTo.destAddr          = DN_MGR_IPV6_MULTICAST_ADDR; // IPv6 address
-      pkToSend->locSendTo.destPort          = WKP_SPI_NET;
+      pkToSend->locSendTo.destPort          = SPI_NET_PORT;
       pkToSend->locSendTo.serviceType       = DN_API_SERVICE_TYPE_BW;   
       pkToSend->locSendTo.priority          = DN_API_PRIORITY_MED;   
       pkToSend->locSendTo.packetId          = 0xFFFF;

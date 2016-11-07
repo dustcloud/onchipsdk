@@ -168,7 +168,6 @@ static void locCtrlTask(void* arg) {
    OS_FLAGS                       eventFlags;
    INT16U                         netId;
    INT32U                         eventMask;
-   INT8U                          joinDutyCycle;
       
    
    while (1) { // this is a task, it executes forever
