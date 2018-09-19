@@ -93,21 +93,27 @@ def write_checksum_length_into_file (binFile, elfFile):
 def elf_to_bin (binName, elfName):
    status = 0
    output = ''
-   toolVer = "6.40.1"
    try:
-      toolBase = os.environ['IAR_ARM_BASE']
+       toolBase = os.environ['IAR_ARM_BASE']
    except KeyError:
-      toolBase = os.path.join ('/Program Files','IAR Systems', 'EW_ARM_'+toolVer) # default
+       print >> sys.stderr, "Error: Environment variable IAR_ARM_BASE was not found.\
+       \nTry to set IAR_ARM_BASE to the top directry of EWARM.\
+       \n(e.g. C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.0 )"
+       raise
    
    elfToBin = os.path.join(toolBase, 'arm','bin','ielftool.exe')
-   execCmd = [elfToBin,'--bin', '--verbose', elfName, binName]
+   execCmd = [elfToBin, '--bin', '--verbose', elfName, binName]
    if os.name in ['nt', 'win32']:
-      p = Popen(execCmd, shell=False, stdin=None, stdout=PIPE, stderr=STDOUT)
+      p = Popen(execCmd, shell=True, stdin=None, stdout=PIPE, stderr=STDOUT)
    else:
       # shell=False means python will handle the quoting for us
       p = Popen(execCmd, shell=False, stdin=None, stdout=PIPE, stderr=STDOUT, close_fds=True)
    output = p.communicate()[0]
    status = p.returncode
+   if status:
+       print >> sys.stderr, "Error ielftool.exe returned non-zero exit status ", status 
+       print output
+       exit(1)
    return status, output
 
 # main program
